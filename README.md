@@ -1,6 +1,6 @@
-# {{ name }}
+# StreamerBuddy
 
-> {{ description }}
+Just an usual Bot to help streamers through their day with some features and functions.
 
 ## Build Setup
 
