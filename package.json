@@ -1,12 +1,12 @@
 {
-  "name": "StreamingAssistant",
+  "name": "streamer-buddy",
   "version": "1.0.0",
   "description": "An assistant for streaming which includes also some modules for specific games.",
   "author": "Brain",
   "private": true,
   "main": "main.js",
   "build": {
-    "appId": "{{ appId }}",
+    "appId": "streamerbuddy",
     "directories": {
       "buildResources": "static"
     }
@@ -16,17 +16,22 @@
     "build": "nuxt build && electron-builder"
   },
   "dependencies": {
-    "nuxt": "^1.4.0"
+    "acorn": "^6.1.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "nuxt": "^2.5.1",
+    "webpack": "^4.29.6"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "cross-env": "^5.1.4",
-    "electron": "2.0.0-beta.7",
+    "electron": "4.1.3",
     "electron-builder": "^20.8.1",
     "electron-devtools-installer": "^2.2.3",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-vue": "^4.0.0"
   }
 }
