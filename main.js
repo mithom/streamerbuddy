@@ -28,26 +28,24 @@ let win = null // Current window
 const electron = require('electron')
 const path = require('path')
 const app = electron.app
-const newWin = () => {
+const newWin = async () => {
+	await nuxt.ready();
 	win = new electron.BrowserWindow({
 		icon: path.join(__dirname, 'static/icon.png'),
 		width: 1200,
 		height: 600,
 		titleBarStyle: 'hidden'
-	})
-	// win.maximize()
+	});
+	// win.maximize();
 	win.on('closed', () => win = null)
 	if (config.dev) {
-		/*
 		// Install vue dev tool and open chrome dev tools
 		const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
 		installExtension(VUEJS_DEVTOOLS.id).then(name => {
 			console.log(`Added Extension:  ${name}`)
 			win.webContents.openDevTools()
 		}).catch(err => console.log('An error occurred: ', err))
-		*/
-		win.webContents.openDevTools()
-		// Wait for nuxt to build
+		// Wait for nuxt to build - shouldn't be needed anymore since await nuxt.ready()has been added
 		const pollServer = () => {
 			http.get(_NUXT_URL_, (res) => {
 				if (res.statusCode === 200) { win.loadURL(_NUXT_URL_) } else { setTimeout(pollServer, 300) }
@@ -56,7 +54,6 @@ const newWin = () => {
 		pollServer()
 	} else { return win.loadURL(_NUXT_URL_) }
 }
-
 app.on('ready', newWin)
 app.on('window-all-closed', () => app.quit())
 app.on('activate', () => win === null && newWin())
