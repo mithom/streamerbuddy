@@ -26,16 +26,30 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 */
 let win = null // Current window
 const electron = require('electron')
+const windowStateKeeper = require('electron-window-state')
 const path = require('path')
 const app = electron.app
 const newWin = async () => {
+	/*
+	** electron-window-state
+	 */
+	let mainWindowState = windowStateKeeper(
+		{ // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
+			defaultWidth: 1200,
+			defaultHeight: 600,
+			file: 'main-window-state.json'
+		})
+	console.log(app.getPath('userData'))
 	await nuxt.ready();
 	win = new electron.BrowserWindow({
 		icon: path.join(__dirname, 'static/icon.png'),
-		width: 1200,
-		height: 600,
+		x: mainWindowState.x,
+		y: mainWindowState.y,
+		width: mainWindowState.width,
+		height: mainWindowState.height,
 		titleBarStyle: 'hidden'
 	});
+	mainWindowState.manage(win);
 	// win.maximize();
 	win.on('closed', () => win = null)
 	if (config.dev) {
