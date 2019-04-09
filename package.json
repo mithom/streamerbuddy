@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "acorn": "^6.1.1",
+    "electron-updater": "^4.0.6",
     "electron-window-state": "^5.0.3",
     "nuxt": "^2.6.0"
   },

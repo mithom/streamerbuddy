@@ -3,6 +3,7 @@ const windowStateKeeper = require('electron-window-state')
 const path = require('path')
 const http = require('http')
 const { Nuxt, Builder } = require('nuxt')
+const { autoUpdater } = require("electron-updater")
 
 /*
 **  Nuxt
@@ -35,6 +36,9 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 let win = null // Current window
 const app = electron.app
 const newWin = async () => {
+	// first check for updates
+	autoUpdater.checkForUpdatesAndNotify()
+
 	//create window state manager
 	let mainWindowState = windowStateKeeper(
 		{ // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
@@ -75,7 +79,8 @@ const newWin = async () => {
 	} else { return win.loadURL(_NUXT_URL_) }
 }
 
-// registering the start and stop functions
+// registering all events
+autoUpdater.on('update-downloaded', (info) => {autoUpdater.quitAndInstall()})
 app.on('ready', newWin)
 app.on('window-all-closed', () => app.quit())
 app.on('activate', () => win === null && newWin())
