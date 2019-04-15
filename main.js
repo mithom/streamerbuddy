@@ -36,9 +36,9 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 let win = null // Current window
 const app = electron.app
 const newWin = async () => {
-	// first check for updates
-	autoUpdater.checkForUpdatesAndNotify()
-
+	// open window to ask if should update, if so, open another window for download progress
+	// fix updater yml file
+	
 	//create window state manager
 	let mainWindowState = windowStateKeeper(
 		{ // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
@@ -79,8 +79,37 @@ const newWin = async () => {
 	} else { return win.loadURL(_NUXT_URL_) }
 }
 
+const checkForUpdate = async () => {
+	let updateBar = null
+
+	autoUpdater.autoDownload = false;
+	autoUpdater.signals.progress(({percent})=>{})
+	autoUpdater.signals.updateDownloaded((info) => {
+		//pdateBar.setProgress(100)
+		autoUpdater.quitAndInstall()})
+	try{
+		await autoUpdater.checkForUpdates()
+		let response = electron.dialog.showMessageBox({
+			type:"question",
+			buttons:["Yes","Cancel"],
+			title:'Update Available',
+			message:"An update is available for download.\n do you want to download and install it now?"
+		})
+		if(response === 0){
+			await autoUpdater.downloadUpdate();
+		}else {
+			await newWin()
+		}
+
+		//updateBar = smalltalk.progress('Updating', 'Download progress', {cancel: false}) // move this to html shown in the file
+		//updateBar.setProgress(percent)
+	}catch (rejected) { // either no update available or user doesn't want to install it.
+		await newWin()
+	}
+}
+
 // registering all events
 autoUpdater.on('update-downloaded', (info) => {autoUpdater.quitAndInstall()})
-app.on('ready', newWin)
+app.on('ready', checkForUpdate)
 app.on('window-all-closed', () => app.quit())
 app.on('activate', () => win === null && newWin())
