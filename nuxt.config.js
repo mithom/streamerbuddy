@@ -1,7 +1,7 @@
 module.exports = {
 	mode: 'spa',
 	head: { title: 'StreamerBuddy' }, // Headers of the page
-	loading: false, // Disable default loading bar
+	loading: true, // Disable default loading bar
 	build: {
 		extend(config, { isDev, isClient }) {
 			if (isDev && isClient) {
@@ -20,7 +20,8 @@ module.exports = {
 	dev: process.env.NODE_ENV === 'DEV',
 	css: [
 		'@/assets/css/global.css'
-	],modules:[
+	],
+	modules:[
 		['vue-wait/nuxt', {useVuex: true}]
 	]
 }

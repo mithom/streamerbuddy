@@ -3,8 +3,8 @@
     <h1>Progress:</h1>
     <v-wait for ="downloading">
       <template slot="waiting">
-        <h1>downloading</h1>
-        <span>progress: {$store.state.progress}</span>
+        <h2>downloading</h2>
+        <span>progress: {{this.$store.state.progress}}</span>
       </template>
       <h1>Download Complete</h1>
     </v-wait>
@@ -12,21 +12,22 @@
 </template>
 
 <script>
-
-import VWait from "vue-wait/src/components/v-wait";
-
-$wait.start("downloading")
 export default {
-	components: {VWait},
-	created() {
-		this.updateProgress();
-	},
-	methods:{
-		async updateProgress(){
-			$wait.progress('downloading', $store.state.progress)
-		}
-	},
+  created() {
+    this.$wait.start("downloading")
+    require('electron').ipcRenderer.on('progress',(event, message)=>{
+      if (message <100){
+        this.$store.commit('updateProgress', message)
+      }else{
+        this.$store.commit('updateProgress', 101)
+        this.$wait.end("downloading")
+      }
+
+    })
+  },
 }
+
+
 
 </script>
 

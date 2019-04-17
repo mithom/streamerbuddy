@@ -1,7 +1,7 @@
 {
   "name": "streamer-buddy",
   "repository": "https://github.com/StreamerBuddy/StreamerBuddy",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "An assistant for streaming which includes also some modules for specific games.",
   "author": "Brain",
   "private": true,
@@ -15,7 +15,11 @@
       "output": "build"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "publish": [{
+        "provider": "github",
+        "token": "2bf87137a47de3c844c5d9e49003eaf2a8b2aa4d"
+      }]
   },
     "mac": {},
     "mas": {},
@@ -35,7 +39,7 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build && electron-builder -p onTag"
+    "build": "nuxt build && electron-builder -p always"
   },
   "dependencies": {
     "acorn": "^6.1.1",
