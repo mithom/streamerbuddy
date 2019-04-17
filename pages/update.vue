@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>Progress:</h1>
     <v-wait for ="downloading">
       <template slot="waiting">
         <h2>downloading</h2>
-        <span>progress: {{this.$store.state.progress}}</span>
+        <progress min="0" max="100" :value='this.$wait.percent("downloading")' />
       </template>
       <h1>Download Complete</h1>
     </v-wait>
@@ -17,12 +16,10 @@ export default {
     this.$wait.start("downloading")
     require('electron').ipcRenderer.on('progress',(event, message)=>{
       if (message <100){
-        this.$store.commit('updateProgress', message)
+        this.$wait.progress("downloading", message)
       }else{
-        this.$store.commit('updateProgress', 101)
-        this.$wait.end("downloading")
+        this.$wait.progress('downloading', 101)
       }
-
     })
   },
 }

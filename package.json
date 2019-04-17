@@ -17,8 +17,7 @@
     "win": {
       "target": "nsis",
       "publish": [{
-        "provider": "github",
-        "token": "2bf87137a47de3c844c5d9e49003eaf2a8b2aa4d"
+        "provider": "github"
       }]
   },
     "mac": {},
