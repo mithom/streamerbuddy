@@ -54,6 +54,7 @@ const newWin = async (url='') => {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    frame: false,
     titleBarStyle: 'hidden'
   });
 
@@ -124,5 +125,9 @@ const checkForUpdate = async () => {
 // registering all events
 autoUpdater.on('update-downloaded', (info) => {autoUpdater.quitAndInstall()})
 app.on('ready', checkForUpdate)
-app.on('window-all-closed', () => app.quit())
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+})
 app.on('activate', () => win === null && newWin())
