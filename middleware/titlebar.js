@@ -3,7 +3,8 @@ export default function ({route}) {
 
   if(route.fullPath !== '/update'){
     new customTitlebar.Titlebar({
-      backgroundColor: customTitlebar.Color.fromHex('#444')
+      backgroundColor: customTitlebar.Color.fromHex('#444'),
+      titleHorizontalAlignment: "left"
     });
   }
 }
