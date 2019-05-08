@@ -36,7 +36,6 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 let win = null // Current window
 const app = electron.app
 const newWin = async (url='') => {
-  // open window to ask if should update, if so, open another window for download progress
   // fix updater yml file
 	
   //create window state manager
@@ -55,12 +54,14 @@ const newWin = async (url='') => {
     width: mainWindowState.width,
     height: mainWindowState.height,
     frame: false,
-    titleBarStyle: 'hidden'
+    titleBarStyle: 'hidden',
+    show: false
   });
 
   // Add listeners to window
   mainWindowState.manage(win);
   win.on('closed', () => win = null)
+  win.once('ready-to-show',()=>{win.show()})
 
   // Load initial page
   if (config.dev) {
@@ -81,6 +82,34 @@ const newWin = async (url='') => {
   } else { return win.loadURL(_NUXT_URL_+url) }
 }
 
+const updateWin = async() => {
+  let url = '/update'
+
+  //create window state manager
+  let updaterWindowState = windowStateKeeper(
+    { // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
+      defaultWidth: 300,
+      defaultHeight: 400,
+      file: 'updater-window-state.json'
+    })
+  win = new electron.BrowserWindow({
+    nodeIntegration: true,
+    icon: path.join(__dirname, 'static/icon.png'),
+    x: updaterWindowState.x,
+    y: updaterWindowState.y,
+    width: updaterWindowState.width,
+    height: updaterWindowState.height,
+    frame: false,
+    titleBarStyle: 'hidden',
+    show: true
+  });
+
+  // Add listeners to window
+  updaterWindowState.manage(win);
+  win.on('closed', () => win = null)
+  win.loadURL(`file://${__dirname}/NoNuxt/update.html`)
+}
+
 const checkForUpdate = async () => {
   let updateBar = null
 
@@ -90,9 +119,13 @@ const checkForUpdate = async () => {
     console.log(percent)
     win.webContents.send('progress', percent)
   })
-  autoUpdater.signals.updateDownloaded((info) => {
+  autoUpdater.signals.updateDownloaded(async (info) => {
     //updateBar.setProgress(100)
     console.log('----------------------update downloaded')
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    await sleep(30000)
     autoUpdater.quitAndInstall(false, true)
   })
 
@@ -107,7 +140,7 @@ const checkForUpdate = async () => {
       })
       if(response === 0){
         autoUpdater.downloadUpdate();
-        newWin('/update')
+        await updateWin()
       }else {
         await newWin()
       }
