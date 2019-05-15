@@ -47,7 +47,9 @@ const newWin = async (url='') => {
     })
   await nuxt.ready();
   win = new electron.BrowserWindow({
-    nodeIntegration: false,
+    webPreferences:{
+      nodeIntegration: true
+    },
     icon: path.join(__dirname, 'static/icon.png'),
     x: mainWindowState.x,
     y: mainWindowState.y,
@@ -93,7 +95,6 @@ const updateWin = async() => {
       file: 'updater-window-state.json'
     })
   win = new electron.BrowserWindow({
-    nodeIntegration: true,
     icon: path.join(__dirname, 'static/icon.png'),
     x: updaterWindowState.x,
     y: updaterWindowState.y,
@@ -107,7 +108,7 @@ const updateWin = async() => {
   // Add listeners to window
   updaterWindowState.manage(win);
   win.on('closed', () => win = null)
-  win.loadURL(`file://${__dirname}/NoNuxt/update.html`)
+  win.loadFile(`${__dirname}/NoNuxt/update.html`)
 }
 
 const checkForUpdate = async () => {
