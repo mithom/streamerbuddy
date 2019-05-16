@@ -25,8 +25,5 @@ module.exports = {
   dev: process.env.NODE_ENV === 'DEV',
   css: [
     '@/assets/css/global.css'
-  ],
-  modules: [
-    ['vue-wait/nuxt', {useVuex: true}]
   ]
 }
