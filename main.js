@@ -3,7 +3,7 @@ const windowStateKeeper = require('electron-window-state')
 const path = require('path')
 const http = require('http')
 const {Nuxt, Builder} = require('nuxt')
-const {autoUpdater} = require("electron-updater")
+const updater = require('./app/updater')
 
 /*
 **  Nuxt
@@ -34,12 +34,11 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 ** Electron
 */
 let win = null // Main window
-let updaterWin = null
 const app = electron.app
 
 const mainWin = async function (url = '') {
   // fix updater yml file
-
+  await nuxt.ready();
   //create window state manager
   let mainWindowState = windowStateKeeper(
     { // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
@@ -47,7 +46,6 @@ const mainWin = async function (url = '') {
       defaultHeight: 600,
       file: 'main-window-state.json'
     })
-  await nuxt.ready();
   if (win !== null) {
     return
   }
@@ -64,13 +62,11 @@ const mainWin = async function (url = '') {
     titleBarStyle: 'hidden',
     show: false
   });
+  updater.win = win;
 
   // Add listeners to window
-  mainWindowState.manage(win);
+  //mainWindowState.manage(win);
   win.on('closed', () => win = null)
-  win.once('ready-to-show', () => {
-    win.show()
-  })
 
   // Load initial page
   if (config.dev) {
@@ -83,10 +79,10 @@ const mainWin = async function (url = '') {
 
     // Wait for nuxt to build - shouldn't be needed anymore since await nuxt.ready()has been added
     const pollServer = () => {
-      if (win !== null){
+      if (win !== null) {
         http.get(_NUXT_URL_ + url, async (res) => {
           if (res.statusCode === 200) {
-            if (win !== null){
+            if (win !== null) {
               await win.loadURL(_NUXT_URL_ + url).catch(() => {
                 setTimeout(pollServer, 300)
               })
@@ -98,99 +94,29 @@ const mainWin = async function (url = '') {
       }
     }
     pollServer()
-  } else if (win !== null){
-    await win.loadURL(_NUXT_URL_ + url)
-  }
-}
-
-const updateWin = function () {
-  //create window state manager
-  let updaterWindowState = windowStateKeeper(
-    { // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
-      defaultWidth: 300,
-      defaultHeight: 400,
-      file: 'updater-window-state.json'
-    })
-  if (updaterWin !== null) {
-    return
-  }
-  updaterWin = new electron.BrowserWindow({
-    webPreferences:{
-      nodeIntegration: true
-    },
-    icon: path.join(__dirname, 'static/icon.png'),
-    x: updaterWindowState.x,
-    y: updaterWindowState.y,
-    width: updaterWindowState.width,
-    height: updaterWindowState.height,
-    frame: false,
-    titleBarStyle: 'hidden',
-    show: false
-  });
-
-  // Add listeners to window
-  updaterWindowState.manage(updaterWin);
-  updaterWin.once('ready-to-show', () => {
-    updaterWin.show()
-  })
-  updaterWin.on('closed', () => updaterWin = null)
-  return updaterWin.loadFile(`${__dirname}/NoNuxt/update.html`)
-}
-
-const checkForUpdate = async function () {
-  autoUpdater.autoDownload = false;
-  autoUpdater.autoInstallOnAppQuit = false
-  autoUpdater.signals.progress(({percent}) => {
-    console.log(percent)
-    if (updaterWin !== null) updaterWin.webContents.send('progress', percent)
-  })
-
-  try {
-    let updateCheck = await autoUpdater.checkForUpdates()
-    if (autoUpdater.currentVersion < updateCheck.updateInfo.version) {
-      electron.dialog.showMessageBox(win,{
-        type: "question",
-        buttons: ["Yes", "Cancel"],
-        title: 'Update Available',
-        message: "An update is available for download.\n do you want to download and install it now?"
-      }, async (response) => {
-        if (response === 0) {
-          await updateWin()
-          try {
-            await autoUpdater.downloadUpdate();
-
-            function sleep(ms) {
-              return new Promise(resolve => setTimeout(resolve, ms));
-            }
-
-            await sleep(1000)
-            autoUpdater.quitAndInstall(false, true)
-          } catch (e) {
-            console.log('failed to download update')
-            await mainWin()
-          }
-        } else { // user doesn't want to update
-          await mainWin()
-        }
-      })
-    } else { // no new version
-      await mainWin()
+  } else if (win !== null) {
+    try {
+      await win.loadURL(_NUXT_URL_ + url)
+    } catch (e) {
+      console.log('failed to load URL')
+      console.log(e)
     }
-  } catch (rejected) { // update server not available
-    await mainWin()
   }
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 }
 
 const initProgram = async function () {
   try {
-    let _update = checkForUpdate()
+    let _update = updater.checkForUpdate()
     let _new_win = mainWin()
     await _update
     await _new_win
   } catch (e) {
     console.log('something went wrong during startup')
+    console.log(e)
   }
-
 }
 
 // registering all events
