@@ -1,11 +1,12 @@
+const {ipcRenderer} = require('electron')
+
 function main() {
-  var pBar = document.getElementById('download');
-  var updateProgress = function(value) {
+  let pBar = document.getElementById('download');
+  let updateProgress = function(value) {
     pBar.value = value;
     console.log(value)
-    pBar.getElementsByTagName('span')[0].innerHTML = Math.floor(value);
+    pBar.getElementsByTagName('span')[0].innerHTML = Math.floor(value).toString();
   }
-  const {ipcRenderer} = require('electron')
   ipcRenderer.on('progress',(event, message)=>{
     if (message <100){
       updateProgress(message)

@@ -33,7 +33,9 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 /*
 ** Electron
 */
-let win = null // Current window
+let win = null // Main window
+let updaterWin = null
+
 const app = electron.app
 const newWin = async (url='') => {
   // fix updater yml file
@@ -76,17 +78,15 @@ const newWin = async (url='') => {
 
     // Wait for nuxt to build - shouldn't be needed anymore since await nuxt.ready()has been added
     const pollServer = () => {
-      http.get(_NUXT_URL_+url, (res) => {
-        if (res.statusCode === 200) { win.loadURL(_NUXT_URL_+url) } else { setTimeout(pollServer, 300) }
+      http.get(_NUXT_URL_+url, async (res) => {
+        if (res.statusCode === 200) { await win.loadURL(_NUXT_URL_+url) } else { setTimeout(pollServer, 300) }
       }).on('error', pollServer)
     }
     pollServer()
-  } else { return win.loadURL(_NUXT_URL_+url) }
+  } else { await win.loadURL(_NUXT_URL_+url) }
 }
 
-const updateWin = async() => {
-  let url = '/update'
-
+const updateWin = () => {
   //create window state manager
   let updaterWindowState = windowStateKeeper(
     { // default path = app.getPath('userData') = Appdata\Roaming\streamer-buddy
@@ -94,7 +94,7 @@ const updateWin = async() => {
       defaultHeight: 400,
       file: 'updater-window-state.json'
     })
-  win = new electron.BrowserWindow({
+  updaterWin = new electron.BrowserWindow({
     icon: path.join(__dirname, 'static/icon.png'),
     x: updaterWindowState.x,
     y: updaterWindowState.y,
@@ -102,13 +102,14 @@ const updateWin = async() => {
     height: updaterWindowState.height,
     frame: false,
     titleBarStyle: 'hidden',
-    show: true
+    show: false
   });
 
   // Add listeners to window
-  updaterWindowState.manage(win);
-  win.on('closed', () => win = null)
-  win.loadFile(`${__dirname}/NoNuxt/update.html`)
+  updaterWindowState.manage(updaterWin);
+  updaterWin.once('ready-to-show',()=>{updaterWin.show()})
+  updaterWin.on('closed', () => updaterWin = null)
+  return updaterWin.loadFile(`${__dirname}/NoNuxt/update.html`)
 }
 
 const checkForUpdate = async () => {
@@ -118,16 +119,7 @@ const checkForUpdate = async () => {
   autoUpdater.autoInstallOnAppQuit = false
   autoUpdater.signals.progress(({percent})=>{
     console.log(percent)
-    win.webContents.send('progress', percent)
-  })
-  autoUpdater.signals.updateDownloaded(async (info) => {
-    //updateBar.setProgress(100)
-    console.log('----------------------update downloaded')
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    await sleep(30000)
-    autoUpdater.quitAndInstall(false, true)
+    if(updaterWin !== null) updaterWin.webContents.send('progress', percent)
   })
 
   try{
@@ -140,18 +132,25 @@ const checkForUpdate = async () => {
         message:"An update is available for download.\n do you want to download and install it now?"
       })
       if(response === 0){
-        autoUpdater.downloadUpdate();
         await updateWin()
-      }else {
+        try{
+          await autoUpdater.downloadUpdate();
+          function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+          }
+          await sleep(1000)
+          autoUpdater.quitAndInstall(false, true)
+        }catch (e) {
+          console.log('failed to download update')
+          await newWin()
+        }
+      }else { // user doesn't want to update
         await newWin()
       }
-    }else{
+    }else{ // no new version
       await newWin()
     }
-
-    //updateBar = smalltalk.progress('Updating', 'Download progress', {cancel: false}) // move this to html shown in the file
-    //updateBar.setProgress(percent)
-  }catch (rejected) { // either no update available or user doesn't want to install it.
+  }catch (rejected) { // update server not available
     await newWin()
   }
 }
