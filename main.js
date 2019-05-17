@@ -65,8 +65,11 @@ const mainWin = async function (url = '') {
   updater.win = win;
 
   // Add listeners to window
-  //mainWindowState.manage(win);
+  mainWindowState.manage(win);
   win.on('closed', () => win = null)
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 
   // Load initial page
   if (config.dev) {
@@ -102,9 +105,6 @@ const mainWin = async function (url = '') {
       console.log(e)
     }
   }
-  win.once('ready-to-show', () => {
-    win.show()
-  })
 }
 
 const initProgram = async function () {
