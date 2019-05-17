@@ -3,6 +3,7 @@
 		<div>
 			<img width="256" src="~/assets/img/logo.png">
 			<h1>streamer-buddy</h1>
+			<h2>You updated successfully to v4</h2>
 			<h2>An assistant for streaming which includes also some modules for specific games.</h2>
 			<a href="https://nuxtjs.org/" target="_blank" class="btn btn-primary">Documentation</a>
 			<a href="https://github.com/nuxt/nuxt.js" target="_blank" class="btn btn-primary">GitHub</a>
