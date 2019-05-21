@@ -4,6 +4,7 @@ const path = require('path')
 const http = require('http')
 const {Nuxt, Builder} = require('nuxt')
 const updater = require('./app/updater')
+const {load_modules} = require('./app/module-loader')
 
 /*
 **  Nuxt
@@ -111,8 +112,10 @@ const initProgram = async function () {
   try {
     let _update = updater.checkForUpdate()
     let _new_win = mainWin()
+    let _modules_loaded = load_modules()
     await _update
     await _new_win
+    await _modules_loaded
   } catch (e) {
     console.log('something went wrong during startup')
     console.log(e)
