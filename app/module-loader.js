@@ -12,7 +12,7 @@ const categories = new Enum(['CORE', 'GAMING', 'UTILITY'])
 const module_info = 'module.json'
 
 const modules={}
-var loadingPromise = null
+let loadingPromise = null
 
 async function load_modules(){
   //first load the core modules
@@ -29,13 +29,14 @@ async function load_modules(){
 
 async function load_cat_module(cat){
   let cat_path = path.join(modules_path, cat.key)
+  modules[cat] = {}
   try{
     let options = {withFileTypes: true}
     let files = await fs.readdir(cat_path, options)
     await Promise.all(files.map(async (item)=>{
       if(item.isDirectory()){
         console.log(item.name)
-        await load_module(path.join(cat_path, item.name), cat)
+        await load_module(path.join(cat_path, item.name), cat, item.name)
         console.log('done: ' + item.name)
       }
     }))
@@ -44,19 +45,26 @@ async function load_cat_module(cat){
   }
 }
 
-async function load_module(path, cat){
-  let moduleinfo_path = path.join(path, module_info)
+async function load_module(path_, cat, module){
+  let moduleinfo_path = path.join(path_, module_info)
   try{
     let info = await fs.stat(moduleinfo_path)
     if(info.isFile()){
       let data = JSON.parse((await fs.readFile(moduleinfo_path)).toString())
-      console.log(data)
-      
-      //TODO: effectively load modules
+      if(verifyModuleData(data)){
+        modules[cat][module] = data
+      }else{
+        console.log('failed to load '+module+'\'s module data.')
+      }
     }
   }catch (e) {
     console.log('module info does not exists or not valid json')
   }
+}
+
+function verifyModuleData(data){
+  //TODO: implement
+  return true
 }
 
 module.exports.createModuleLoaderHook = function () {

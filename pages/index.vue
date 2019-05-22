@@ -5,6 +5,12 @@
 			<h1>streamer-buddy</h1>
 			<h2>You updated successfully to v4</h2>
 			<h2>An assistant for streaming which includes also some modules for specific games.</h2>
+			<ul id="modules">
+				<li v-for="module in this.$store.state.appModules" v-bind:key="module">
+					{{module}}
+				</li>
+			</ul>
+
 			<a href="https://nuxtjs.org/" target="_blank" class="btn btn-primary">Documentation</a>
 			<a href="https://github.com/nuxt/nuxt.js" target="_blank" class="btn btn-primary">GitHub</a>
 			<a href="https://electronjs.org/" target="_blank" class="btn btn-secondary">Electron</a>
