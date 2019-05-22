@@ -1,7 +1,8 @@
 /*
 ** configure all store plugins
  */
-export const plugins = []
+const {createModuleLoaderPlugin} = require('../app/module-loader-plugin')
+export const plugins = [createModuleLoaderPlugin()]
 
 export const state = () => ({
 
