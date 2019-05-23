@@ -1,9 +1,25 @@
+const { join } = require('path')
+const { i18n } = require('./i18n')
+
 module.exports = {
   mode: 'spa',
-  head: {title: 'StreamerBuddy'}, // Headers of the page
+  head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
+  modules: [
+    'nuxt-purgecss',
+    ['nuxt-i18n', i18n]
+  ],
+  purgeCSS: {
+    mode: 'postcss'
+  },
   build: {
-    extend(config, {isDev, isClient}) {
+    postcss: {
+      plugins: {
+        tailwindcss: join(__dirname, 'tailwind.config.js'),
+        'postcss-nested': {}
+      }
+    },
+    extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         // Run ESLint on save
         config.module.rules.push({
@@ -19,11 +35,8 @@ module.exports = {
       }
     }
   },
-  router:{
+  router: {
     middleware: 'titlebar'
   },
-  dev: process.env.NODE_ENV === 'DEV',
-  css: [
-    '@/assets/css/global.css'
-  ]
+  dev: process.env.NODE_ENV === 'DEV'
 }

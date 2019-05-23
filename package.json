@@ -45,11 +45,16 @@
     "pack": "nuxt build && electron-builder --dir"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^1.2.0",
     "acorn": "^6.1.1",
     "custom-electron-titlebar": "^3.0.8",
     "electron-updater": "^4.0.6",
     "electron-window-state": "^5.0.3",
-    "nuxt": "^2.7.1"
+    "nuxt": "^2.7.1",
+    "nuxt-i18n": "^5.12.3",
+    "nuxt-purgecss": "^0.2.1",
+    "postcss-nested": "^4.1.2",
+    "tailwindcss": "^1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
