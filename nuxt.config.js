@@ -4,9 +4,10 @@ module.exports = {
   loading: true, // Disable default loading bar
   build: {
     extend(config, {isDev, isClient}) {
+      //add vue compiler for on the fly compiling
+      config.resolve.alias["vue"] = "vue/dist/vue.common";
+
       if (isDev && isClient) {
-        //add vue compiler for on the fly compiling
-        config.resolve.alias["vue"] = "vue/dist/vue.common";
         // Run ESLint on save
         config.module.rules.push({
           enforce: 'pre',
