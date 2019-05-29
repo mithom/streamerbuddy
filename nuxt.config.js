@@ -5,6 +5,8 @@ module.exports = {
   build: {
     extend(config, {isDev, isClient}) {
       if (isDev && isClient) {
+        //add vue compiler for on the fly compiling
+        config.resolve.alias["vue"] = "vue/dist/vue.common";
         // Run ESLint on save
         config.module.rules.push({
           enforce: 'pre',
@@ -22,6 +24,7 @@ module.exports = {
   router:{
     middleware: 'titlebar'
   },
+  plugins: ['~/plugins/runtime-template-plugin'],
   dev: process.env.NODE_ENV === 'DEV',
   css: [
     '@/assets/css/global.css'

@@ -17,12 +17,10 @@ let loadingPromise = null
 async function load_modules(){
   //first load the core modules
   await load_cat_module(categories.CORE)
-  console.log('done loading CORE')
   //load all other modules in parallel
   await Promise.all(categories.enums.map(async (cat)=>{
     if(cat !== categories.CORE) {
       await load_cat_module(cat)
-      console.log('done loading: '+cat.key)
     }
   }))
 }
@@ -35,9 +33,7 @@ async function load_cat_module(cat){
     let files = await fs.readdir(cat_path, options)
     await Promise.all(files.map(async (item)=>{
       if(item.isDirectory()){
-        console.log(item.name)
         await load_module(path.join(cat_path, item.name), cat, item.name)
-        console.log('done: ' + item.name)
       }
     }))
   }catch (e) {
@@ -52,6 +48,7 @@ async function load_module(path_, cat, module){
     if(info.isFile()){
       let data = JSON.parse((await fs.readFile(moduleinfo_path)).toString())
       if(verifyModuleData(data)){
+        processData(data, path_, cat)
         modules[cat][module] = data
       }else{
         console.log('failed to load '+module+'\'s module data.')
@@ -59,6 +56,21 @@ async function load_module(path_, cat, module){
     }
   }catch (e) {
     console.log('module info does not exists or not valid json')
+  }
+}
+
+function processData(data, path_, cat){
+  data.category = cat.key
+  data.main = {
+    path: path.join(path_, `${data.main}.vue`),
+    name: data.main
+  }
+  if(typeof data.components === 'undefined' || data.components === null) {
+    data.components = []
+  }
+  for(const component of data.components){
+    component.fullname = `${data.main.name}-${component.name}`
+    component.path = path.join(path_, `${component.name}.vue`)
   }
 }
 

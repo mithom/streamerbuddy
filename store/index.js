@@ -13,6 +13,9 @@ export const state = () => ({
 export const mutations = {
   addModule(state, module) {
     state.appModules.push(module)
+  },
+  addTemplate(state, {mod_index, comp_index, template}){
+    state.appModules[mod_index].components[comp_index]["template"] = template
   }
 }
 
