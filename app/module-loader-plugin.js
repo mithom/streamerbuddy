@@ -1,7 +1,4 @@
 const {ipcRenderer} = require('electron')
-//import Vue from 'vue'
-const Vue = require('vue').default
-
 //////////////////////////////////////
 // Nuxt side loading of the modules
 //////////////////////////////////////

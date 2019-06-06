@@ -5,7 +5,7 @@ module.exports = {
   build: {
     extend(config, {isDev, isClient}) {
       //add vue compiler for on the fly compiling
-      config.resolve.alias["vue"] = "vue/dist/vue.common";
+      config.resolve.alias["vue$"] = "vue/dist/vue.esm.js";
 
       if (isDev && isClient) {
         // Run ESLint on save
