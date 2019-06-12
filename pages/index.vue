@@ -19,11 +19,10 @@
                 </li>
             </ul>
             <div id="dashboard">
-                <Row 
-                    v-for="component in components" 
-                    :key="component.fullname" 
-                    :row="component"/>
-                    <!--                <v-runtime-template :template="components[0].template"></v-runtime-template>-->
+                <component
+                    v-for="component in components"
+                    :key="'0' + component.fullname"
+                    :is="component.fullname">non default text</component>
             </div>
             <a 
                 href="https://nuxtjs.org/" 
@@ -47,35 +46,12 @@
 </template>
 
 <script>
-import path from 'path'
-import {promises as fs} from 'fs'
-
 export default {
-  async fetch({store, params}) {
-    await Promise.all(store.state.appModules.map(async (mod, i) => {
-      await Promise.all(mod.components.map(async (comp, j) => {
-        let data = await fs.readFile(comp.path, {encoding: 'UTF-8'})
-        let payload = {
-          mod_index: i,
-          comp_index: j,
-          template: data
-        }
-        store.commit('addTemplate', payload)
-      }))
-    }))
-  },
-  components: {
-    Row: {
-      props: ['row'],
-      template: '<v-runtime-template :template="row.template"></v-runtime-template>'
-    }
-  },
+  components: {},
   computed: {
     components() {
       const components = []
-      console.log(this.$store.state.appModules)
       for (const mod of this.$store.state.appModules) {
-        console.log(mod)
         if (mod && mod.components) {
           components.push(...mod.components)
         }
@@ -83,7 +59,10 @@ export default {
       return components
     }
   },
+  async fetch({store, params}) {
+  },
 }
+
 </script>
 
 <style scoped>

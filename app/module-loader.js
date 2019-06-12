@@ -1,13 +1,14 @@
 const {app, ipcMain} = require('electron')
 const fs = require('fs').promises
 const Enum = require('enum')
-const path =require('path')
+const path = require('path')
+const camelize = require('camelize')
 
 //////////////////////////////////////
 // Electron side loading of the plugin
 //////////////////////////////////////
 
-const modules_path = path.join(app.getPath('userData'), 'app','modules', 'modules/')
+const modules_path = path.join(app.getPath('userData'), 'app', 'modules/')
 const categories = new Enum(['CORE', 'GAMING', 'UTILITY'])
 const module_info = 'module.json'
 
@@ -62,15 +63,16 @@ async function load_module(path_, cat, module){
 function processData(data, path_, cat){
   data.category = cat.key
   data.main = {
-    path: path.join(path_, `${data.main}.vue`),
-    name: data.main
+    path: path.join(path_, `${camelize(data.main)}.common.js`),
+    name: camelize(data.main)
   }
   if(typeof data.components === 'undefined' || data.components === null) {
     data.components = []
   }
   for(const component of data.components){
-    component.fullname = `${data.main.name}-${component.name}`
-    component.path = path.join(path_, `${component.name}.vue`)
+    component.name = camelize(component.name)
+    component.fullname = camelize(`${data.main.name}-${component.name}`)
+    component.path = path.join(path_, `${component.name}.common.js`)
   }
 }
 

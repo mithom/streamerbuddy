@@ -45,13 +45,15 @@
     "pack": "nuxt build && electron-builder --dir"
   },
   "dependencies": {
-    "acorn": "^6.1.1",
+    "@octokit/plugin-retry": "^2.2.0",
+    "@octokit/plugin-throttling": "^2.6.0",
+    "@octokit/rest": "^16.27.3",
+    "camelize": "^1.0.0",
     "custom-electron-titlebar": "^3.0.8",
     "electron-updater": "^4.0.6",
     "electron-window-state": "^5.0.3",
     "enum": "^2.5.0",
-    "nuxt": "^2.7.1",
-    "v-runtime-template": "^1.6.2"
+    "nuxt": "^2.7.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
