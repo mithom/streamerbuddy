@@ -1,6 +1,8 @@
 const {BrowserWindow, dialog} = require('electron')
 const windowStateKeeper = require('electron-window-state')
 const {autoUpdater} = require("electron-updater")
+const path = require('path')
+const {app} = require('electron')
 
 let updaterWin = null
 exports.win = null
@@ -36,7 +38,7 @@ const updateWin = function () {
     updaterWin.show()
   })
   updaterWin.on('closed', () => updaterWin = null)
-  return updaterWin.loadFile(`${__dirname}/NoNuxt/update.html`)
+  return updaterWin.loadFile(`${app.getAppPath()}/NoNuxt/update.html`)
 }
 
 exports.checkForUpdate = async function () {

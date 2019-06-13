@@ -1,8 +1,8 @@
-export default function ({route}) {
-  const customTitlebar = require('custom-electron-titlebar');
+const customTitlebar = require('custom-electron-titlebar');
 
+export default function ({route, app}) {
   if(route.fullPath !== '/update'){
-    new customTitlebar.Titlebar({
+    const test = new customTitlebar.Titlebar({
       backgroundColor: customTitlebar.Color.fromHex('#444'),
       titleHorizontalAlignment: "center",
       menuPosition: "bottom"

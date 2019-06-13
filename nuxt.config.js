@@ -1,25 +1,28 @@
 const { join } = require('path')
-const { i18n } = require('./i18n')
 
 module.exports = {
   mode: 'spa',
   head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
   modules: [
-    'nuxt-purgecss',
-    ['nuxt-i18n', i18n]
+    ['nuxt-i18n', {}]
   ],
-  purgeCSS: {
-    mode: 'postcss'
-  },
+  devModules: [
+    '@nuxtjs/tailwindcss'
+  ],
   build: {
     postcss: {
       plugins: {
         tailwindcss: join(__dirname, 'tailwind.config.js'),
-        'postcss-nested': {}
+        'postcss-nested':{}
       }
     },
-    extend(config, { isDev, isClient }) {
+    webpack:{
+      module:{
+        noParse: /\/app\/native-require.js$/
+      }
+    },
+    extend(config, {isDev, isClient}) {
       if (isDev && isClient) {
         // Run ESLint on save
         config.module.rules.push({

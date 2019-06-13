@@ -4,6 +4,7 @@ const path = require('path')
 const http = require('http')
 const {Nuxt, Builder} = require('nuxt')
 const updater = require('./app/updater')
+const {createModuleLoaderHook} = require('./app/module-loader')
 
 /*
 **  Nuxt
@@ -65,8 +66,11 @@ const mainWin = async function (url = '') {
   updater.win = win;
 
   // Add listeners to window
-  //mainWindowState.manage(win);
+  mainWindowState.manage(win);
   win.on('closed', () => win = null)
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 
   // Load initial page
   if (config.dev) {
@@ -102,17 +106,14 @@ const mainWin = async function (url = '') {
       console.log(e)
     }
   }
-  win.once('ready-to-show', () => {
-    win.show()
-  })
 }
 
 const initProgram = async function () {
   try {
     let _update = updater.checkForUpdate()
+    createModuleLoaderHook()
     let _new_win = mainWin()
-    await _update
-    await _new_win
+    await Promise.all([_update, _new_win])
   } catch (e) {
     console.log('something went wrong during startup')
     console.log(e)

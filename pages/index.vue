@@ -1,39 +1,53 @@
 <template>
-  <section class="container">
-    <div>
-      <img width="256" src="~/assets/img/logo.png" />
-      <h1>streamer-buddy</h1>
-      <h2>You updated successfully to v4</h2>
-      <h2>
-        An assistant for streaming which includes also some modules for specific
-        games.
-      </h2>
-      <a href="https://nuxtjs.org/" target="_blank" class="btn btn-primary"
-        >Documentation</a
-      >
-      <a
-        href="https://github.com/nuxt/nuxt.js"
-        target="_blank"
-        class="btn btn-primary"
-        >GitHub</a
-      >
-      <a
-        href="https://electronjs.org/"
-        target="_blank"
-        class="btn btn-secondary"
-        >Electron</a
-      >
-      <a
-        href="https://github.com/electron-userland/electron-builder"
-        target="_blank"
-        class="btn btn-secondary"
-        >Electron Builder</a
-      >
-    </div>
-  </section>
+    <section class="container">
+        <div>
+            <h1>streamer-buddy</h1>
+            <h2>You updated successfully to v4</h2>
+            <h2>An assistant for streaming which includes also some modules for specific games.</h2>
+            <div id="dashboard">
+                <component
+                    v-for="component in components"
+                    :key="'0' + component.fullname"
+                    :is="component.fullname">non default text</component>
+            </div>
+            <a 
+                href="https://nuxtjs.org/" 
+                target="_blank" 
+                class="btn btn-primary">Documentation</a>
+            <a 
+                href="https://github.com/nuxt/nuxt.js" 
+                target="_blank" 
+                class="btn btn-primary">GitHub</a>
+            <a 
+                href="https://electronjs.org/" 
+                target="_blank" 
+                class="btn btn-secondary">Electron</a>
+            <a 
+                href="https://github.com/electron-userland/electron-builder" 
+                target="_blank" 
+                class="btn btn-secondary">Electron
+                Builder</a>
+        </div>
+    </section>
 </template>
 
 <script>
 export default {
+  components: {},
+  computed: {
+    components() {
+      const components = []
+      for (const mod of this.$store.state.appModules) {
+        if (mod && mod.components) {
+          components.push(...mod.components)
+        }
+      }
+      return components
+    }
+  },
+  async fetch({store, params}) {
+  },
 }
+
 </script>
+
