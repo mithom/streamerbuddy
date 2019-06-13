@@ -1,5 +1,3 @@
-const { join } = require('path')
-
 module.exports = {
   mode: 'spa',
   head: { title: 'StreamerBuddy' }, // Headers of the page
@@ -13,7 +11,7 @@ module.exports = {
   build: {
     postcss: {
       plugins: {
-        tailwindcss: join(__dirname, 'tailwind.config.js'),
+        tailwindcss: 'tailwind.config.js',
         'postcss-nested':{}
       }
     },
