@@ -369,12 +369,3 @@
         <!-- end sidebar -->
     </div>
 </template>
-
-<script>
-export default {
-  head() {
-    // See https://github.com/nuxt-community/nuxt-i18n/pull/154
-    return this.$nuxtI18nSeo()
-  }
-}
-</script>

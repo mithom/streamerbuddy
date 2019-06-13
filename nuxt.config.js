@@ -2,19 +2,14 @@ module.exports = {
   mode: 'spa',
   head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
-  modules: [
-    ['nuxt-i18n', {
-      locales: ['en', 'nl'],
-      defaultLocale: 'en'
-    }]
-  ],
+  modules: [],
   devModules: [
     '@nuxtjs/tailwindcss'
   ],
   build: {
     postcss: {
       plugins: {
-        tailwindcss: 'tailwind.config.js',
+        'tailwindcss': 'tailwind.config.js',
         'postcss-nested':{}
       }
     },
