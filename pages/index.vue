@@ -2,7 +2,7 @@
     <section class="container">
         <div>
             <h1>streamer-buddy</h1>
-            <h2>You updated successfully to v4</h2>
+            <h2>You updated successfully to v7</h2>
             <h2>An assistant for streaming which includes also some modules for specific games.</h2>
             <div id="dashboard">
                 <component
