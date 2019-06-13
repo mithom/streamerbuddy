@@ -3,7 +3,10 @@ module.exports = {
   head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
   modules: [
-    ['nuxt-i18n', {}]
+    ['nuxt-i18n', {
+      locales: ['en', 'nl'],
+      defaultLocale: 'en'
+    }]
   ],
   devModules: [
     '@nuxtjs/tailwindcss'

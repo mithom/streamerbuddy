@@ -15,32 +15,32 @@
                     <nav>
                         <ul class="flex text-sm uppercase font-semibold">
                             <li>
-                                <a 
-                                    href="#" 
+                                <a
+                                    href="#"
                                     class="block px-4 py-4 hover:bg-blue-800"
                                 >Dashboard</a
                                 >
                             </li>
                             <li>
-                                <a 
-                                    href="#" 
+                                <a
+                                    href="#"
                                     class="block px-4 py-4 bg-blue-800">Modules</a>
                             </li>
                             <li>
-                                <a 
-                                    href="#" 
+                                <a
+                                    href="#"
                                     class="block px-4 py-4 hover:bg-blue-800"
                                 >Commands</a
                                 >
                             </li>
                             <li>
-                                <a 
-                                    href="#" 
+                                <a
+                                    href="#"
                                     class="block px-4 py-4 hover:bg-blue-800">Timers</a>
                             </li>
                             <li>
-                                <a 
-                                    href="#" 
+                                <a
+                                    href="#"
                                     class="block px-4 py-4 hover:bg-blue-800">Extras</a>
                             </li>
                         </ul>
@@ -101,8 +101,8 @@
                                 src="https://randomuser.me/api/portraits/women/10.jpg"
                             >
                             <span class="text-right px-1">WellBrained</span>
-                            <svg 
-                                class="fill-current text-white w-6 h-6" 
+                            <svg
+                                class="fill-current text-white w-6 h-6"
                                 viewBox="0 0 20 20">
                                 <path
                                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
@@ -115,36 +115,36 @@
                         >
                             <ul class="bg-white py-1">
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="far fa-address-card"/> Profile</a
                                     >
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-map"/> Dashboard Admin</a
                                     >
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-plug"/> Connections</a
                                     >
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-wrench"/> Account settings</a
                                     >
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-globe"/> Language
                                         <span
@@ -162,8 +162,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-moon"/> Dark Theme
                                         <span
@@ -179,8 +179,8 @@
                                     <hr class="mx-4 my-1 border-gray-400 border-b">
                                 </li>
                                 <li>
-                                    <a 
-                                        href="#" 
+                                    <a
+                                        href="#"
                                         class="block px-4 py-2 hover:bg-gray-200"
                                     ><i class="fas fa-sign-out-alt"/> Logout</a
                                     >
@@ -198,8 +198,8 @@
                 <div class="flex pt-4 w-75 bg-blue-1000 sidebar">
                     <div class="flex flex-col text-gray-300 h-full w-full">
                         <p class="font-bold text-sm uppercase text-blue-400 m-2 mt-6 ml-4">
-                            <svg 
-                                class="fill-current inline w-4 h-4" 
+                            <svg
+                                class="fill-current inline w-4 h-4"
                                 viewBox="0 0 20 20">
                                 <path
                                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
@@ -231,8 +231,8 @@
                         </ul>
 
                         <p class="font-bold text-sm uppercase text-blue-400 m-2 mt-6 ml-4">
-                            <svg 
-                                class="fill-current inline w-4 h-4" 
+                            <svg
+                                class="fill-current inline w-4 h-4"
                                 viewBox="0 0 20 20">
                                 <path
                                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
@@ -264,8 +264,8 @@
                         </ul>
 
                         <p class="font-bold text-sm uppercase text-blue-400 m-2 mt-6 ml-4">
-                            <svg 
-                                class="fill-current inline w-4 h-4" 
+                            <svg
+                                class="fill-current inline w-4 h-4"
                                 viewBox="0 0 20 20">
                                 <path
                                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
@@ -326,6 +326,7 @@
                             </button>
                         </div>
                     </div>
+                    <nuxt/>
                     <!-- Content: Sub Header -->
                     <div class="flex -mx-2 my-4">
                         <div class="w-full px-2">
