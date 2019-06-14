@@ -2,10 +2,49 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('~assets/fonts/BebasNeueRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .min-h-screen-windows{
     min-height: calc(100vh - 30px);
 }
 
 .min-h-screen-mac{
     min-height: calc(100vh - 22px);
+}
+
+.logo {
+    font-family: "BebasNeueRegular";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 2.5rem;
+}
+
+.w-75 {
+    width: 18.75rem;
+}
+
+.bg-blue-1000 {
+    background-color: #152132;
+}
+.text-blue-1000 {
+    color: #152132;
+}
+
+.hover-opacity {
+    opacity: 0.75;
+}
+.hover-opacity:hover {
+    opacity: 1;
+}
+
+.sidebar li::before {
+    content: "\f292";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; /* FA5 Free Doesn't work unless font-weight defined */
+    padding-right: 5px;
 }
