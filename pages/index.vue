@@ -1,53 +1,44 @@
 <template>
-    <section class="container">
-        <div>
-            <h1>streamer-buddy</h1>
-            <h2>You updated successfully to v0.0.8</h2>
-            <h2>An assistant for streaming which includes also some modules for specific games.</h2>
-            <div id="dashboard">
-                <component
-                    v-for="component in components"
-                    :key="'0' + component.fullname"
-                    :is="component.fullname">non default text</component>
-            </div>
-            <a 
-                href="https://nuxtjs.org/" 
-                target="_blank" 
-                class="btn btn-primary">Documentation</a>
-            <a 
-                href="https://github.com/nuxt/nuxt.js" 
-                target="_blank" 
-                class="btn btn-primary">GitHub</a>
-            <a 
-                href="https://electronjs.org/" 
-                target="_blank" 
-                class="btn btn-secondary">Electron</a>
-            <a 
-                href="https://github.com/electron-userland/electron-builder" 
-                target="_blank" 
-                class="btn btn-secondary">Electron
-                Builder</a>
+    <div
+        :class="{'min-h-screen-mac': isMac, 'min-h-screen-windows': !isMac}"
+        class="flex flex-col bg-gray-200 font-sans antialiased">
+
+        <!-- the full header component -->
+        <Header/>
+
+        <!-- content area (sidebar + content) -->
+        <!-- this should become conditional depending on what is selected in the header -->
+        <div class="flex flex-grow">
+            <!-- SideBar -->
+            <SideBar/>
+
+            <!-- content Body -->
+            <!-- this should become conditional depending on what is selected in the Sidebar -->
+            <ContentBody/>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
+import SideBar from '~/components/SideBar'
+import ContentBody from '~/components/ContentBody'
+import Header from '~/components/Header'
+
 export default {
-  components: {},
-  computed: {
-    components() {
-      const components = []
-      for (const mod of this.$store.state.appModules) {
-        if (mod && mod.components) {
-          components.push(...mod.components)
-        }
-      }
-      return components
+  components: {
+    SideBar,
+    ContentBody,
+    Header
+  },
+  data(){
+    return {
+      platform: process.platform
     }
   },
-  async fetch({store, params}) {
-  },
+  computed: {
+    isMac(){
+      return this.$store.state.platform === 'darwin'
+    }
+  }
 }
-
 </script>
-
