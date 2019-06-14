@@ -1,7 +1,7 @@
 {
   "name": "streamer-buddy",
   "repository": "https://github.com/mithom/StreamerBuddy",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "An assistant for streaming which includes also some modules for specific games.",
   "author": "Brain",
   "private": true,
@@ -54,7 +54,8 @@
     "electron-window-state": "^5.0.3",
     "enum": "^2.5.0",
     "@nuxtjs/tailwindcss": "^1.1.0",
-    "nuxt": "^2.7.1"
+    "nuxt": "^2.7.1",
+    "process": "latest"
   },
   "devDependencies": {
     "postcss-nested": "^4.1.2",

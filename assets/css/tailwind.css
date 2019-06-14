@@ -1,3 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.min-h-screen-windows{
+    min-height: calc(100vh - 30px);
+}
+
+.min-h-screen-mac{
+    min-height: calc(100vh - 22px);
+}
