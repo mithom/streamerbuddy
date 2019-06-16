@@ -12,35 +12,11 @@
             </div>
             <nav>
                 <ul class="flex text-sm uppercase font-semibold">
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-4 hover:bg-blue-800"
-                        >Dashboard</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-4 bg-blue-800">Modules</a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-4 hover:bg-blue-800"
-                        >Commands</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-4 hover:bg-blue-800">Timers</a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-4 hover:bg-blue-800">Extras</a>
-                    </li>
+                    <HeaderButton>Dashboard</HeaderButton>
+                    <HeaderButton>Modules</HeaderButton>
+                    <HeaderButton>Commands</HeaderButton>
+                    <HeaderButton>Timers</HeaderButton>
+                    <HeaderButton>Extras</HeaderButton>
                 </ul>
             </nav>
         </div>
@@ -193,8 +169,10 @@
 </template>
 
 <script>
+import HeaderButton from './parts/HeaderButton'
 export default {
-  name: "Header"
+  name: "Header",
+  components: {HeaderButton}
 }
 </script>
 
