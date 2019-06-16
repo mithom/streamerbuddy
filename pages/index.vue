@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import SideBar from '~/components/SideBar'
+import SideBar from '~/components/SideBar/SideBar'
 import ContentBody from '~/components/ContentBody'
 import Header from '~/components/Header'
 

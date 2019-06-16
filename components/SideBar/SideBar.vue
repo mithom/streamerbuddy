@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Category from './SideBar/Category'
+import Category from './Category'
 export default {
   name: "SideBar",
   components: {Category}
