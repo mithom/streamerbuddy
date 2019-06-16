@@ -37,42 +37,39 @@
         </div>
         <!-- Content: 1/2 | 1/2  Layout -->
         <div class="flex -mx-2 my-4">
-            <div class="w-1/2 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/2 column</div>
-            </div>
-            <div class="w-1/2 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/2 column</div>
-            </div>
+            <card :width-type="widthType.HALF"/>
+            <card :width-type="widthType.HALF"/>
         </div>
         <!-- Content: 1/3 | 1/3 | 1/3 Layout -->
         <div class="flex -mx-2 my-4">
-            <div class="w-1/3 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/3 column</div>
-            </div>
-            <div class="w-1/3 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/3 column</div>
-            </div>
-            <div class="w-1/3 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/3 column</div>
-            </div>
+            <card />
+            <card :width-type="widthType.THIRD"/>
+            <card :width-type="widthType.THIRD">custom content</card>
         </div>
         <!-- Content: 2/3 | 1/3 Layout -->
         <div class="flex -mx-2 my-4">
-            <div class="w-2/3 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">2/3 column</div>
-            </div>
-            <div class="w-1/3 px-2">
-                <div class="bg-white shadow rounded h-32 p-4">1/3 column</div>
-            </div>
+            <card :width-type="widthType.TWO_THIRD"/>
+            <card :width-type="widthType.THIRD"/>
         </div>
     </div>
 </template>
 
 <script>
-import Dashboard from "./content/Dashboard";
+import Dashboard from "./content/Dashboard"
+import Card from "./content/Card"
+import {widthType} from '~/app/enums'
+
 export default {
   name: "ContentBody",
-  components: {Dashboard}
+  components: {
+    Dashboard,
+    Card
+  },
+  data(){
+    return {
+      widthType: widthType
+    }
+  },
 }
 </script>
 

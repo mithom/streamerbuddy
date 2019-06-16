@@ -1,6 +1,6 @@
 const {app, ipcMain} = require('electron')
 const fs = require('fs').promises
-const Enum = require('enum')
+const {categories} = require('./enums')
 const path = require('path')
 const camelize = require('camelize')
 
@@ -9,7 +9,6 @@ const camelize = require('camelize')
 //////////////////////////////////////
 
 const modules_path = path.join(app.getPath('userData'), 'app', 'modules/')
-const categories = new Enum(['CORE', 'GAMING', 'UTILITY'])
 const module_info = 'module.json'
 
 const modules={}
