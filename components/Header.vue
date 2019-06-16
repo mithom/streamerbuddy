@@ -24,46 +24,9 @@
         <!-- right header -->
         <div class="flex justify-end items-center text-white">
             <div class="flex mr-2 cursor-pointer">
-                <div class="relative p-3 mr-1">
-                    <svg
-                        class="fill-current text-white w-5 h-5 hover-opacity"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            d="M4 8a6 6 0 0 1 4.03-5.67 2 2 0 1 1 3.95 0A6 6 0 0 1 16 8v6l3 2v1H1v-1l3-2V8zm8 10a2 2 0 1 1-4 0h4z"
-                        />
-                    </svg>
-                    <div
-                        class="absolute top-0 right-0 -mr-2 rounded-lg w-6 h-6 text-center leading-snug border-2 border-blue-700 bg-blue-1000 text-sm text-white"
-                    >
-                        4
-                    </div>
-                </div>
-                <div class="relative p-3 mr-1">
-                    <svg
-                        class="fill-current text-white w-5 h-5 hover-opacity"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            d="M18 9.87V20H2V9.87a4.25 4.25 0 0 0 3-.38V14h10V9.5a4.26 4.26 0 0 0 3 .37zM3 0h4l-.67 6.03A3.43 3.43 0 0 1 3 9C1.34 9 .42 7.73.95 6.15L3 0zm5 0h4l.7 6.3c.17 1.5-.91 2.7-2.42 2.7h-.56A2.38 2.38 0 0 1 7.3 6.3L8 0zm5 0h4l2.05 6.15C19.58 7.73 18.65 9 17 9a3.42 3.42 0 0 1-3.33-2.97L13 0z"
-                        />
-                    </svg>
-                </div>
-                <div class="relative p-3 mr-1">
-                    <svg
-                        class="fill-current text-white w-5 h-5 hover-opacity"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM9 11v4h2V9H9v2zm0-6v2h2V5H9z"
-                        />
-                    </svg>
-                    <div
-                        class="absolute top-0 right-0 -mr-2 rounded-lg w-6 h-6 text-center leading-snug border-2 border-blue-700 bg-blue-1000 text-sm text-white"
-                    >
-                        1
-                    </div>
-                </div>
+                <Notifications/>
+                <StoreButton/>
+                <InformationButton/>
             </div>
             <div class="relative">
                 <button
@@ -170,9 +133,13 @@
 
 <script>
 import HeaderButton from './parts/HeaderButton'
+import Notifications from './parts/Notifications'
+import StoreButton from './parts/StoreButton'
+import IconButton from './parts/IconButton'
+import InformationButton from './parts/InformationButton'
 export default {
   name: "Header",
-  components: {HeaderButton}
+  components: {InformationButton, IconButton, StoreButton, Notifications, HeaderButton}
 }
 </script>
 
