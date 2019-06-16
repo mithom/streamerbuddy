@@ -16,7 +16,7 @@ export default {
   props: {
     WidthType: {
       type: Object,
-      default: widthType.THIRD
+      default: ()=> widthType.THIRD
     }
   },
   data(){
