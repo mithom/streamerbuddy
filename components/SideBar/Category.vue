@@ -1,7 +1,9 @@
 <template>
     <div>
-        <Header><slot/></Header>
-        <ul class="">
+        <Header @click.native="opened = !opened" ><slot/></Header>
+        <ul 
+            v-if="opened"
+        >
             <module-item
                 v-for="module of modules"
                 :key="module">{{ module }}
@@ -24,6 +26,11 @@ export default {
     modules:{
       type: Array,
       default: ()=>[]
+    }
+  },
+  data(){
+    return {
+      opened: true
     }
   }
 }

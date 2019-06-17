@@ -1,10 +1,9 @@
 <template>
     <div
-        id="DropDownMenu"
         class="relative">
         <button
             class="relative flex items-center focus:outline-none px-4 py-3 hover:bg-blue-800"
-            @click="MenuOpen = !MenuOpen"
+            @click.stop="toggle"
         >
             <img
                 class="rounded-full h-6 w-6 mr-2"
@@ -21,7 +20,9 @@
             </svg>
         </button>
         <!-- Dropdown menu for profile -->
-        <DropDownMenu v-if="MenuOpen" />
+        <DropDownMenu 
+            v-if="MenuOpen"
+            @click.native.stop="" />
     </div>
 </template>
 
@@ -38,11 +39,24 @@ export default {
     }
   },
   created() {
-    document.addEventListener('click', (event)=>{
-      if(this.MenuOpen && !event.target.closest('#DropDownMenu')){  // 1 or more
-        this.MenuOpen = false;
+    document.addEventListener('click', this.closeMenu)
+  },
+  methods:{
+    toggle(){
+      if(this.MenuOpen) {
+        this.closeMenu()
+      }else{
+        this.openMenu()
       }
-    })
+    },
+    openMenu(){
+      this.MenuOpen = true
+      document.addEventListener('click', this.closeMenu)
+    },
+    closeMenu(){
+      this.MenuOpen = false
+      document.removeEventListener('click', this.closeMenu)
+    }
   }
 }
 </script>
