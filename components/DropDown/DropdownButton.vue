@@ -1,5 +1,7 @@
 <template>
-    <div class="relative">
+    <div
+        id="DropDownMenu"
+        class="relative">
         <button
             class="relative flex items-center focus:outline-none px-4 py-3 hover:bg-blue-800"
             @click="MenuOpen = !MenuOpen"
@@ -19,12 +21,13 @@
             </svg>
         </button>
         <!-- Dropdown menu for profile -->
-        <DropDownMenu v-if="MenuOpen"/>
+        <DropDownMenu v-if="MenuOpen" />
     </div>
 </template>
 
 <script>
 import DropDownMenu from './DropDownMenu'
+
 export default {
   name: 'DropdownButton',
   components: {DropDownMenu},
@@ -33,6 +36,13 @@ export default {
       MenuOpen: false,
       Name: 'WellBrained'
     }
+  },
+  created() {
+    document.addEventListener('click', (event)=>{
+      if(this.MenuOpen && !event.target.closest('#DropDownMenu')){  // 1 or more
+        this.MenuOpen = false;
+      }
+    })
   }
 }
 </script>
