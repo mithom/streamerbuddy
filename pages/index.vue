@@ -32,7 +32,6 @@ export default {
   },
   computed: {
     isMac(){
-      console.log(process.platform)
       return process.platform === 'darwin'
     }
   }
