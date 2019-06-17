@@ -30,14 +30,10 @@ export default {
     ContentBody,
     Header
   },
-  data(){
-    return {
-      platform: process.platform
-    }
-  },
   computed: {
     isMac(){
-      return this.$store.state.platform === 'darwin'
+      console.log(process.platform)
+      return process.platform === 'darwin'
     }
   }
 }
