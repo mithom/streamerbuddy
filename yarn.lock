@@ -3012,9 +3012,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-"custom-electron-titlebar@github:mithom/custom-electron-titlebar#master":
+custom-electron-titlebar@^3.0.9:
   version "3.0.9"
-  resolved "https://codeload.github.com/mithom/custom-electron-titlebar/tar.gz/a9a10870f650ba1ebbe28bdf45ee3d018c418964"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.0.9.tgz#4bc216048fcf68be47604f0ab6fd70bb040785e0"
+  integrity sha512-ROHUGph9MgcrQEtqENhcPn2QbEoP+yP7J3tfpPD5IXoosyGmIsZMb4EGcb0rXsT3zkQqit8ajXj/+FE7zsvhZw==
 
 cyclist@~0.2.2:
   version "0.2.2"

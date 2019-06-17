@@ -45,7 +45,7 @@ export default {
   components: {DropdownButton, InformationButton, StoreButton, Notifications, HeaderButton},
   data(){
     return {
-      buttons: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras', '']
+      buttons: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras']
     }
   }
 }

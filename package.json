@@ -50,7 +50,7 @@
     "@octokit/plugin-throttling": "^2.6.0",
     "@octokit/rest": "^16.27.3",
     "camelize": "^1.0.0",
-    "custom-electron-titlebar": "github:mithom/custom-electron-titlebar#master",
+    "custom-electron-titlebar": "^3.0.9",
     "electron-updater": "^4.0.6",
     "electron-window-state": "^5.0.3",
     "enum": "^2.5.0",
