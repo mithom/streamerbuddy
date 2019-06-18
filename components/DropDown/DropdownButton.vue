@@ -2,7 +2,7 @@
     <div
         class="relative">
         <button
-            class="relative flex items-center focus:outline-none px-4 py-3 hover:bg-blue-800"
+            class="relative flex items-center focus:outline-none px-4 py-4 hover:bg-blue-800"
             @click.stop="toggle"
         >
             <img

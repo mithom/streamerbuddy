@@ -4,13 +4,15 @@
         class="flex flex-col bg-gray-200 font-sans antialiased">
 
         <!-- the full header component -->
-        <Header/>
+        <Header
+            :activeScreen.sync="activeScreen"
+        />
 
         <!-- content area (sidebar + content) -->
         <!-- this should become conditional depending on what is selected in the header -->
         <div class="flex flex-grow">
             <!-- SideBar -->
-            <SideBar/>
+            <SideBar :is-selected.sync="sidebarSelected"/>
 
             <!-- content Body -->
             <!-- this should become conditional depending on what is selected in the Sidebar -->
@@ -30,9 +32,26 @@ export default {
     ContentBody,
     Header
   },
+  data(){
+    return {
+      activeScreen: 'Dashboard'
+    }
+  },
   computed: {
     isMac(){
       return process.platform === 'darwin'
+    },
+    sidebarSelected:{
+      get: function () {
+        return this.activeScreen === 'Modules'
+      },
+      set: function (newVal) {
+        if(newVal === true){
+          this.activeScreen = 'Modules'
+        }else{
+          throw new Error('sidebarSelected cannot be set to false')
+        }
+      }
     }
   }
 }

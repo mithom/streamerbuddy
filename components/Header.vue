@@ -14,7 +14,12 @@
                 <ul class="flex text-sm uppercase font-semibold">
                     <HeaderButton
                         v-for="button in buttons"
-                        :key="button">{{ button }}</HeaderButton>
+                        :key="button"
+                        :active="button === activeScreen"
+                        @click.native="$emit('update:activeScreen', button)"
+                    >
+                        {{ button }}
+                    </HeaderButton>
                 </ul>
             </nav>
         </div>
@@ -43,6 +48,12 @@ import DropdownButton from './DropDown/DropdownButton'
 export default {
   name: "Header",
   components: {DropdownButton, InformationButton, StoreButton, Notifications, HeaderButton},
+  props:{
+    activeScreen:{
+      type: String,
+      default: 'Dashboard'
+    }
+  },
   data(){
     return {
       buttons: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras']

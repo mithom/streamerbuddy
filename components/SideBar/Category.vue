@@ -13,7 +13,11 @@
             >
                 <module-item
                     v-for="module of modules"
-                    :key="module">{{ module }}
+                    :active="activeModule === module"
+                    :key="module"
+                    @click.native="$emit('update:activeModule', module)"
+                >
+                    {{ module }}
                 </module-item>
             </ul>
         </transition>
@@ -35,6 +39,10 @@ export default {
     modules:{
       type: Array,
       default: ()=>[]
+    },
+    activeModule:{
+      type: String,
+      default: null
     }
   },
   data(){
