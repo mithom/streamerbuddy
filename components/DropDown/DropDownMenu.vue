@@ -24,7 +24,12 @@
                 </span>
             </menu-item>
             <menu-item>
-                <i class="fas fa-moon"/> Dark Theme <ToggleButton/>
+                <i class="fas fa-moon"/> Dark Theme
+                <ToggleButton
+                    :show-text="false"
+                    :is-toggled-on.sync="darkMode"
+                    class="inline-block float-right"
+                />
             </menu-item>
 
             <li>
@@ -37,11 +42,16 @@
 </template>
 
 <script>
-import ToggleButton from '../parts/ToggleButton'
+//import ToggleButton from '../parts/ToggleButton'
 import MenuItem from './MenuItem'
 export default {
   name: 'DropDownMenu',
-  components: {MenuItem, ToggleButton}
+  components: {MenuItem},
+  data(){
+    return {
+      darkMode: true
+    }
+  }
 }
 </script>
 
