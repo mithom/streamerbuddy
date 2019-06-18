@@ -4,6 +4,8 @@
             class="fill-current inline w-4 h-4"
             viewBox="0 0 20 20">
             <path
+                :style="arrowStyles"
+                style="transition: transform 0.2s ease-in; transform-origin: center"
                 d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
         </svg>
         <slot>Module_Name</slot>
@@ -12,7 +14,18 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  props:{
+    expanded:{
+      type: Boolean,
+      default: true
+    }
+  },
+  computed:{
+    arrowStyles(){
+      return this.expanded ? 'transform: rotate(0)' : 'transform: rotate(-90deg)'
+    }
+  }
 }
 </script>
 

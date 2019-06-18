@@ -1,20 +1,29 @@
 <template>
     <div>
-        <Header @click.native="opened = !opened" ><slot/></Header>
-        <ul 
-            v-if="opened"
-        >
-            <module-item
-                v-for="module of modules"
-                :key="module">{{ module }}
-            </module-item>
-        </ul>
+        <Header
+            :expanded="opened"
+            @click.native="opened = !opened" ><slot/></Header>
+        <transition 
+            @enter="enter" 
+            @leave="leave">
+            <ul
+                v-if="opened"
+                class="overflow-hidden"
+                style="transition: max-height 0.2s ease-out"
+            >
+                <module-item
+                    v-for="module of modules"
+                    :key="module">{{ module }}
+                </module-item>
+            </ul>
+        </transition>
     </div>
 </template>
 
 <script>
 import Header from './Header'
 import ModuleItem from './ModuleItem'
+import Velocity from 'Velocity-animate'
 
 export default {
   name: 'Category',
@@ -31,6 +40,30 @@ export default {
   data(){
     return {
       opened: true
+    }
+  },
+  methods:{
+    enter: function(el, done){
+      Velocity(el, 'slideDown',
+        {
+          duration: 200,
+          easing: "easeInBack"
+        },
+        {
+          complete: done
+        }
+      )
+    },
+    leave: function(el, done){
+      Velocity(el, 'slideUp',
+        {
+          duration: 200,
+          easing: "easeInBack"
+        },
+        {
+          complete: done
+        }
+      )
     }
   }
 }
