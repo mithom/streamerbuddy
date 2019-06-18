@@ -17,7 +17,7 @@
         </div>
         <label
             v-if="showText"
-            :for="id"
+            :for="`${clickableText ? _uid : ''}`"
             class="text-xs text-grey-dark"
         >
             {{ labelText }}
@@ -29,6 +29,10 @@
 export default {
   name: 'ToggleButton',
   props: {
+    clickableText: {
+      type: Boolean,
+      default: false
+    },
     isToggledOn:{
       type:Boolean,
       default:false

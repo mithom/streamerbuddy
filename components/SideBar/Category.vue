@@ -46,7 +46,7 @@ export default {
     enter: function(el, done){
       Velocity(el, 'slideDown',
         {
-          duration: 200,
+          duration: 150,
           easing: "easeInBack"
         },
         {
@@ -57,7 +57,7 @@ export default {
     leave: function(el, done){
       Velocity(el, 'slideUp',
         {
-          duration: 200,
+          duration: 150,
           easing: "easeInBack"
         },
         {

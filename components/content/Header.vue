@@ -14,6 +14,7 @@
             </svg>
             <ToggleButton
                 :is-toggled-on.sync="enabled"
+                :clickable-text="true"
                 on-text="enabled" 
                 off-text="disabled"/>
             <button
