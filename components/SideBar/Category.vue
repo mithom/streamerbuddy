@@ -2,10 +2,14 @@
     <div>
         <Header
             :expanded="opened"
-            @click.native="opened = !opened" ><slot/></Header>
+            @click.native="opened = !opened"
+        >
+            <slot />
+        </Header>
         <transition 
             @enter="enter" 
-            @leave="leave">
+            @leave="leave"
+        >
             <ul
                 v-if="opened"
                 class="overflow-hidden"
@@ -13,8 +17,8 @@
             >
                 <module-item
                     v-for="module of modules"
-                    :active="activeModule === module"
                     :key="module"
+                    :active="activeModule === module"
                     @click.native="$emit('update:activeModule', module)"
                 >
                     {{ module }}

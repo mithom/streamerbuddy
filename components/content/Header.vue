@@ -3,7 +3,9 @@
         <div
             class="flex w-full mx-2 items-center pb-2 border-b-2 border-gray-400"
         >
-            <h1 class="text-2xl font-semibold">{{ name }}</h1>
+            <h1 class="text-2xl font-semibold">
+                {{ name }}
+            </h1>
             <svg
                 class="fill-current w-5 h-5 ml-8 mr-4 cursor-pointer"
                 viewBox="0 0 20 20"
@@ -16,7 +18,8 @@
                 :is-toggled-on.sync="enabled"
                 :clickable-text="true"
                 on-text="enabled" 
-                off-text="disabled"/>
+                off-text="disabled"
+            />
             <button
                 class="leading-snug bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 shadow-md uppercase font-semibold rounded-lg ml-4"
             >

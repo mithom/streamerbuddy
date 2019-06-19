@@ -3,7 +3,8 @@
         <a
             :class="activeClass"
             href="#"
-            class="block px-4 py-4 border-b-4 hover:bg-blue-800"><slot/></a>
+            class="block px-4 py-4 border-b-4 hover:bg-blue-800"
+        ><slot /></a>
     </li>
 </template>
 

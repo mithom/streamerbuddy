@@ -1,6 +1,7 @@
 <template>
     <div
-        class="relative">
+        class="relative"
+    >
         <button
             class="relative flex items-center focus:outline-none px-4 py-4 hover:bg-blue-800"
             @click.stop="toggle"
@@ -13,7 +14,8 @@
             <span class="text-right px-1">{{ Name }}</span>
             <svg
                 class="fill-current text-white w-6 h-6"
-                viewBox="0 0 20 20">
+                viewBox="0 0 20 20"
+            >
                 <path
                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
                 />
@@ -22,7 +24,8 @@
         <!-- Dropdown menu for profile -->
         <DropDownMenu 
             v-if="MenuOpen"
-            @click.native.stop="" />
+            @click.native.stop=""
+        />
     </div>
 </template>
 

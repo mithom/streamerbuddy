@@ -27,11 +27,11 @@
         <!-- right header -->
         <div class="flex justify-end items-center text-white">
             <div class="flex mr-2 cursor-pointer">
-                <Notifications/>
-                <StoreButton/>
-                <InformationButton/>
+                <Notifications />
+                <StoreButton />
+                <InformationButton />
             </div>
-            <dropdown-button/>
+            <dropdown-button />
         </div>
         <!-- end right header -->
     </div>

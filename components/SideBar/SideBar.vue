@@ -3,17 +3,20 @@
         <div class="flex flex-col text-gray-300 h-full w-full">
             <Category
                 :active-module.sync="activeModule"
-                :modules="['StreamTimers', 'Alerts','Notifications','LiveTweeter']">
+                :modules="['StreamTimers', 'Alerts','Notifications','LiveTweeter']"
+            >
                 Modules - Categorie #1
             </Category>
             <Category
                 :active-module.sync="activeModule"
-                :modules="['ApexStats (active)', 'MK11Stats','LoLStats','SekiroStats']">
+                :modules="['ApexStats (active)', 'MK11Stats','LoLStats','SekiroStats']"
+            >
                 Modules - Categorie #2
             </Category>
             <Category
                 :active-module.sync="activeModule"
-                :modules="['SC2 Match Info', 'SC2 Scene Switcher','SC2 Betting System','SC2 Replay Renamer']">
+                :modules="['SC2 Match Info', 'SC2 Scene Switcher','SC2 Betting System','SC2 Replay Renamer']"
+            >
                 StarCraft 2 - Categorie #3
             </Category>
         </div>
