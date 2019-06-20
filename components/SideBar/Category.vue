@@ -8,14 +8,13 @@
             @leave="leave">
             <ul
                 v-if="opened"
-                class="overflow-hidden"
                 style="transition: max-height 0.2s ease-out"
             >
                 <module-item
                     v-for="module of modules"
                     :active="activeModule === module"
                     :key="module"
-                    @click.native="$emit('update:activeModule', module)"
+                    @click.native="activate(module)"
                 >
                     {{ module }}
                 </module-item>
@@ -28,6 +27,7 @@
 import Header from './Header'
 import ModuleItem from './ModuleItem'
 import Velocity from 'Velocity-animate'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'Category',
@@ -39,10 +39,6 @@ export default {
     modules:{
       type: Array,
       default: ()=>[]
-    },
-    activeModule:{
-      type: String,
-      default: null
     }
   },
   data(){
@@ -50,14 +46,18 @@ export default {
       opened: true
     }
   },
+  computed:{
+    activeModule(){
+      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
+    }
+  },
   methods:{
+    ...mapActions({activate: 'activateModule'}),
     enter: function(el, done){
       Velocity(el, 'slideDown',
         {
-          duration: 150,
-          easing: "easeInBack"
-        },
-        {
+          easing: "easeInBack",
+          duration: 200,
           complete: done
         }
       )
@@ -65,10 +65,8 @@ export default {
     leave: function(el, done){
       Velocity(el, 'slideUp',
         {
-          duration: 150,
-          easing: "easeInBack"
-        },
-        {
+          easing: "easeInBack",
+          duration: 200,
           complete: done
         }
       )

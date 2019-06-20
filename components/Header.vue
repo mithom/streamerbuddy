@@ -16,7 +16,7 @@
                         v-for="button in buttons"
                         :key="button"
                         :active="button === activeScreen"
-                        @click.native="$emit('update:activeScreen', button)"
+                        @click.native="activate(button)"
                     >
                         {{ button }}
                     </HeaderButton>
@@ -44,20 +44,21 @@ import Notifications from './parts/Notifications'
 import StoreButton from './parts/StoreButton'
 import InformationButton from './parts/InformationButton'
 import DropdownButton from './DropDown/DropdownButton'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   name: "Header",
   components: {DropdownButton, InformationButton, StoreButton, Notifications, HeaderButton},
-  props:{
-    activeScreen:{
-      type: String,
-      default: 'Dashboard'
-    }
-  },
   data(){
     return {
       buttons: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras']
     }
+  },
+  computed:{
+    ...mapState(['activeScreen'])
+  },
+  methods:{
+    ...mapActions({activate: 'activateScreen'})
   }
 }
 </script>
