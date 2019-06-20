@@ -4,7 +4,8 @@
             <Category 
                 v-for="cat in categories"
                 :key="cat.category"
-                :modules="cat.modules">
+                :modules="cat.modules"
+            >
                 {{ cat.category }}
             </Category>
         </div>

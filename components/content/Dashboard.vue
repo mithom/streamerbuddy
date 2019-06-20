@@ -8,25 +8,39 @@
                 <component
                     v-for="component in components"
                     :key="'0' + component.fullname"
-                    :is="component.fullname">non default text</component>
+                    :is="component.fullname"
+                >
+                    non default text
+                </component>
             </div>
             <a
                 href="https://nuxtjs.org/"
                 target="_blank"
-                class="btn btn-primary">Documentation</a>
+                class="btn btn-primary"
+            >
+                Documentation
+            </a>
             <a
                 href="https://github.com/nuxt/nuxt.js"
                 target="_blank"
-                class="btn btn-primary">GitHub</a>
+                class="btn btn-primary"
+            >
+                GitHub
+            </a>
             <a
                 href="https://electronjs.org/"
                 target="_blank"
-                class="btn btn-secondary">Electron</a>
+                class="btn btn-secondary"
+            >
+                Electron
+            </a>
             <a
                 href="https://github.com/electron-userland/electron-builder"
                 target="_blank"
-                class="btn btn-secondary">Electron
-                Builder</a>
+                class="btn btn-secondary"
+            >
+                Electron Builder
+            </a>
         </div>
     </section>
 </template>

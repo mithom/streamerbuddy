@@ -1,8 +1,8 @@
 <template>
     <div
         :class="{'min-h-screen-mac': isMac, 'min-h-screen-windows': !isMac}"
-        class="flex flex-col bg-gray-200 font-sans antialiased">
-
+        class="flex flex-col bg-gray-200 font-sans antialiased"
+    >
         <!-- the full header component -->
         <Header />
 
@@ -14,7 +14,7 @@
 
             <!-- content Body -->
             <!-- this should become conditional depending on what is selected in the Sidebar -->
-            <ContentBody/>
+            <ContentBody />
         </div>
     </div>
 </template>

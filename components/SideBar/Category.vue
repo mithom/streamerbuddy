@@ -2,18 +2,22 @@
     <div>
         <Header
             :expanded="opened"
-            @click.native="opened = !opened" ><slot/></Header>
+            @click.native="opened = !opened"
+        >
+            <slot />
+        </Header>
         <transition 
             @enter="enter" 
-            @leave="leave">
+            @leave="leave"
+        >
             <ul
                 v-if="opened"
                 style="transition: max-height 0.2s ease-out"
             >
                 <module-item
                     v-for="module of modules"
-                    :active="activeModule === module"
                     :key="module"
+                    :active="activeModule === module"
                     @click.native="activate(module)"
                 >
                     {{ module }}

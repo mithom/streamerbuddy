@@ -54,21 +54,21 @@
     "electron-updater": "^4.0.6",
     "electron-window-state": "^5.0.3",
     "enum": "^2.5.0",
-    "nuxt": "^2.7.1",
+    "nuxt": "^2.8.1",
     "velocity-animate": "^1.5.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "10.0.2",
     "cross-env": "^5.1.4",
-    "electron": "5.0.1",
+    "electron": "5.0.4",
     "electron-builder": "^20.40.2",
     "electron-devtools-installer": "^2.2.4",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
+    "eslint": "5.16.0",
+    "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-vue": "^4.0.0",
+    "eslint-plugin-vue": "5.2.2",
     "postcss-nested": "^4.1.2",
     "tailwindcss": "^1.0.1",
-    "webpack": "4.31.0"
+    "webpack": "4.34.0"
   }
 }
