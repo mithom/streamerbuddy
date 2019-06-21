@@ -71,7 +71,7 @@ export default {
         @apply hidden;
     }
     .form-switch-label {
-        @apply block overflow-hidden cursor-pointer bg-white border rounded-full h-6 shadow-inner;
+        @apply block overflow-hidden cursor-pointer bg-gray-100 border rounded-full h-6 shadow-inner;
         transition: background-color 0.1s ease-in;
     }
     .form-switch-label:before {

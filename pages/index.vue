@@ -21,7 +21,7 @@
 
 <script>
 import SideBar from '~/components/SideBar/SideBar'
-import ContentBody from '~/components/ContentBody'
+import ContentBody from '~/components/content/ContentBody'
 import Header from '~/components/Header'
 
 export default {

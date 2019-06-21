@@ -19,6 +19,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     'indent': ['error', 2],
-    'vue/html-indent': ['error', 4]
+    'vue/html-indent': ['error', 4],
+    'vue/no-unused-components': 'warn' //we want to register components for modules, that we might not use ourselves
   }
 }

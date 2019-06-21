@@ -10,31 +10,27 @@
 </template>
 
 <script>
-import {widthType} from '~/app/enums'
+import {mapState} from 'vuex'
 
 export default {
   name: 'Card',
   props: {
     widthEnum: {
       type: Object,
-      default: ()=> widthType.THIRD
-    }
-  },
-  data(){
-    return {
-      widthType: widthType
+      default: ()=> null
     }
   },
   computed:{
+    ...mapState('enums', ['widthType'] ),
     widthClass(){
       switch (this.widthEnum) {
-      case this.widthType.THIRD:
-        return 'w-1/3'
       case this.widthType.TWO_THIRD:
         return 'w-2/3'
       case this.widthType.HALF:
-      default:
         return 'w-1/2'
+      case this.widthType.THIRD:
+      default:
+        return 'w-1/3'
       }
     }
   },

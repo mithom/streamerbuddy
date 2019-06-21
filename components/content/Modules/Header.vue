@@ -35,8 +35,12 @@ export default {
   components: {},
   data(){
     return {
-      name: "StreamTimers",
       enabled: true
+    }
+  },
+  computed:{
+    name(){
+      return this.$store.state.activeModule || 'module-name'
     }
   }
 }

@@ -22,7 +22,7 @@ export default {
   data(){
     return {
       categories:[
-        {category:'CORE', modules:['test','StreamTimers', 'Alerts','Notifications','LiveTweeter']},
+        {category:'CORE', modules:['mainComp','StreamTimers', 'Alerts','Notifications','LiveTweeter']},
         {category:'UTILITY', modules: ['ApexStats', 'MK11Stats','LoLStats','SekiroStats']},
         {category:'GAMING', modules: ['SC2 Match Info', 'SC2 Scene Switcher','SC2 Betting System','SC2 Replay Renamer']}
       ]

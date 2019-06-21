@@ -13,6 +13,7 @@ export function plugin() {
       //TODO: extract to a store action -> reuse for installing
       for(const [category, modules] of Object.entries(message)){
         for(const [module, data] of Object.entries(modules)){
+          Vue.component(data.main.name, function(resolve){resolve(nativeRequire(data.main.path))})
           data.components.forEach((comp)=>{
             // async load the modules so we only load the visible components and not the unused ones
             Vue.component(comp.fullname, function(resolve){resolve(nativeRequire(comp.path))})

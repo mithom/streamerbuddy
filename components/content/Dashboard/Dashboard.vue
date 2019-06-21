@@ -6,9 +6,9 @@
             <h2>An assistant for streaming which includes also some modules for specific games.</h2>
             <div id="dashboard">
                 <component
+                    :is="component.fullname"
                     v-for="component in components"
                     :key="'0' + component.fullname"
-                    :is="component.fullname"
                 >
                     non default text
                 </component>

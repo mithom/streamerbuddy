@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 module.exports = {
   mode: 'spa',
   head: { title: 'StreamerBuddy' }, // Headers of the page
