@@ -14,21 +14,24 @@
 
 <script>
 import Category from './Category'
-const {categories} = require('~/app/enums')
+import {mapState} from 'vuex'
 
 export default {
   name: "SideBar",
   components: {Category},
   data(){
     return {
-      categories:[
-        {category:'CORE', modules:['mainComp','StreamTimers', 'Alerts','Notifications','LiveTweeter']},
-        {category:'UTILITY', modules: ['ApexStats', 'MK11Stats','LoLStats','SekiroStats']},
-        {category:'GAMING', modules: ['SC2 Match Info', 'SC2 Scene Switcher','SC2 Betting System','SC2 Replay Renamer']}
-      ]
+
     }
   },
   computed: {
+    categories(){
+      const cats = []
+      for(const [cat, modules] of Object.entries(this.$store.state.appModules)){
+        cats.push({category: cat, modules: modules})
+      }
+      return cats
+    }
   }
 }
 </script>

@@ -23,7 +23,7 @@
             <button
                 class="leading-snug bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 shadow-md uppercase font-semibold rounded-lg ml-4"
             >
-                Publish
+                ReadMe
             </button>
         </div>
     </div>
@@ -40,7 +40,7 @@ export default {
   },
   computed:{
     name(){
-      return this.$store.state.activeModule || 'module-name'
+      return this.$store.state.activeModule.main.name || 'module-name'
     }
   }
 }

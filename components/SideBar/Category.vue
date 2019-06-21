@@ -16,11 +16,11 @@
             >
                 <module-item
                     v-for="module of modules"
-                    :key="module"
+                    :key="module.name"
                     :active="activeModule === module"
                     @click.native="activate(module)"
                 >
-                    {{ module }}
+                    {{ module.main.name }}
                 </module-item>
             </ul>
         </transition>

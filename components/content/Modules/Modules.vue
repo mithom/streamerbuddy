@@ -13,7 +13,7 @@ export default {
   components: {Header},
   computed:{
     component(){
-      return this.$store.state.appModules[0].main.name
+      return this.$store.state.activeModule.main.name
     }
   }
 }

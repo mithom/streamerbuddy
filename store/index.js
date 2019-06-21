@@ -13,7 +13,10 @@ export const state = () => ({
 
 export const mutations = {
   addModule(state, module) {
-    state.appModules.push(module)
+    if(!state.appModules[module.category]){
+      state.appModules[module.category] = [];
+    }
+    state.appModules[module.category].push(module)
   },
   activateScreen(state, screen) {
     state.activeScreen = screen
@@ -26,10 +29,10 @@ export const mutations = {
 export const actions = {
   activateScreen({commit, state}, screen){
     if (screen === 'Modules' && state.activeModule === null){
-      if(state.appModules.length === 0){
+      if(Object.keys(state.appModules).length === 0){
         commit('activateModule', 'PROMOTE-STORE')
       }else{
-        commit('activateModule', state.appModules[0]['main']['name'])
+        commit('activateModule', state.appModules[Object.keys(state.appModules)[0]][0])
       }
     }
     commit('activateScreen', screen)

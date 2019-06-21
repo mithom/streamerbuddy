@@ -52,9 +52,11 @@ export default {
   computed: {
     components() {
       const components = []
-      for (const mod of this.$store.state.appModules) {
-        if (mod && mod.components) {
-          components.push(...mod.components)
+      for(const modules of Object.values(this.$store.state.appModules)){
+        for (const mod of modules){
+          if (mod.components && mod.components.length !== 0) {
+            components.push(...mod.components)
+          }
         }
       }
       return components
