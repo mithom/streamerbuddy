@@ -16,7 +16,7 @@ export default {
   name: 'Card',
   props: {
     widthEnum: {
-      type: Object,
+      type: String,
       default: ()=> null
     }
   },

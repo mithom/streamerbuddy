@@ -40,8 +40,10 @@ module.exports = {
     }
   },
   router: {
-    middleware: 'titlebar'
+    middleware: ['titlebar']
   },
-  plugins:['~/plugins/component-plugin'],
+  plugins:[
+    '~/plugins/component-plugin'
+  ],
   dev: process.env.NODE_ENV === 'DEV'
 }

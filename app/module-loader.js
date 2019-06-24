@@ -18,7 +18,7 @@ async function load_modules(){
   //first load the core modules
   await load_cat_module(categories.CORE)
   //load all other modules in parallel
-  await Promise.all(categories.enums.map(async (cat)=>{
+  await Promise.all(Object.keys(categories).map(async (cat)=>{
     if(cat !== categories.CORE) {
       await load_cat_module(cat)
     }
@@ -26,7 +26,7 @@ async function load_modules(){
 }
 
 async function load_cat_module(cat){
-  let cat_path = path.join(modules_path, cat.key)
+  let cat_path = path.join(modules_path, cat)
   modules[cat] = {}
   try{
     let options = {withFileTypes: true}
@@ -60,7 +60,7 @@ async function load_module(path_, cat, module){
 }
 
 function processData(data, path_, cat){
-  data.category = cat.key
+  data.category = cat
   data.main = {
     path: path.join(path_, `${camelize(data.main)}.common.js`),
     name: camelize(data.main)

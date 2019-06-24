@@ -17,7 +17,7 @@
                 <module-item
                     v-for="module of modules"
                     :key="module.name"
-                    :active="activeModule === module"
+                    :active="activeModule === module.main.name"
                     @click.native="activate(module)"
                 >
                     {{ module.main.name }}
@@ -52,7 +52,7 @@ export default {
   },
   computed:{
     activeModule(){
-      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
+      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule.main.name : null
     }
   },
   methods:{
