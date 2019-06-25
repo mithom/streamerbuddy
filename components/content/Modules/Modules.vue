@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div v-if="promoteStore">
+        <StorePromote />
+    </div>
+    <div v-else>
         <Header />
         <Component :is="component" />
     </div>
@@ -7,13 +10,18 @@
 
 <script>
 import Header from "./Header";
+import StorePromote from "./StorePromote";
+import {mapState} from 'vuex'
 
 export default {
   name: "Modules",
-  components: {Header},
+  components: {StorePromote, Header},
   computed:{
     component(){
-      return this.$store.state.activeModule.main.name
+      return this.$store.state.activeModule
+    },
+    promoteStore(){
+      return this.$store.state.activeModule === null
     }
   }
 }

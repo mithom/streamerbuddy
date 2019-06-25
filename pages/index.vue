@@ -42,7 +42,7 @@ export default {
         const unsub = store.subscribe((mutation)=>{
           if(mutation.type === 'RESTORE_MUTATION'){
             store.commit('finishStateLoading')
-            console.log('done loading')
+            console.log('done hydrating store')
             resolve()
             unsub()
           }

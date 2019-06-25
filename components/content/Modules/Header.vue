@@ -40,7 +40,7 @@ export default {
   },
   computed:{
     name(){
-      return this.$store.state.activeModule.main.name || 'module-name'
+      return this.$store.state.activeModule || 'module-name'
     }
   }
 }

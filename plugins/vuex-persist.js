@@ -4,7 +4,7 @@ const {remote:{app}} = require('electron')
 import path from 'path'
 import {promisify} from "util";
 
-storage.setDataPath(path.join(app.getPath('userData'),'store'))
+storage.setDataPath(path.join(app.getPath('userData'),'app','store'))
 
 const get = promisify(storage.get)
 const set = promisify(storage.set)
@@ -22,6 +22,11 @@ new VuexPersistence({
     clear: clear
   },
   reducer: (state)=>{
-    Object.assign({}, state, {stateLoaded: undefined})
+    return Object.keys(state)
+      .filter((key)=>!['appModules', 'enums'].includes(key))
+      .reduce((obj, key)=>{
+        obj[key] = state[key]
+        return obj
+      },{})
   }
 })

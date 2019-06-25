@@ -18,7 +18,7 @@
                     v-for="module of modules"
                     :key="module.name"
                     :active="activeModule === module.main.name"
-                    @click.native="activate(module)"
+                    @click.native="activate(module.main.name)"
                 >
                     {{ module.main.name }}
                 </module-item>
@@ -52,11 +52,14 @@ export default {
   },
   computed:{
     activeModule(){
-      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule.main.name : null
+      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
     }
   },
   methods:{
     ...mapActions({activate: 'activateModule'}),
+    // activate: function(module){
+    //   this.$store.dispatch('activateModule', module)
+    // },
     enter: function(el, done){
       Velocity(el, 'slideDown',
         {
