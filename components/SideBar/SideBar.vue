@@ -38,9 +38,21 @@ export default {
     ...mapState(['activeScreen']),
     categories(){
       const cats = []
+      const disabled = []
       for(const [cat, modules] of Object.entries(this.$store.state.appModules)){
-        cats.push({category: cat, modules: modules})
+        cats.push({
+          category: cat,
+          modules: modules
+            .map(mod => mod.main.name)
+            .filter(name => this.$store.state.moduleState[name])
+        })
       }
+      cats.push({
+        category: "Disabled",
+        modules: Array.prototype.concat(Object.values(this.$store.state.appModules).flat())
+          .map(mod => mod.main.name)
+          .filter(name => !this.$store.state.moduleState[name])
+      })
       return cats
     },
     promoteStore(){

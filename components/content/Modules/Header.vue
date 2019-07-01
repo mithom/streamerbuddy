@@ -33,12 +33,20 @@
 export default {
   name: 'Header',
   components: {},
-  data(){
-    return {
-      enabled: true
-    }
-  },
+  // data(){
+  //   return {
+  //     enabled: true
+  //   }
+  // },
   computed:{
+    enabled: {
+      get: function(){
+        return this.$store.state.moduleState[this.name]
+      },
+      set: function(value){
+        this.$store.commit('changeModuleState', {module: this.name, state: value})
+      }
+    },
     name(){
       return this.$store.state.activeModule || 'module-name'
     }

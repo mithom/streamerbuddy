@@ -22,6 +22,7 @@ export const plugins = [
 
 export const state = () => ({
   appModules: {},
+  moduleState: {},
   activeScreen: 'Dashboard',
   activeModule: null,
   stateLoaded: false
@@ -35,9 +36,12 @@ export const mutations = {
       state.appModules[module.category] = [];
     }
     state.appModules[module.category].push(module)
+
+    state.moduleState[module.main.name] = state.moduleState[module.main.name] || false;
   },
   removeModule(state, module){
     state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
+    delete state.moduleState[module.main.name]
   },
   activateScreen(state, screen) {
     state.activeScreen = screen
@@ -45,11 +49,13 @@ export const mutations = {
   activateModule(state, module) {
     state.activeModule = module
   },
+  changeModuleState(state, data){
+    state.moduleState[data.module] = data.state
+  },
   finishStateLoading(state){
     state.stateLoaded = true
   }
 }
-const storeModule = {category: 'CORE', main: {name:'StoreTutorial', path: ''}}
 
 export const actions = {
   activateScreen({commit, state, dispatch}, screen){
