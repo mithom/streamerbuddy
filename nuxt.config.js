@@ -39,6 +39,11 @@ module.exports = {
       }
     }
   },
+  vue: {
+    config: {
+      devtools: true
+    }
+  },
   router: {
     middleware: ['titlebar']
   },

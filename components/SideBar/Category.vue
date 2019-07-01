@@ -30,7 +30,7 @@
 <script>
 import Header from './Header'
 import ModuleItem from './ModuleItem'
-import Velocity from 'Velocity-animate'
+import Velocity from 'velocity-animate'
 import {mapActions} from 'vuex'
 
 export default {
