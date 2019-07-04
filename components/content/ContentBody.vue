@@ -7,6 +7,11 @@
             :active="isLoading"
             :can-cancel="false"
             :is-full-page="false"
+            :height="100"
+            :width="100"
+            background-color="#cbd5e0"
+            opacity="0.7"
+            loader="bars"
         />
     </div>
 </template>
