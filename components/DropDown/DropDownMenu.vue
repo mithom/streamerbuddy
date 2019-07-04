@@ -1,6 +1,6 @@
 <template>
     <div
-        class="absolute right-0 w-64 mt-1 py-1 bg-blue-700 text-blue-1000 shadow-lg rounded-lg"
+        class="absolute right-0 w-64 mt-1 py-1 bg-blue-700 text-blue-1000 shadow-lg rounded-lg z-10"
     >
         <ul class="bg-white py-1">
             <menu-item><i class="far fa-address-card" /> Profile</menu-item>
