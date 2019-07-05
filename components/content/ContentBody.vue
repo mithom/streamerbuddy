@@ -9,10 +9,11 @@
             :is-full-page="false"
             :height="100"
             :width="100"
+            :opacity="0.7"
             background-color="#cbd5e0"
-            opacity="0.7"
-            loader="bars"
-        />
+        >
+            <Mikepad />
+        </loading>
     </div>
 </template>
 
@@ -22,6 +23,7 @@ import Modules from "./Modules/Modules"
 import {mapState} from 'vuex'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Mikepad from '../parts/Mikepad'
 
 export default {
   name: "ContentBody",
@@ -29,6 +31,7 @@ export default {
     Dashboard,
     Modules,
     Loading,
+    Mikepad
   },
   computed:{
     ...mapState(['activeScreen']),
