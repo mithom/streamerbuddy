@@ -49,7 +49,7 @@ export default {
         position: relative;
     }
 
-    .spinner * {
+    .spinner>* {
         line-height: 0;
         box-sizing: border-box;
     }

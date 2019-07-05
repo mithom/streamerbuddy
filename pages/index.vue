@@ -3,6 +3,7 @@
         :class="{'min-h-screen-mac': isMac, 'min-h-screen-windows': !isMac}"
         class="flex flex-col bg-gray-200 font-sans antialiased"
     >
+        <StoreModal />
         <!-- the full header component -->
         <Header />
 
@@ -23,9 +24,11 @@
 import SideBar from '~/components/SideBar/SideBar'
 import ContentBody from '~/components/content/ContentBody'
 import Header from '~/components/Header'
+import StoreModal from "../components/Store/StoreModal";
 
 export default {
   components: {
+    StoreModal,
     SideBar,
     ContentBody,
     Header

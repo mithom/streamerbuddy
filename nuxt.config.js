@@ -48,7 +48,8 @@ module.exports = {
     middleware: ['titlebar']
   },
   plugins:[
-    '~/plugins/component-plugin'
+    '~/plugins/component-plugin',
+    '~/plugins/vue-js-modal',
   ],
   dev: process.env.NODE_ENV === 'DEV'
 }

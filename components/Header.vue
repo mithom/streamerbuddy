@@ -28,7 +28,7 @@
         <div class="flex justify-end items-center text-white">
             <div class="flex mr-2 cursor-pointer">
                 <Notifications />
-                <StoreButton @click.native="loadStore" />
+                <StoreButton @click.native="showStore" />
                 <InformationButton />
             </div>
             <dropdown-button />
@@ -45,7 +45,6 @@ import StoreButton from './parts/StoreButton'
 import InformationButton from './parts/InformationButton'
 import DropdownButton from './DropDown/DropdownButton'
 import {mapActions, mapState} from 'vuex'
-import {getAvailableModuleFolders} from '~/app/module-installer'
 
 export default {
   name: "Header",
@@ -60,11 +59,8 @@ export default {
   },
   methods:{
     ...mapActions({activate: 'activateScreen'}),
-    loadStore: function(){
-      this.$store.commit('moduleStore/startLoading')
-      getAvailableModuleFolders(this.$store.state, this.$store.dispatch).then(()=>{
-        this.$store.commit('moduleStore/doneLoading')
-      })
+    showStore () {
+      this.$modal.show('moduleStore');
     }
   }
 }
