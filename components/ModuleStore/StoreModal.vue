@@ -5,22 +5,28 @@
         height="75%"
         @before-open="loadStore"
     >
-        <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
-        <CloseButton @click.native="$modal.hide('moduleStore')" />
+        <div class="overflow-auto h-full">
+            <div
+                v-for="obj in data.tree"
+                :key="obj.path"
+            >
+                {{ obj.path }}
+            </div>
+            <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
+            <CloseButton @click.native="$modal.hide('moduleStore')" />
 
-        hello, world!
-
-        <loading
-            :active="isLoading"
-            :can-cancel="false"
-            :is-full-page="false"
-            :height="100"
-            :width="100"
-            :opacity="0.7"
-            background-color="#cbd5e0"
-        >
-            <Mikepad />
-        </loading>
+            <loading
+                :active="isLoading"
+                :can-cancel="false"
+                :is-full-page="false"
+                :height="100"
+                :width="100"
+                :opacity="0.7"
+                background-color="#cbd5e0"
+            >
+                <Mikepad />
+            </loading>
+        </div>
     </Modal>
 </template>
 
@@ -38,6 +44,11 @@ export default {
     Loading,
     Mikepad,
   },
+  data(){
+    return {
+      data: {}
+    }
+  },
   computed:{
     isLoading(){
       return this.$store.state.moduleStore.isLoading
@@ -46,7 +57,7 @@ export default {
   methods:{
     loadStore: async function(){
       this.$store.commit('moduleStore/startLoading')
-      await getAvailableModuleFolders(this.$store.state, this.$store.dispatch)
+      this.data = await getAvailableModuleFolders(this.$store.state, this.$store.dispatch)
       this.$store.commit('moduleStore/doneLoading')
     },
   }
