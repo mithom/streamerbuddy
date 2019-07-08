@@ -25,7 +25,9 @@ export const state = () => ({
   moduleState: {},
   activeScreen: 'Dashboard',
   activeModule: null,
-  stateLoaded: false
+  stateLoaded: false,
+  notifications:['i am a notification','i am a second notif'],
+  alerts:['there is only 1 alert for now'],
 })
 
 
@@ -54,6 +56,30 @@ export const mutations = {
   },
   finishStateLoading(state){
     state.stateLoaded = true
+  },
+  addNotification(state, notification){
+    state.notifications.push(notification)
+  },
+  removeNotification(state, val){
+    let idx;
+    if(Number.isInteger(val)){
+      idx = val
+    }else{
+      idx = state.notifications.find(val)
+    }
+    state.notifications.splice(idx,1)
+  },
+  addAlert(state, alert){
+    state.alerts.push(alert)
+  },
+  removeAlert(stae, val){
+    let idx;
+    if(Number.isInteger(val)){
+      idx = val
+    }else{
+      idx = state.alerts.find(val)
+    }
+    state.alerts.splice(idx,1)
   }
 }
 

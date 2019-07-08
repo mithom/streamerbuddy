@@ -50,6 +50,7 @@ module.exports = {
   plugins:[
     '~/plugins/component-plugin',
     '~/plugins/vue-js-modal',
+    '~plugins/common-filters'
   ],
   dev: process.env.NODE_ENV === 'DEV'
 }

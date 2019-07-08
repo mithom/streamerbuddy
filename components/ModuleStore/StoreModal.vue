@@ -7,7 +7,7 @@
     >
         <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
         <CloseButton @click.native="$modal.hide('moduleStore')" />
-        
+
         hello, world!
 
         <loading
@@ -55,10 +55,4 @@ export default {
 
 <style>
 /* https://www.npmjs.com/package/vue-js-modal for modal usage and styling*/
-.v--modal-overlay {
-
-}
-/*.container-after-titlebar {*/
-/*    position: fixed !important;*/
-/*}*/
 </style>

@@ -1,6 +1,6 @@
 <template>
     <IconButton
-        :nb-notifications="4"
+        :nb-notifications="notifications | count"
         :notifications="true"
     >
         <path
@@ -10,13 +10,13 @@
 </template>
 <script>
 import IconButton from './IconButton'
+import {mapState} from 'vuex'
+
 export default {
   name: 'Notifications',
   components: {IconButton},
-  data(){
-    return {
-      nbNotifications: 4
-    }
+  computed:{
+    ...mapState(['notifications'])
   }
 }
 </script>
