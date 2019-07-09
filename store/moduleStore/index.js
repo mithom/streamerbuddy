@@ -103,11 +103,14 @@ export const mutations = {
   },
   addFile(state, fileData){
     state.gitTree[fileData.cat][fileData.module].push(fileData.path)
+  },
+  clearStore(state){
+    state.gitTree = {}
   }
 }
 
 export const actions = {
-  async getModuleStoreData({state, dispatch, commit, rootState}){
+  async getModuleStoreData({dispatch, commit, rootState}){
     commit('startLoading')
     const data = await getAvailableModuleFolders(rootState, dispatch)
     for(const branch of data.tree){

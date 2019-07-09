@@ -5,6 +5,7 @@
         height="75%"
         :classes="['bg-white', 'rounded-lg', 'shadow-2xl', 'p-0', 'text-left', 'overflow-auto']"
         @before-open="getModuleStoreData"
+        @closed="$store.commit('moduleStore/clearStore')"
     >
         <!--  -->
         <!--        <div class="overflow-auto h-full">-->
