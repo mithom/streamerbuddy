@@ -3,30 +3,49 @@
         name="moduleStore"
         width="75%"
         height="75%"
-        @before-open="loadStore"
+        :classes="['bg-white', 'rounded-lg', 'shadow-2xl', 'p-0', 'text-left', 'overflow-auto']"
+        @before-open="getModuleStoreData"
     >
-        <div class="overflow-auto h-full">
+        <!--  -->
+        <!--        <div class="overflow-auto h-full">-->
+        <div
+            v-for="(modules, cat) in data"
+            :key="cat"
+        >
+            <h1 class="font-bold text-2xl px-4 pt-2">
+                {{ cat }}
+            </h1>
             <div
-                v-for="obj in data.tree"
-                :key="obj.path"
+                v-for="(components, module) in modules"
+                :key="cat +'_'+ module"
+                class="inline-block p-4"
             >
-                {{ obj.path }}
+                <h2 class="font-bold text-xl">
+                    {{ module }}
+                </h2>
+                <p>Nb component: {{ components | count }}</p>
+                <button
+                    class="rounded-lg bg-blue-300 px-2 py-1 mt-2 border-2 border-blue-600 shadow-l hover:bg-blue-500"
+                >
+                    Install
+                </button>
             </div>
-            <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
-            <CloseButton @click.native="$modal.hide('moduleStore')" />
-
-            <loading
-                :active="isLoading"
-                :can-cancel="false"
-                :is-full-page="false"
-                :height="100"
-                :width="100"
-                :opacity="0.7"
-                background-color="#cbd5e0"
-            >
-                <Mikepad />
-            </loading>
         </div>
+        <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
+        <CloseButton @click.native="$modal.hide('moduleStore')" />
+
+        <loading
+            :active="isLoading"
+            :can-cancel="false"
+            :is-full-page="false"
+            :height="100"
+            :width="100"
+            :opacity="0.9"
+            background-color="#cbd5e0"
+        >
+            <Mikepad />
+        </loading>
+        <!--        </div>-->
     </Modal>
 </template>
 
@@ -34,8 +53,8 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Mikepad from '../parts/Mikepad'
-import {getAvailableModuleFolders} from '~/app/module-installer'
 import CloseButton from "../parts/CloseButton";
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: "StoreModal",
@@ -44,26 +63,21 @@ export default {
     Loading,
     Mikepad,
   },
-  data(){
-    return {
-      data: {}
-    }
-  },
   computed:{
-    isLoading(){
-      return this.$store.state.moduleStore.isLoading
-    }
+    ...mapState({
+      isLoading: state=> state.moduleStore.isLoading,
+      data: state=> state.moduleStore.gitTree,
+    })
   },
   methods:{
-    loadStore: async function(){
-      this.$store.commit('moduleStore/startLoading')
-      this.data = await getAvailableModuleFolders(this.$store.state, this.$store.dispatch)
-      this.$store.commit('moduleStore/doneLoading')
-    },
+    ...mapActions({getModuleStoreData: 'moduleStore/getModuleStoreData'}),
   }
 }
 </script>
 
-<style>
+<style scoped>
 /* https://www.npmjs.com/package/vue-js-modal for modal usage and styling*/
+    button:active{
+        transform: translateY(4px);
+    }
 </style>

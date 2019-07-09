@@ -23,7 +23,7 @@ new VuexPersistence({
   },
   reducer: (state)=>{
     return Object.keys(state)
-      .filter((key)=>!['appModules', 'enums'].includes(key))
+      .filter((key)=>!['appModules', 'enums', 'moduleStore'].includes(key))
       .reduce((obj, key)=>{
         obj[key] = state[key]
         return obj
