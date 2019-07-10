@@ -1,5 +1,8 @@
 <template>
-    <button class="absolute top-0 right-0 p-4">
+    <button
+        class="absolute top-0 right-0 m-4"
+        @click="$emit('click')"
+    >
         <svg
             class="h-12 w-12 fill-current text-gray-400 hover:text-gray-900"
             xmlns="http://www.w3.org/2000/svg"

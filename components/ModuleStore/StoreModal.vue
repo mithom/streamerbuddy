@@ -19,21 +19,19 @@
             <div
                 v-for="(components, module) in modules"
                 :key="cat +'_'+ module"
-                class="inline-block p-4"
+                class="inline-block p-4 bg-grey-300 shadow-inner"
             >
                 <h2 class="font-bold text-xl">
                     {{ module }}
                 </h2>
                 <p>Nb component: {{ components | count }}</p>
-                <button
-                    class="rounded-lg bg-blue-300 px-2 py-1 mt-2 border-2 border-blue-600 shadow-l hover:bg-blue-500"
-                >
+                <InstallButton>
                     Install
-                </button>
+                </InstallButton>
             </div>
         </div>
         <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
-        <CloseButton @click.native="$modal.hide('moduleStore')" />
+        <CloseButton @click="$modal.hide('moduleStore')" />
 
         <loading
             :active="isLoading"
@@ -56,10 +54,12 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Mikepad from '../parts/Mikepad'
 import CloseButton from "../parts/CloseButton";
 import {mapState, mapActions} from 'vuex'
+import InstallButton from "../parts/InstallButton";
 
 export default {
   name: "StoreModal",
   components:{
+    InstallButton,
     CloseButton,
     Loading,
     Mikepad,
@@ -77,8 +77,5 @@ export default {
 </script>
 
 <style scoped>
-/* https://www.npmjs.com/package/vue-js-modal for modal usage and styling*/
-    button:active{
-        transform: translateY(4px);
-    }
+    /* https://www.npmjs.com/package/vue-js-modal for modal usage and styling*/
 </style>
