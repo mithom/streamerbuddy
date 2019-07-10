@@ -13,22 +13,15 @@
             v-for="(modules, cat) in data"
             :key="cat"
         >
-            <h1 class="font-bold text-2xl px-4 pt-2">
+            <h1 class="font-bold text-2xl px-4 mt-2">
                 {{ cat }}
             </h1>
-            <div
+            <ModuleTile
                 v-for="(components, module) in modules"
                 :key="cat +'_'+ module"
-                class="inline-block p-4 bg-grey-300 shadow-inner"
-            >
-                <h2 class="font-bold text-xl">
-                    {{ module }}
-                </h2>
-                <p>Nb component: {{ components | count }}</p>
-                <InstallButton>
-                    Install
-                </InstallButton>
-            </div>
+                :module="module"
+                :components="components"
+            />
         </div>
         <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
         <CloseButton @click="$modal.hide('moduleStore')" />
@@ -54,12 +47,12 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Mikepad from '../parts/Mikepad'
 import CloseButton from "../parts/CloseButton";
 import {mapState, mapActions} from 'vuex'
-import InstallButton from "../parts/InstallButton";
+import ModuleTile from "./ModuleTile";
 
 export default {
   name: "StoreModal",
   components:{
-    InstallButton,
+    ModuleTile,
     CloseButton,
     Loading,
     Mikepad,
