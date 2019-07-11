@@ -1,15 +1,13 @@
-const {app, ipcMain} = require('electron')
+const {ipcMain} = require('electron')
 const fs = require('fs').promises
 const {categories} = require('./enums')
 const path = require('path')
 const camelize = require('camelize')
+const {modules_path, module_info} = require('./constants')
 
 //////////////////////////////////////
 // Electron side loading of the plugin
 //////////////////////////////////////
-
-const modules_path = path.join(app.getPath('userData'), 'app', 'modules/')
-const module_info = 'module.json'
 
 const modules={}
 let loadingPromise = null

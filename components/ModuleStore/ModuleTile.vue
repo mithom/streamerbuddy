@@ -35,7 +35,11 @@ export default {
   },
   methods:{
     install(){
-      ipcRenderer.send('install-module', this.components)
+      ipcRenderer.send('install-module', {
+        category: this.category,
+        module: this.module,
+        components: this.components
+      })
     }
   }
 }
