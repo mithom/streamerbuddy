@@ -8,6 +8,10 @@ module.exports = {
   devModules: [
     '@nuxtjs/tailwindcss'
   ],
+  server:{
+    host: '127.0.0.1',
+    port: 41263
+  },
   build: {
     postcss: {
       plugins: {
@@ -17,7 +21,9 @@ module.exports = {
     },
     webpack:{
       module:{
-        noParse: /\/app\/native-require.js$/
+        noParse: [
+          /\/app\/native-require.js$/
+        ]
       }
     },
     extend(config, {isDev, isClient}) {

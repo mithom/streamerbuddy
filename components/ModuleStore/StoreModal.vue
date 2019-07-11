@@ -3,41 +3,40 @@
         name="moduleStore"
         width="75%"
         height="75%"
-        :classes="['bg-white', 'rounded-lg', 'shadow-2xl', 'p-0', 'text-left', 'overflow-auto']"
         @before-open="getModuleStoreData"
         @closed="$store.commit('moduleStore/clearStore')"
     >
-        <!--  -->
-        <!--        <div class="overflow-auto h-full">-->
-        <div
-            v-for="(modules, cat) in data"
-            :key="cat"
-        >
-            <h1 class="font-bold text-2xl px-4 mt-2">
-                {{ cat }}
-            </h1>
-            <ModuleTile
-                v-for="(components, module) in modules"
-                :key="cat +'_'+ module"
-                :module="module"
-                :components="components"
-            />
-        </div>
-        <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
-        <CloseButton @click="$modal.hide('moduleStore')" />
+        <div class="overflow-auto h-full pb-4">
+            <div
+                v-for="(modules, cat) in data"
+                :key="cat"
+            >
+                <h1 class="font-bold text-2xl px-4 mt-2">
+                    {{ cat }}
+                </h1>
+                <ModuleTile
+                    v-for="(components, module) in modules"
+                    :key="cat +'_'+ module"
+                    :module="module"
+                    :category="cat"
+                    :components="components"
+                />
+            </div>
+            <!-- top-right slot is hidden behind titlebar - absolute vs fixed positioned + overflow-auto scroll-height vs height issue -->
+            <CloseButton @click.native="$modal.hide('moduleStore')" />
 
-        <loading
-            :active="isLoading"
-            :can-cancel="false"
-            :is-full-page="false"
-            :height="100"
-            :width="100"
-            :opacity="0.9"
-            background-color="#cbd5e0"
-        >
-            <Mikepad />
-        </loading>
-        <!--        </div>-->
+            <loading
+                :active="isLoading"
+                :can-cancel="false"
+                :is-full-page="false"
+                :height="100"
+                :width="100"
+                :opacity="0.9"
+                background-color="#cbd5e0"
+            >
+                <Mikepad />
+            </loading>
+        </div>
     </Modal>
 </template>
 

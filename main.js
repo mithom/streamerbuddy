@@ -5,6 +5,7 @@ const http = require('http')
 const {Nuxt, Builder} = require('nuxt')
 const updater = require('./app/updater')
 const {createModuleLoaderHook} = require('./app/module-loader')
+require('./app/module-installer')
 
 /*
 **  Nuxt

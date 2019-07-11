@@ -122,9 +122,14 @@ export const actions = {
       case 2:
         commit('addModule', {cat: path[0], module: path[1]})
         break
+      case 3:
+        if(path[2].endsWith('.json')){
+          commit('addFile',{cat: path[0], module: path[1], path: branch})
+        }
+        break
       case 4:
         if(path[3].endsWith('.common.js')){
-          commit('addFile',{cat: path[0], module: path[1], path: branch.path})
+          commit('addFile',{cat: path[0], module: path[1], path: branch})
         }
         break
       default:
