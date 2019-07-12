@@ -6,6 +6,7 @@ const atob = require('atob')
 const throttling = require('@octokit/plugin-throttling')
 const retry = require('@octokit/plugin-retry')
 const Octokit = require('@octokit/rest')
+const sha1 = require('js-sha1')
 
 const MyOctokit = Octokit.plugin([retry, throttling]) //retry requests up to 3 times for recoverable errors
 const owner = 'StreamerBuddy'
@@ -34,7 +35,12 @@ ipcMain.on('install-module', async (event, data)=>{
       if(data.encoding === 'base64'){
         data.content = atob(data.content)
       }
-      await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
+      //TODO: verify sha hash
+      if(component.sha === sha1(`blob ${component.size}\0${data.content}`)){
+        await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
+      }else{
+        console.warn('sha did not match with downloaded component - did not install out of safety')
+      }
     }))
     console.log('done installing')
   }catch (e) {
