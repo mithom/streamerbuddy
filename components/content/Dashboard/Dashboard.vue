@@ -53,7 +53,7 @@ export default {
     components() {
       const components = []
       for(const modules of Object.values(this.$store.state.appModules)){
-        for (const mod of modules){
+        for (const mod of Object.values(modules)){
           if (mod.components && mod.components.length !== 0) {
             components.push(...mod.components)
           }

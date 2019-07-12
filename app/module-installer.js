@@ -3,26 +3,9 @@ const fs = require('fs').promises
 const { modules_path } = require('./constants')
 const path = require('path')
 const atob = require('atob')
-const throttling = require('@octokit/plugin-throttling')
-const retry = require('@octokit/plugin-retry')
-const Octokit = require('@octokit/rest')
 const sha1 = require('js-sha1')
-
-const MyOctokit = Octokit.plugin([retry, throttling]) //retry requests up to 3 times for recoverable errors
-const owner = 'StreamerBuddy'
-const repo = 'streamerbuddy-store'
-
-const octokit = MyOctokit({
-  userAgent:`streamerBuddy v${app.getVersion()}`,
-  throttle: {
-    onRateLimit:(retryAfter, options) => {
-      if(options.requests.retryCount === 0){
-        return true
-      }
-    },
-    onAbuseLimit: (retryAfter, options) =>{octokit.log.warn(`Abuse limit reached for request ${options.method} ${options.url}`)}
-  }
-})
+const {reloadModules} = require('./module-loader')
+const {octokit} = require('./myOctoKit')
 
 ipcMain.on('install-module', async (event, data)=>{
   const module_path = path.join(modules_path, data.category, data.module)
@@ -42,10 +25,10 @@ ipcMain.on('install-module', async (event, data)=>{
         console.warn('sha did not match with downloaded component - did not install out of safety')
       }
     }))
-    console.log('done installing')
+    console.log('done installing, now reloading')
+    await reloadModules(event)
   }catch (e) {
     console.log(e)
     throw e
   }
-
 })

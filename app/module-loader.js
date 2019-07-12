@@ -95,3 +95,8 @@ module.exports.createModuleLoaderHook = function () {
     event.sender.send('modulesLoaded', modules)
   })
 }
+
+module.exports.reloadModules = async function(event){
+  await load_modules()
+  event.sender.send('modulesLoaded', modules)
+}

@@ -1,7 +1,4 @@
-const throttling = require('@octokit/plugin-throttling')
-const retry = require('@octokit/plugin-retry')
-const Octokit = require('@octokit/rest')
-const {app} = require('electron').remote
+const {octokit, owner, repo} = require('~/app/myOctoKit')
 const merge = require('lodash.merge')
 const storage = require('electron').remote.require('electron-json-storage') //filesystem access only on remote thread
 import {promisify} from 'util';
@@ -9,21 +6,6 @@ import {promisify} from 'util';
 const get = promisify(storage.get)
 const set = promisify(storage.set)
 
-const MyOctokit = Octokit.plugin([retry, throttling]) //retry requests up to 3 times for recoverable errors
-const owner = 'StreamerBuddy'
-const repo = 'streamerbuddy-store'
-
-const octokit = MyOctokit({
-  userAgent:`streamerBuddy v${app.getVersion()}`,
-  throttle: {
-    onRateLimit:(retryAfter, options) => {
-      if(options.requests.retryCount === 0){
-        return true
-      }
-    },
-    onAbuseLimit: (retryAfter, options) =>{octokit.log.warn(`Abuse limit reached for request ${options.method} ${options.url}`)}
-  }
-})
 
 let registered = false;
 
@@ -60,22 +42,27 @@ async function getAvailableModuleFolders(state, dispatch){
 
   registerHooks(state, dispatch)
 
-  const { data: repoData } = await octokit.repos.getContents({
+  const { data: repoData, status } = await octokit.repos.getContents({
     owner,
     repo,
     path: ''
   })
-  const tree_sha = repoData
-    .filter((data)=>data.name === "dist")
-    .map((data)=>data.sha)[0]
+  if([200,304].includes(status)){
+    const tree_sha = repoData
+      .filter((data)=>data.name === "dist")
+      .map((data)=>data.sha)[0]
 
-  const {data: treeData} = await octokit.git.getTree({
-    owner,
-    repo,
-    tree_sha,
-    recursive: 1
-  })
-  return treeData
+    const {data: treeData} = await octokit.git.getTree({
+      owner,
+      repo,
+      tree_sha,
+      recursive: 1
+    })
+    treeData.success = true
+    return treeData
+  }else{
+    return {success: false}
+  }
 }
 
 /*
@@ -113,28 +100,32 @@ export const actions = {
   async getModuleStoreData({dispatch, commit, rootState}){
     commit('startLoading')
     const data = await getAvailableModuleFolders(rootState, dispatch)
-    for(const branch of data.tree){
-      const path = branch.path.split('/')
-      switch(path.length){
-      case 1:
-        commit('addCategory', path[0])
-        break
-      case 2:
-        commit('addModule', {cat: path[0], module: path[1]})
-        break
-      case 3:
-        if(path[2].endsWith('.json')){
-          commit('addFile',{cat: path[0], module: path[1], path: branch})
+    if(data.success){
+      for(const branch of data.tree){
+        const path = branch.path.split('/')
+        switch(path.length){
+        case 1:
+          commit('addCategory', path[0])
+          break
+        case 2:
+          commit('addModule', {cat: path[0], module: path[1]})
+          break
+        case 3:
+          if(path[2].endsWith('.json')){
+            commit('addFile',{cat: path[0], module: path[1], path: branch})
+          }
+          break
+        case 4:
+          if(path[3].endsWith('.common.js')){
+            commit('addFile',{cat: path[0], module: path[1], path: branch})
+          }
+          break
+        default:
+          break
         }
-        break
-      case 4:
-        if(path[3].endsWith('.common.js')){
-          commit('addFile',{cat: path[0], module: path[1], path: branch})
-        }
-        break
-      default:
-        break
       }
+    }else{
+      //TODO: try again later
     }
     commit('doneLoading')
   }

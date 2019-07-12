@@ -5,11 +5,9 @@ import {ipcRenderer} from 'electron'
 //////////////////////////////////////
 export function plugin() {
   return async function(store){
-    ipcRenderer.send('loadModules')
     ipcRenderer.on('modulesLoaded',(event, message)=>{
       store.dispatch('addAllModules', message)
       console.log('all modules have been loaded ')
-
 
       const unsub = store.subscribe((mutation, state)=>{
         if(mutation.type === 'RESTORE_MUTATION'){
@@ -20,5 +18,6 @@ export function plugin() {
         }
       })
     })
+    ipcRenderer.send('loadModules')
   }
 }

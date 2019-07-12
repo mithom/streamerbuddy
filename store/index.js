@@ -30,20 +30,21 @@ export const state = () => ({
   alerts:['there is only 1 alert for now'],
 })
 
-
 export const mutations = {
   RESTORE_MUTATION: vuexPersist.RESTORE_MUTATION,
   addModule(state, module) {
     if(!state.appModules[module.category]){
-      state.appModules[module.category] = [];
+      Vue.set(state.appModules,module.category,{});
     }
-    state.appModules[module.category].push(module)
+    Vue.set(state.appModules[module.category], module.main.name, module)
 
-    state.moduleState[module.main.name] = state.moduleState[module.main.name] || false;
+    Vue.set(state.moduleState, module.main.name, state.moduleState[module.main.name] || false)
   },
   removeModule(state, module){
-    state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
-    delete state.moduleState[module.main.name]
+    //state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
+    Vue.delete(state.appModules[module.category], module.main.name)
+    Vue.delete(state.moduleState, module.main.name)
+    //TODO: remove cat if cat is empty
   },
   activateScreen(state, screen) {
     state.activeScreen = screen
@@ -118,7 +119,7 @@ export const actions = {
     if(Object.keys(state.appModules).length === 0){
       commit('activateModule', null)
     }else{
-      commit('activateModule', state.appModules[Object.keys(state.appModules)[0]][0].main.name)
+      commit('activateModule', Object.keys(Object.values(state.appModules)[0])[0])
     }
   },
   async nuxtServerInit(storeContext, nuxtContext){
