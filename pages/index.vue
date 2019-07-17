@@ -10,30 +10,32 @@
         <!-- content area (sidebar + content) -->
         <!-- this should become conditional depending on what is selected in the header -->
         <div class="flex flex-grow">
-            <!-- SideBar -->
-            <SideBar />
-
             <!-- content Body -->
             <!-- this should become conditional depending on what is selected in the Sidebar -->
-            <ContentBody />
+            <!-- <ContentBody />-->
+            <Component :is="activeScreen" />
         </div>
     </div>
 </template>
 
 <script>
-import SideBar from '~/components/SideBar/SideBar'
-import ContentBody from '~/components/content/ContentBody'
+// import ContentBody from '~/components/content/ContentBody'
 import Header from '~/components/Header'
 import StoreModal from "../components/ModuleStore/StoreModal";
+import Dashboard from "~/components/content/Dashboard/Dashboard"
+import Modules from "~/components/content/Modules/Modules"
+import {mapState} from 'vuex'
 
 export default {
   components: {
     StoreModal,
-    SideBar,
-    ContentBody,
-    Header
+    // ContentBody,
+    Header,
+    Dashboard,
+    Modules,
   },
   computed: {
+    ...mapState(['activeScreen']),
     isMac(){
       return process.platform === 'darwin'
     }
