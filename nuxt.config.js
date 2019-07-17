@@ -16,7 +16,6 @@ module.exports = {
     postcss: {
       plugins: {
         'tailwindcss': 'tailwind.config.js',
-        'postcss-nested':{}
       }
     },
     webpack:{
