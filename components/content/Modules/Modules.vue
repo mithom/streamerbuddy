@@ -18,7 +18,7 @@ export default {
   components: {StorePromote, Header},
   computed:{
     component(){
-      return this.$store.state.activeModule
+      return this.$store.state.activeModule.fullname
     },
     promoteStore(){
       return this.$store.state.activeModule === null

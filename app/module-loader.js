@@ -59,16 +59,18 @@ async function load_module(path_, cat, module){
 
 function processData(data, path_, cat){
   data.category = cat
+  data.name = path_.split(path.sep).pop()
   data.main = {
     path: path.join(path_, `${camelize(data.main)}.common.js`),
-    name: camelize(data.main)
+    name: camelize(data.main),
+    fullname: camelize(`${data.main}-${data.name}`)
   }
   if(typeof data.components === 'undefined' || data.components === null) {
     data.components = []
   }
   for(const component of data.components){
     component.name = camelize(component.name)
-    component.fullname = camelize(`${data.main.name}-${component.name}`)
+    component.fullname = camelize(`${data.name}-${component.name}`)
     component.path = path.join(path_, `${component.name}.common.js`)
   }
 }

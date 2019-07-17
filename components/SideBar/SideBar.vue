@@ -42,14 +42,19 @@ export default {
       for(const [cat, modules] of Object.entries(this.$store.state.appModules)){
         cats.push({
           category: cat,
-          modules: Object.keys(modules)
-            .filter(name => this.$store.state.moduleState[name])
+          modules: Object.values(modules)
+            .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
+            .filter(mod => this.$store.state.moduleState[mod.fullname])
         })
       }
       cats.push({
         category: "Disabled",
-        modules: Object.values(this.$store.state.appModules).map(cat=>Object.keys(cat)).flat()
-          .filter(name => !this.$store.state.moduleState[name])
+        modules: Object.values(this.$store.state.appModules)
+          .map(cat=>Object.values(cat)
+            .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
+          )
+          .flat()
+          .filter(mod => !this.$store.state.moduleState[mod.fullname])
       })
       return cats
     },

@@ -8,7 +8,8 @@ const moduleLoader = require('../app/module-loader-plugin')
 import vuexPersist from '~/plugins/vuex-persist'
 
 function createVueComponents(module){
-  Vue.component(module.main.name, function(resolve){resolve(nativeRequire(module.main.path))})
+  console.log(module.main.fullname)
+  Vue.component(module.main.fullname, function(resolve){resolve(nativeRequire(module.main.path))})
   module.components.forEach((comp)=>{
     // async load the modules so we only load the visible components and not the unused ones
     Vue.component(comp.fullname, function(resolve){resolve(nativeRequire(comp.path))})
@@ -36,9 +37,9 @@ export const mutations = {
     if(!state.appModules[module.category]){
       Vue.set(state.appModules,module.category,{});
     }
-    Vue.set(state.appModules[module.category], module.main.name, module)
+    Vue.set(state.appModules[module.category], module.main.fullname, module)
 
-    Vue.set(state.moduleState, module.main.name, state.moduleState[module.main.name] || false)
+    Vue.set(state.moduleState, module.main.fullname, state.moduleState[module.main.fullname] || false)
   },
   removeModule(state, module){
     //state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
@@ -50,10 +51,10 @@ export const mutations = {
     state.activeScreen = screen
   },
   activateModule(state, module) {
-    state.activeModule = module
+    Vue.set(state, 'activeModule', module)
   },
   changeModuleState(state, data){
-    state.moduleState[data.module] = data.state
+    Vue.set(state.moduleState, data.module, data.state)
   },
   finishStateLoading(state){
     state.stateLoaded = true
@@ -73,7 +74,7 @@ export const mutations = {
   addAlert(state, alert){
     state.alerts.push(alert)
   },
-  removeAlert(stae, val){
+  removeAlert(state, val){
     let idx;
     if(Number.isInteger(val)){
       idx = val
@@ -97,7 +98,7 @@ export const actions = {
   },
   removeModule({commit, state, dispatch}, module){
     commit('removeModule', module)
-    if (state.activeModule === module.main.name){
+    if (state.activeModule === module.main.fullname){
       dispatch('activateFirstModule')
     }
   },
@@ -106,7 +107,7 @@ export const actions = {
 
     for(const modules of Object.values(categories)){
       for(const data of Object.values(modules)){
-        foundActiveModule |= data.main.name === state.activeModule
+        foundActiveModule |= data.main.fullname === (state.activeModule && state.activeModule.fullname)
         createVueComponents(data)
         commit('addModule', data)
       }
@@ -119,7 +120,8 @@ export const actions = {
     if(Object.keys(state.appModules).length === 0){
       commit('activateModule', null)
     }else{
-      commit('activateModule', Object.keys(Object.values(state.appModules)[0])[0])
+      const mod = Object.values(Object.values(state.appModules)[0])[0]
+      commit('activateModule', {name: mod.main.name, fullname: mod.main.fullname})
     }
   },
   async nuxtServerInit(storeContext, nuxtContext){
