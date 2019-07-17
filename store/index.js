@@ -8,7 +8,6 @@ const moduleLoader = require('../app/module-loader-plugin')
 import vuexPersist from '~/plugins/vuex-persist'
 
 function createVueComponents(module){
-  console.log(module.main.fullname)
   Vue.component(module.main.fullname, function(resolve){resolve(nativeRequire(module.main.path))})
   module.components.forEach((comp)=>{
     // async load the modules so we only load the visible components and not the unused ones
@@ -37,7 +36,7 @@ export const mutations = {
     if(!state.appModules[module.category]){
       Vue.set(state.appModules,module.category,{});
     }
-    Vue.set(state.appModules[module.category], module.main.fullname, module)
+    Vue.set(state.appModules[module.category], module.name, module)
 
     Vue.set(state.moduleState, module.main.fullname, state.moduleState[module.main.fullname] || false)
   },

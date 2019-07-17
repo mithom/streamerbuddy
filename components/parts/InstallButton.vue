@@ -1,14 +1,64 @@
 <template>
     <button
         class="rounded-lg bg-blue-300 px-2 py-1 mt-2 border-2 border-blue-600 hover:bg-blue-500"
+        @click="onClick"
     >
-        Install
+        {{ text }}
     </button>
 </template>
 
 <script>
+import {ipcRenderer} from 'electron'
+
 export default {
-  name: "InstallButton"
+  name: "InstallButton",
+  props:{
+    install:{
+      type: Function,
+      default: ()=>{}
+    },
+    uninstall:{
+      type: Function,
+      default: ()=>{}
+    },
+    installed:{
+      type: Boolean,
+      default: false
+    }
+  },
+  data(){
+    return {
+      installing: false
+    }
+  },
+  computed:{
+    text: function(){
+      if(this.installed){
+        return this.installing ? 'Removing' : 'Remove'
+      }else{
+        return this.installing ? 'Installing' : 'Install'
+      }
+    },
+  },
+  watch:{
+    installed: function(newVal, oldVal){
+      if (newVal !== oldVal){
+        this.installing = false
+      }
+    }
+  },
+  methods:{
+    onClick(){
+      if(!this.installing){
+        this.installing = true
+        if(this.installed){
+          this.uninstall()
+        }else{
+          this.install()
+        }
+      }
+    },
+  }
 }
 </script>
 

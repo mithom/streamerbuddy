@@ -11,7 +11,6 @@ ipcMain.on('install-module', async (event, data)=>{
   const module_path = path.join(modules_path, data.category, data.module)
   try{
     await fs.mkdir(module_path,{recursive: true})
-    console.log(data.components)
     await Promise.all(data.components.map(async component => {
       const filepath = component.path.split('/')
       const { data } = await octokit.request(component.url)

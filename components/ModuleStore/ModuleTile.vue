@@ -5,10 +5,10 @@
         </h2>
         <p>NbComponents: {{ components | count(-1) }}<!-- offset -1 to compensate for module.json --></p>
         <InstallButton
-            @click.native="install"
-        >
-            Install
-        </InstallButton>
+            :install="install"
+            :installed="installed"
+            :uninstall="uninstall"
+        />
     </div>
 </template>
 
@@ -33,6 +33,11 @@ export default {
       default: ()=>[]
     }
   },
+  computed:{
+    installed: function(){
+      return (this.$store.state.appModules[this.category] || {}).hasOwnProperty(this.module)
+    }
+  },
   methods:{
     install(){
       ipcRenderer.send('install-module', {
@@ -40,6 +45,8 @@ export default {
         module: this.module,
         components: this.components
       })
+    },
+    uninstall(){
     }
   }
 }
