@@ -2,7 +2,6 @@ const {octokit, owner, repo} = require('~/app/myOctoKit')
 const merge = require('lodash.merge')
 const storage = require('electron').remote.require('electron-json-storage') //filesystem access only on remote thread
 import {promisify} from 'util';
-import path from 'path'
 
 const get = promisify(storage.get)
 const set = promisify(storage.set)
@@ -103,22 +102,22 @@ export const actions = {
     const data = await getAvailableModuleFolders(rootState, dispatch)
     if(data.success){
       for(const branch of data.tree){
-        const path_ = branch.path.split(path.sep)
-        switch(path_.length){
+        const path = branch.path.split('/')
+        switch(path.length){
         case 1:
-          commit('addCategory', path_[0])
+          commit('addCategory', path[0])
           break
         case 2:
-          commit('addModule', {cat: path_[0], module: path_[1]})
+          commit('addModule', {cat: path[0], module: path[1]})
           break
         case 3:
-          if(path_[2].endsWith('.json')){
-            commit('addFile',{cat: path_[0], module: path_[1], path: branch})
+          if(path[2].endsWith('.json')){
+            commit('addFile',{cat: path[0], module: path[1], path: branch})
           }
           break
         case 4:
-          if(path_[3].endsWith('.common.js')){
-            commit('addFile',{cat: path_[0], module: path_[1], path: branch})
+          if(path[3].endsWith('.common.js')){
+            commit('addFile',{cat: path[0], module: path[1], path: branch})
           }
           break
         default:
