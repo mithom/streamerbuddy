@@ -13,7 +13,7 @@ ipcMain.on('install-module', async (event, data)=>{
     await fs.mkdir(module_path,{recursive: true})
     console.log(data.components)
     await Promise.all(data.components.map(async component => {
-      const filepath = component.path.split(path.sep)
+      const filepath = component.path.split('/')
       const { data } = await octokit.request(component.url)
       if(data.encoding === 'base64'){
         data.content = atob(data.content)
