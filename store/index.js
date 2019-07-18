@@ -15,6 +15,12 @@ function createVueComponents(module){
   })
 }
 
+function registerStoreModule(registerModule, module){
+  if(module.storePath){
+    registerModule(module.name, nativeRequire(module.storePath),{ preserveState: true })
+  }
+}
+
 export const plugins = [
   moduleLoader.plugin(),
   vuexPersist.plugin
@@ -101,12 +107,12 @@ export const actions = {
       dispatch('activateFirstModule')
     }
   },
-  addAllModules({commit, state, dispatch}, categories){
+  addAllModules({commit, state, dispatch}, {data: categories, registerModule}){
     let foundActiveModule= false
-
     for(const modules of Object.values(categories)){
       for(const data of Object.values(modules)){
         foundActiveModule |= data.main.fullname === (state.activeModule && state.activeModule.fullname)
+        registerStoreModule(registerModule, data)
         createVueComponents(data)
         commit('addModule', data)
       }

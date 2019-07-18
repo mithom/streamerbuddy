@@ -1,5 +1,5 @@
 const {ipcMain} = require('electron')
-const fs = require('fs').promises
+const {promises: fs, constants: fsconstants} = require('fs')
 const {categories} = require('./enums')
 const path = require('path')
 const camelize = require('camelize')
@@ -46,7 +46,7 @@ async function load_module(path_, cat, module){
     if(info.isFile()){
       let data = JSON.parse((await fs.readFile(moduleinfo_path)).toString())
       if(verifyModuleData(data)){
-        processData(data, path_, cat)
+        await processData(data, path_, cat)
         modules[cat][module] = data
       }else{
         console.log('failed to load '+module+'\'s module data.')
@@ -57,9 +57,16 @@ async function load_module(path_, cat, module){
   }
 }
 
-function processData(data, path_, cat){
+async function processData(data, path_, cat){
   data.category = cat
   data.name = path_.split(path.sep).pop()
+  const storePath = path.join(path_, 'store', 'index.js')
+  try{
+    await fs.access(storePath, fsconstants.R_OK)
+    data.storePath = storePath
+  }catch (e) {
+    data.storePath = undefined
+  }
   data.main = {
     path: path.join(path_, `${camelize(data.main)}.common.js`),
     name: camelize(data.main),

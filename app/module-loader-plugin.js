@@ -6,7 +6,7 @@ import {ipcRenderer} from 'electron'
 export function plugin() {
   return async function(store){
     ipcRenderer.on('modulesLoaded',(event, message)=>{
-      store.dispatch('addAllModules', message)
+      store.dispatch('addAllModules', {data:message, registerModule: store.registerModule})
       console.log('all modules have been loaded ')
 
       const unsub = store.subscribe((mutation, state)=>{
