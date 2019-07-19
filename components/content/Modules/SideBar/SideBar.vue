@@ -1,22 +1,19 @@
 <template>
     <div class="flex pt-4 w-75 bg-blue-1000 sidebar">
         <div class="flex flex-col text-gray-300 h-full w-full">
-            <div v-if="promoteStore">
-                <ul>
-                    <module-item :active="activeScreen === 'Modules'">
-                        Store Tutorial
-                    </module-item>
-                </ul>
-            </div>
-            <div v-else>
-                <Category
-                    v-for="cat in categories"
-                    :key="cat.category"
-                    :modules="cat.modules"
-                >
-                    {{ cat.category }}
-                </Category>
-            </div>
+            <ul v-if="promoteStore">
+                <module-item :active="activeScreen === 'Modules'">
+                    Store Tutorial
+                </module-item>
+            </ul>
+            <Category
+                v-for="cat in categories"
+                v-else
+                :key="cat.category"
+                :modules="cat.modules"
+            >
+                {{ cat.category }}
+            </Category>
         </div>
     </div>
 </template>
@@ -56,7 +53,7 @@ export default {
           .flat()
           .filter(mod => !this.$store.state.moduleState[mod.fullname])
       })
-      return cats
+      return cats.filter(cat=> cat.modules.length > 0)
     },
     promoteStore(){
       return this.$store.state.activeModule === null
