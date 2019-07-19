@@ -46,17 +46,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   components: {},
   computed: {
+    ...mapGetters(['allModules']),
     components() {
       const components = []
-      for(const modules of Object.values(this.$store.state.appModules)){
-        for (const mod of Object.values(modules)){
-          if (mod.components && mod.components.length !== 0) {
-            components.push(...mod.components)
-          }
+      for (const mod of this.allModules){
+        if (mod.components && mod.components.length !== 0) {
+          components.push(...mod.components)
         }
       }
       return components

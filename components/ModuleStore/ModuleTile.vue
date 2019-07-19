@@ -47,6 +47,13 @@ export default {
       })
     },
     uninstall(){
+      const moduleInfo = {
+        category: this.category,
+        module: this.module,
+        components: this.components
+      };
+      this.$store.dispatch('removeModule', moduleInfo)
+      ipcRenderer.send('uninstall-module', moduleInfo)
     }
   }
 }

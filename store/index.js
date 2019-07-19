@@ -15,9 +15,29 @@ function createVueComponents(module){
   })
 }
 
-function registerStoreModule(registerModule, module){
+function removeVueComponents(moduleInfo, state){
+  for (const comp of state.appModules[moduleInfo.category][moduleInfo.module].components){
+    delete Vue.options.components[comp.fullname]
+  }
+  delete Vue.options.components[state.appModules[moduleInfo.category][moduleInfo.module].main.fullname]
+}
+
+function registerStoreModule(registerModule, module, state){
   if(module.storePath){
-    registerModule(module.name, nativeRequire(module.storePath),{ preserveState: true })
+    if(!state.modules){
+      registerModule('modules',{})
+    }
+    if(state.modules && state.modules[module.name]){
+      registerModule(['modules', module.name], nativeRequire(module.storePath), {preserveState: true})
+    }else{
+      registerModule(['modules', module.name], nativeRequire(module.storePath))
+    }
+  }
+}
+
+function unregisterStoreModule(unregisterModule, moduleInfo, state){
+  if(state.modules && state.modules[moduleInfo.name]){
+    unregisterModule(`modules/${moduleInfo.name}`)
   }
 }
 
@@ -46,11 +66,10 @@ export const mutations = {
 
     Vue.set(state.moduleState, module.main.fullname, state.moduleState[module.main.fullname] || false)
   },
-  removeModule(state, module){
+  removeModule(state, moduleInfo){
     //state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
-    Vue.delete(state.appModules[module.category], module.main.name)
-    Vue.delete(state.moduleState, module.main.name)
-    //TODO: remove cat if cat is empty
+    Vue.delete(state.moduleState, state.appModules[moduleInfo.category][moduleInfo.module].main.fullname)
+    Vue.delete(state.appModules[moduleInfo.category], moduleInfo.module)
   },
   activateScreen(state, screen) {
     state.activeScreen = screen
@@ -101,9 +120,15 @@ export const actions = {
     commit('activateModule', module)
     commit('activateScreen', 'Modules')
   },
-  removeModule({commit, state, dispatch}, module){
-    commit('removeModule', module)
-    if (state.activeModule === module.main.fullname){
+  removeModule({commit, state, dispatch, unregisterModule}, moduleInfo){
+    let wasActive = false
+    if ((state.activeModule && state.activeModule.fullname) === state.appModules[moduleInfo.category][moduleInfo.module].main.fullname){
+      wasActive = true
+    }
+    removeVueComponents(moduleInfo, state)
+    commit('removeModule', moduleInfo)
+    unregisterStoreModule(unregisterModule, moduleInfo, state)
+    if(wasActive){
       dispatch('activateFirstModule')
     }
   },
@@ -112,7 +137,7 @@ export const actions = {
     for(const modules of Object.values(categories)){
       for(const data of Object.values(modules)){
         foundActiveModule |= data.main.fullname === (state.activeModule && state.activeModule.fullname)
-        registerStoreModule(registerModule, data)
+        registerStoreModule(registerModule, data, state)
         createVueComponents(data)
         commit('addModule', data)
       }
@@ -121,15 +146,19 @@ export const actions = {
       dispatch('activateFirstModule')
     }
   },
-  activateFirstModule({state, commit}){
-    if(Object.keys(state.appModules).length === 0){
+  activateFirstModule({state, commit, getters: {allModules}}){
+    if(allModules.length === 0){
       commit('activateModule', null)
     }else{
-      const mod = Object.values(Object.values(state.appModules)[0])[0]
+      const mod = allModules[0]
       commit('activateModule', {name: mod.main.name, fullname: mod.main.fullname})
     }
   },
   async nuxtServerInit(storeContext, nuxtContext){
 
   }
+}
+
+export const getters = {
+  allModules: state => Object.values(state.appModules).map(cat=>Object.values(cat)).flat()
 }

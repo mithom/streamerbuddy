@@ -20,7 +20,7 @@
 
 <script>
 import Category from './Category'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import ModuleItem from "./ModuleItem";
 
 export default {
@@ -33,6 +33,7 @@ export default {
   },
   computed: {
     ...mapState(['activeScreen']),
+    ...mapGetters(['allModules']),
     categories(){
       const cats = []
       const disabled = []
@@ -46,10 +47,8 @@ export default {
       }
       cats.push({
         category: "Disabled",
-        modules: Object.values(this.$store.state.appModules)
-          .map(cat=>Object.values(cat)
-            .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
-          )
+        modules: this.allModules
+          .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
           .flat()
           .filter(mod => !this.$store.state.moduleState[mod.fullname])
       })
