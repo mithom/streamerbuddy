@@ -52,7 +52,7 @@ export default {
         module: this.module,
         components: this.components
       };
-      this.$store.dispatch('removeModule', moduleInfo)
+      this.$store.dispatch('removeModule', {data: moduleInfo, unregisterModule: this.$store.unregisterModule})
       ipcRenderer.send('uninstall-module', moduleInfo)
     }
   }

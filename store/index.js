@@ -36,8 +36,8 @@ function registerStoreModule(registerModule, module, state){
 }
 
 function unregisterStoreModule(unregisterModule, moduleInfo, state){
-  if(state.modules && state.modules[moduleInfo.name]){
-    unregisterModule(`modules/${moduleInfo.name}`)
+  if(state.modules && state.modules[moduleInfo.module]){
+    unregisterModule(['modules', moduleInfo.module])
   }
 }
 
@@ -120,14 +120,14 @@ export const actions = {
     commit('activateModule', module)
     commit('activateScreen', 'Modules')
   },
-  removeModule({commit, state, dispatch, unregisterModule}, moduleInfo){
+  removeModule({commit, state, dispatch}, {data: moduleInfo, unregisterModule}){
     let wasActive = false
     if ((state.activeModule && state.activeModule.fullname) === state.appModules[moduleInfo.category][moduleInfo.module].main.fullname){
       wasActive = true
     }
     removeVueComponents(moduleInfo, state)
-    commit('removeModule', moduleInfo)
     unregisterStoreModule(unregisterModule, moduleInfo, state)
+    commit('removeModule', moduleInfo)
     if(wasActive){
       dispatch('activateFirstModule')
     }
@@ -146,7 +146,7 @@ export const actions = {
       dispatch('activateFirstModule')
     }
   },
-  activateFirstModule({state, commit, getters: {allModules}}){
+  activateFirstModule({commit, getters: {allModules}}){
     if(allModules.length === 0){
       commit('activateModule', null)
     }else{
