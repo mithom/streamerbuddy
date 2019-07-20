@@ -12,7 +12,19 @@
             :class="contentClass"
         >
             <Header />
-            <Component :is="component" />
+            <Component
+                :is="component"
+                class=""
+            />
+        </div>
+        <portal to="settings">
+            <p> i am content for a setting </p>
+        </portal>
+        <div
+            v-if="moduleSettingsOpen"
+            class="bg-gray-300 h-full w-2/5"
+        >
+            <portal-target name="settings" />
         </div>
     </div>
 </template>
@@ -21,6 +33,7 @@
 import Header from "./Header";
 import StorePromote from "./StorePromote";
 import SideBar from "./SideBar/SideBar";
+import {mapState} from 'vuex'
 
 export default {
   name: "Modules",
@@ -31,6 +44,10 @@ export default {
     }
   },
   computed:{
+    ...mapState([
+      'activeScreen',
+      'moduleSettingsOpen'
+    ]),
     component(){
       return this.$store.state.activeModule.fullname
     },

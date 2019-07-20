@@ -11,8 +11,8 @@ export function plugin() {
 
       const unsub = store.subscribe((mutation, state)=>{
         if(mutation.type === 'RESTORE_MUTATION'){
-          const modules = Object.values(state.appModules).map(cat=>Object.values(cat).map(mod=>mod.main.name))
-          if (!modules.includes(state.activeModule)){
+          const modules = Object.values(state.appModules).map(cat=>Object.values(cat).map(mod=>mod.main.fullname)).flat()
+          if (!modules.includes(state.activeModule && state.activeModule.fullname)){
             store.dispatch('activateFirstModule')
           }
         }

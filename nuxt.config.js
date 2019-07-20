@@ -4,7 +4,9 @@ module.exports = {
   mode: 'spa',
   head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
-  modules: [],
+  modules: [
+    'portal-vue/nuxt'
+  ],
   devModules: [
     '@nuxtjs/tailwindcss'
   ],

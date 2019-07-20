@@ -1,14 +1,15 @@
 <template>
     <button
-        class="rounded-lg bg-blue-300 px-2 py-1 mt-2 border-2 border-blue-600 hover:bg-blue-500"
+        class="leading-snug bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 shadow-md uppercase font-semibold rounded-lg ml-4"
         @click="onClick"
     >
-        {{ text }}
+        <slot>
+            {{ text }}
+        </slot>
     </button>
 </template>
 
 <script>
-import {ipcRenderer} from 'electron'
 
 export default {
   name: "InstallButton",

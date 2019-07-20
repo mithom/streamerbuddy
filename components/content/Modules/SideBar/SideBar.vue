@@ -1,20 +1,18 @@
 <template>
-    <div class="flex pt-4 w-75 bg-blue-1000 sidebar">
-        <div class="flex flex-col text-gray-300 h-full w-full">
-            <ul v-if="promoteStore">
-                <module-item :active="activeScreen === 'Modules'">
-                    Store Tutorial
-                </module-item>
-            </ul>
-            <Category
-                v-for="cat in categories"
-                v-else
-                :key="cat.category"
-                :modules="cat.modules"
-            >
-                {{ cat.category }}
-            </Category>
-        </div>
+    <div class="flex-none pt-4 w-64 bg-blue-1000 sidebar flex-col text-gray-300 h-full">
+        <ul v-if="promoteStore">
+            <module-item :active="activeScreen === 'Modules'">
+                Store Tutorial
+            </module-item>
+        </ul>
+        <Category
+            v-for="cat in categories"
+            v-else
+            :key="cat.category"
+            :modules="cat.modules"
+        >
+            {{ cat.category }}
+        </Category>
     </div>
 </template>
 
