@@ -1,4 +1,4 @@
-const electron = require('electron')
+const {app, BrowserWindow} = require('electron')
 const windowStateKeeper = require('electron-window-state')
 const path = require('path')
 const http = require('http')
@@ -20,6 +20,9 @@ const server = http.createServer(nuxt.render)
 
 // Build only in dev mode
 if (config.dev) {
+  console.log('GPU rendering has been disabled to allow for streaming during development')
+  app.commandLine.appendSwitch("disable-gpu")
+
   const builder = new Builder(nuxt)
   builder.build().catch(err => {
     console.error(err) // eslint-disable-line no-console
@@ -36,7 +39,6 @@ console.log(`Nuxt working on ${_NUXT_URL_}`)
 ** Electron
 */
 let win = null // Main window
-const app = electron.app
 
 const mainWin = async function (url = '') {
   // fix updater yml file
@@ -51,7 +53,7 @@ const mainWin = async function (url = '') {
   if (win !== null) {
     return
   }
-  win = new electron.BrowserWindow({
+  win = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true
     },

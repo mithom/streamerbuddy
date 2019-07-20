@@ -31,3 +31,22 @@ ipcMain.on('install-module', async (event, data)=>{
     throw e
   }
 })
+
+ipcMain.on('uninstall-module', async (event, data)=>{
+  console.log('uninstalling module')
+  const modDir = path.join(modules_path, data.category, data.module)
+  await deleteFolderRecursive(modDir)
+})
+
+async function deleteFolderRecursive (folder) {
+  const files = await fs.readdir(folder, {withFileTypes: true})
+  await Promise.all(files.map(async (file)=>{
+    console.log(file.name)
+    if(file.isDirectory()){
+      await deleteFolderRecursive(path.join(folder,file.name))
+    }else{
+      await fs.unlink(path.join(folder, file.name))
+    }
+  }))
+  await fs.rmdir(folder)
+}
