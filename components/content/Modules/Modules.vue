@@ -17,15 +17,10 @@
                 class=""
             />
         </div>
-        <portal to="settings">
-            <p> i am content for a setting </p>
-        </portal>
-        <div
-            v-if="moduleSettingsOpen"
-            class="bg-gray-300 h-full w-2/5"
-        >
-            <portal-target name="settings" />
-        </div>
+        <portal-target
+            name="settingsPanel"
+            slim
+        />
     </div>
 </template>
 
@@ -46,7 +41,6 @@ export default {
   computed:{
     ...mapState([
       'activeScreen',
-      'moduleSettingsOpen'
     ]),
     component(){
       return this.$store.state.activeModule.fullname

@@ -29,24 +29,30 @@
                 :uninstall="toggleModuleSettingsOpen"
             >
                 Settings
+                <portal to="settingsPanel">
+                    <SettingsSideBar :panel-open="moduleSettingsOpen" />
+                </portal>
             </InstallButton>
         </div>
     </div>
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
 import InstallButton from '~/components/parts/InstallButton'
+import SettingsSideBar from "./SettingsSideBar";
 
 export default {
   name: 'Header',
   components: {
+    SettingsSideBar,
     InstallButton
   },
+  data(){
+    return {
+      moduleSettingsOpen: false
+    }
+  },
   computed:{
-    ...mapState([
-      'moduleSettingsOpen'
-    ]),
     enabled: {
       get: function(){
         return this.$store.state.moduleState[this.activeModule.fullname]
@@ -60,9 +66,9 @@ export default {
     }
   },
   methods:{
-    ...mapMutations([
-      'toggleModuleSettingsOpen'
-    ])
+    toggleModuleSettingsOpen: function () {
+      this.moduleSettingsOpen = !this.moduleSettingsOpen
+    }
   }
 }
 </script>
