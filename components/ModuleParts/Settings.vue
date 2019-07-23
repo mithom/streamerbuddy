@@ -9,9 +9,9 @@
                 :default-value="setting.default"
             >
                 {{ setting.text }}
-                <template #tooltip>
-                    {{ setting.tooltip }}
-                </template>
+                <!-- eslint-disable -->
+                <template #tooltip>{{ setting.tooltip }}</template>
+                <!-- eslint enable -->
             </Component>
         </slot>
         <slot name="after" />

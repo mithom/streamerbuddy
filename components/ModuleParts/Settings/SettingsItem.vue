@@ -13,33 +13,35 @@ export default {
 
 <style scoped>
 .tooltip {
-position: relative;
+    position: relative;
 }
 
 .tooltip .tooltiptext {
-visibility: hidden;
-background-color: black;
-color: #fff;
-text-align: left;
-border-radius: 6px;
-position: absolute;
-z-index: 1;
-top: 150%;
-left: 0%;
+    white-space: pre-wrap;
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 0;
+    margin: 0 1em;
 }
 
-/*.tooltip .tooltiptext::after {*/
-/*content: "";*/
-/*position: absolute;*/
-/*bottom: 100%;*/
-/*left: 50%;*/
-/*margin-left: -5px;*/
-/*border-width: 5px;*/
-/*border-style: solid;*/
-/*border-color: transparent transparent black transparent;*/
-/*}*/
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
 
 .tooltip:hover .tooltiptext {
-visibility: visible;
+    visibility: visible;
 }
 </style>
