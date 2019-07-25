@@ -1,11 +1,11 @@
 <template>
     <SettingsItem>
-        <slot />
+        <slot :value="value" />
         <input
             :value="value"
             :placeholder="defaultValue"
             type="number"
-            step="0.01"
+            :step="step"
             @input="SetSetting"
             @blur="defaultOnEmpty"
         >
@@ -41,6 +41,10 @@ export default {
       type: Number,
       required: true
     },
+    step:{
+      type: Number,
+      default: 0.1
+    },
   },
   data(){
     return {
@@ -55,7 +59,7 @@ export default {
       this.setComponentSetting({
         component: this.component,
         name: this.name,
-        value: Math.round(Number(e.target.value))
+        value: Number(e.target.value)
       })
     },
     defaultOnEmpty(e){
