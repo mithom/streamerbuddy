@@ -24,6 +24,7 @@
                 ReadMe
             </InstallButton>
             <InstallButton
+                v-if="settingsAvailable"
                 :installed="moduleSettingsOpen"
                 :install="toggleModuleSettingsOpen"
                 :uninstall="toggleModuleSettingsOpen"
@@ -40,6 +41,7 @@
 <script>
 import InstallButton from '~/components/parts/InstallButton'
 import SettingsSideBar from "./SettingsSideBar";
+import {Wormhole} from 'portal-vue'
 
 export default {
   name: 'Header',
@@ -63,7 +65,10 @@ export default {
     },
     activeModule(){
       return this.$store.state.activeModule || {name:'moduleName', fullname:'moduleNameMod'}
-    }
+    },
+    settingsAvailable(){
+      return Wormhole.hasContentFor('settings')
+    },
   },
   methods:{
     toggleModuleSettingsOpen: function () {

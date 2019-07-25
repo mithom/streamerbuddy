@@ -2,20 +2,23 @@
     <portal to="settings">
         <slot name="before" />
         <slot>
-            <Component
-                :is="componentType(setting.type)"
-                v-for="[name, setting] of Object.entries(settings)"
-                :key="name"
-                :name="name"
-                :value="settingsValue ? settingsValue[name] : setting.default"
-                :component="componentName"
-                :default-value="setting.default"
-            >
-                {{ setting.text }}
-                <!-- eslint-disable -->
-                <template #tooltip>{{ setting.tooltip }}</template>
-                <!-- eslint enable -->
-            </Component>
+            <template v-for="[name, setting] of Object.entries(settings)">
+                <Component
+                    :is="componentType(setting.type)"
+                    :key="name"
+                    :name="name"
+                    :value="settingsValue ? settingsValue[name] : setting.default"
+                    :component="componentName"
+                    :default-value="setting.default"
+                >
+                    <template #default="props">
+                        {{ Object.keys(props).reduce((str, key)=> str.replace(new RegExp(`\{${key}\}`, 'g'), props[key]), setting.text) }}
+                    </template>
+                    <!-- eslint-disable -->
+                    <template #tooltip>{{ setting.tooltip }}</template>
+                    <!-- eslint enable -->
+                </Component>
+            </template>
         </slot>
         <slot name="after" />
     </portal>
@@ -40,7 +43,7 @@ export default {
     Number,
     String,
     Boolean,
-    Button,
+    SButton: Button,
     ColorPicker,
     Range,
     SelectBox
@@ -60,9 +63,14 @@ export default {
   },
   data(){
     return {
-      Integer,
-      Number,
-      String
+      Integer: 'Integer',
+      Number: 'Number',
+      String: 'String',
+      Boolean: 'Boolean',
+      Button: 'SButton',
+      ColorPicker: 'ColorPicker',
+      Range: 'Range',
+      SelectBox: 'SelectBox'
     }
   },
   computed:{

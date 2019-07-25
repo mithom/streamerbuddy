@@ -1,6 +1,6 @@
 <template>
     <SettingsItem>
-        <slot />
+        <slot :value="value" />
         <input
             :value="value"
             :placeholder="defaultValue"
