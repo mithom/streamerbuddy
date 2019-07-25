@@ -12,7 +12,7 @@ const octokit = MyOctokit({
   userAgent:`streamerBuddy v${app.getVersion()}`,
   throttle: {
     onRateLimit:(retryAfter, options) => {
-      if(options.requests.retryCount === 0){
+      if(options.request.retryCount === 0){
         return true
       }
     },

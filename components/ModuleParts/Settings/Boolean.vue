@@ -1,11 +1,10 @@
 <template>
-    
+    <p>TODO: Boolean</p>
 </template>
-
 <script>
-  export default {
-    name: "Boolean"
-  }
+export default {
+  name: "Boolean"
+}
 </script>
 
 <style scoped>

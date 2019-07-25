@@ -14,7 +14,7 @@
             <Header />
             <Component
                 :is="component"
-                class=""
+                :component="component"
             />
         </div>
         <portal-target

@@ -54,7 +54,6 @@ export const state = () => ({
   stateLoaded: false,
   notifications:['i am a notification','i am a second notif'],
   alerts:['there is only 1 alert for now'],
-  moduleSettingsOpen: false,
 })
 
 export const mutations = {
@@ -108,9 +107,6 @@ export const mutations = {
     }
     state.alerts.splice(idx,1)
   },
-  toggleModuleSettingsOpen(state){
-    state.moduleSettingsOpen = !state.moduleSettingsOpen
-  }
 }
 
 export const actions = {
