@@ -4,6 +4,7 @@
         <div class="form-switch inline-block align-middle">
             <input
                 :id="id"
+                v-bind="$attrs"
                 :name="id"
                 :checked="isToggledOn"
                 type="checkbox"
@@ -28,6 +29,7 @@
 <script>
 export default {
   name: 'ToggleButton',
+  inheritAttrs: false,
   props: {
     clickableText: {
       type: Boolean,
@@ -52,7 +54,7 @@ export default {
   },
   data () {
     return {
-      id: this._uid
+      id: this._uid,
     }
   },
   computed:{

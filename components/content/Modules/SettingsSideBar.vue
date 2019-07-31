@@ -5,6 +5,7 @@
     >
         <portal-target
             name="settings"
+            :multiple="true"
             :slot-props="{text:'settingsPanel'}"
         />
     </div>

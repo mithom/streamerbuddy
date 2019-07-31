@@ -1,13 +1,47 @@
 <template>
-    <div class="tooltip p-2 border-b border-gray-500">
-        <slot />
-        <span class="tooltiptext px-2 py-1"><slot name="tooltip" /></span>
-    </div>
+    <portal
+        to="settings"
+        :disabled="inPlace"
+    >
+        <div class="tooltip p-2 border-b border-gray-500">
+            <slot />
+            <span
+                v-if="$slots.tooltip"
+                class="tooltiptext px-2 py-1"
+            >
+                <slot name="tooltip" />
+            </span>
+        </div>
+    </portal>
 </template>
 
 <script>
+import {componentName} from "~/app/component-util";
+
 export default {
-  name: "SettingsItem"
+  name: "SettingsItem",
+  inheritAttrs:true,
+  props:{
+    name:{
+      type: String,
+      required: true
+    },
+    defaultValue:{
+      type: [String, Number, Boolean],
+      required: true
+    },
+    inPlace:{
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted() {
+    this.$store.commit('settings/addComponentSetting', {
+      component: componentName(this),
+      name: this.name,
+      default: this.defaultValue
+    })
+  }
 }
 </script>
 

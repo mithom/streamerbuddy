@@ -20,7 +20,7 @@ export const mutations = {
 }
 
 export const actions = {
-  addComponentSettings ({commit}, obj){
+  addComponentSettings ({commit}, obj){ //currently unused due to refactors
     for(const [name, setting] of Object.entries(obj.settings)){
       setting.component = obj.component
       setting.name = name

@@ -1,11 +1,18 @@
 <template>
-    <SettingsItem>
-        <slot :value="value" />
-        <input
-            :value="value"
-            :placeholder="defaultValue"
-            @input="SetSetting"
-        >
+    <SettingsItem
+        :name="name"
+        :default-value="defaultValue"
+    >
+        <template #default="{component}">
+            <label>
+                <slot :value="storeValue" />
+                <input
+                    :value="storeValue"
+                    :placeholder="defaultValue"
+                    @input="setSetting"
+                >
+            </label>
+        </template>
         <template #tooltip>
             <slot name="tooltip" />
         </template>
@@ -15,17 +22,18 @@
 <script>
 import SettingsItem from './SettingsItem'
 import {mapMutations} from 'vuex'
+import {componentName} from "~/app/component-util";
 
 export default {
   name: "String",
   components:{
     SettingsItem
   },
+  model:{
+    prop: 'value',
+    event: 'input'
+  },
   props:{
-    component:{
-      type: String,
-      required: true
-    },
     value:{
       type: String,
       required: true
@@ -39,31 +47,35 @@ export default {
       required: true
     },
   },
-  data(){
-    return {
-      val: ''
+  computed:{
+    storeValue: function(){
+      return this.$store.state.settings.componentSettings[this.componentName][this.name]
+    },
+    componentName: function(){
+      return componentName(this)
     }
+  },
+  watch:{
+    value(val){
+      if(val !== this.storeValue){
+        this.setSetting(val)
+      }
+    },
   },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
-    SetSetting(e){
+    setSetting(e){
       this.setComponentSetting({
-        component: this.component,
+        component: this.componentName,
         name: this.name,
-        value: e.target.value
+        value: e.target ? e.target.value : e
       })
-    },
-    defaultOnEmpty(e){
-      if (!e.target.value){
-        this.setComponentSetting({
-          component: this.component,
-          name: this.name,
-          value: this.defaultValue
-        })
+      if(this.value !== this.storeValue){
+        this.$emit('input', this.storeValue)
       }
-    }
+    },
   }
 }
 </script>

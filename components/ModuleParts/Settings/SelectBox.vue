@@ -1,5 +1,5 @@
 <template>
-    <P> TODO: range</P>
+    <p>TODO: SelectBox</p>
 </template>
 <script>
 export default {

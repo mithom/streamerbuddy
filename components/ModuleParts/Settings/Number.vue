@@ -1,14 +1,21 @@
 <template>
-    <SettingsItem>
-        <slot :value="value" />
-        <input
-            :value="value"
-            :placeholder="defaultValue"
-            type="number"
-            :step="step"
-            @input="SetSetting"
-            @blur="defaultOnEmpty"
-        >
+    <SettingsItem
+        :name="name"
+        :default-value="defaultValue"
+    >
+        <template #default="{component}">
+            <label>
+                <slot :value="storeValue" />
+                <input
+                    :value="storeValue"
+                    :placeholder="defaultValue"
+                    type="number"
+                    :step="step"
+                    @input="setSetting"
+                    @blur="defaultOnEmpty"
+                >
+            </label>
+        </template>
         <template #tooltip>
             <slot name="tooltip" />
         </template>
@@ -18,17 +25,18 @@
 <script>
 import SettingsItem from './SettingsItem'
 import {mapMutations} from 'vuex'
+import {componentName} from "~/app/component-util";
 
 export default {
   name: "Number",
   components:{
     SettingsItem
   },
+  model:{
+    prop: 'value',
+    event: 'input'
+  },
   props:{
-    component:{
-      type: String,
-      required: true
-    },
     value:{
       type: Number,
       required: true
@@ -46,29 +54,43 @@ export default {
       default: 0.1
     },
   },
-  data(){
-    return {
-      val: 0
+  computed:{
+    storeValue: function(){
+      return this.$store.state.settings.componentSettings[this.componentName][this.name]
+    },
+    componentName: function(){
+      return componentName(this)
     }
+  },
+  watch:{
+    value(val){
+      if(val !== this.storeValue){
+        this.setSetting(val)
+      }
+    },
   },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
-    SetSetting(e){
+    setSetting(e){
       this.setComponentSetting({
-        component: this.component,
+        component: this.componentName,
         name: this.name,
-        value: Number(e.target.value)
+        value: Number(e.target ? e.target.value : e)
       })
+      if(this.value !== this.storeValue){
+        this.$emit('input', this.storeValue)
+      }
     },
     defaultOnEmpty(e){
       if (!e.target.value){
         this.setComponentSetting({
-          component: this.component,
+          component: this.componentName,
           name: this.name,
           value: this.defaultValue
         })
+        this.$emit('input', this.storeValue)
       }
     }
   }
