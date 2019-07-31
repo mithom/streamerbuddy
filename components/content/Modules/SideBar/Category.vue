@@ -18,6 +18,7 @@
                     v-for="module of modules"
                     :key="module.fullname"
                     :active="activeModule && activeModule.fullname === module.fullname"
+                    :component="module.fullname"
                     @click.native="activate(module)"
                 >
                     {{ module.name }}

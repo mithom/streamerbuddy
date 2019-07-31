@@ -12,9 +12,8 @@
             :class="contentClass"
         >
             <Header />
-            <Component
-                :is="component"
-                :component="component"
+            <portal-target
+                name="Modules"
             />
         </div>
         <portal-target
