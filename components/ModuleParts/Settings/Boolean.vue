@@ -4,7 +4,7 @@
         :name="name"
         :default-value="defaultValue"
     >
-        <template #default="{component}">
+        <template>
             <label>
                 <ToggleButton
                     :is-toggled-on="storeValue"
@@ -38,7 +38,7 @@ export default {
   props:{
     value:{
       type: Boolean,
-      required: true
+      default: false
     },
     name:{
       type: String,
@@ -55,7 +55,8 @@ export default {
   },
   computed:{
     storeValue: function(){
-      return this.$store.state.settings.componentSettings[this.componentName][this.name]
+      const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
+      return moduleSettings ? moduleSettings[this.name] : this.defaultValue
     },
     componentName: function(){
       return componentName(this)
@@ -63,23 +64,26 @@ export default {
   },
   watch:{
     value(val){
-      if(val !== this.storeValue){
-        this.setSetting(val)
-      }
+      this.setSetting(val)
     },
+    storeValue(val){
+      this.$emit('input', val)
+    }
+  },
+  mounted(){
+    this.$emit('input', this.storeValue)
   },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
     setSetting(e){
-      this.setComponentSetting({
-        component: this.componentName,
-        name: this.name,
-        value: Boolean(e)
-      })
-      if(this.value !== this.storeValue){
-        this.$emit('input', this.storeValue)
+      if(e !== this.storeValue){
+        this.setComponentSetting({
+          component: this.componentName,
+          name: this.name,
+          value: Boolean(e)
+        })
       }
     },
   }

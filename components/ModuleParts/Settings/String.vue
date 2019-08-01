@@ -1,15 +1,16 @@
 <template>
     <SettingsItem
+        v-bind="$attrs"
         :name="name"
         :default-value="defaultValue"
     >
-        <template #default="{component}">
+        <template>
             <label>
                 <slot :value="storeValue" />
                 <input
                     :value="storeValue"
                     :placeholder="defaultValue"
-                    @input="setSetting"
+                    @input="setSetting($event.target.value)"
                 >
             </label>
         </template>
@@ -49,7 +50,8 @@ export default {
   },
   computed:{
     storeValue: function(){
-      return this.$store.state.settings.componentSettings[this.componentName][this.name]
+      const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
+      return moduleSettings ? moduleSettings[this.name] : this.defaultValue
     },
     componentName: function(){
       return componentName(this)
@@ -57,23 +59,26 @@ export default {
   },
   watch:{
     value(val){
-      if(val !== this.storeValue){
-        this.setSetting(val)
-      }
+      this.setSetting(val)
     },
+    storeValue(val){
+      this.$emit('input', val)
+    }
+  },
+  mounted(){
+    this.$emit('input', this.storeValue)
   },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
     setSetting(e){
-      this.setComponentSetting({
-        component: this.componentName,
-        name: this.name,
-        value: e.target ? e.target.value : e
-      })
-      if(this.value !== this.storeValue){
-        this.$emit('input', this.storeValue)
+      if(e !== this.storeValue) {
+        this.setComponentSetting({
+          component: this.componentName,
+          name: this.name,
+          value: e
+        })
       }
     },
   }
