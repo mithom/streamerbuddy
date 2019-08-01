@@ -1,5 +1,6 @@
 <template>
     <SettingsItem
+        v-bind="$attrs"
         :name="name"
         :default-value="defaultValue"
     >
@@ -13,7 +14,7 @@
                     max
                     :step="step"
                     class="w-full"
-                    @input="setSetting($event)"
+                    @input="setSetting($event.target.value)"
                 >
             </label>
         </template>
@@ -73,23 +74,23 @@ export default {
   },
   watch:{
     value(val){
-      if(val !== this.storeValue){
-        this.setSetting(val)
-      }
+      this.setSetting(val)
     },
+    storeValue(val){
+      this.$emit('input', val)
+    }
   },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
     setSetting(e){
-      this.setComponentSetting({
-        component: this.componentName,
-        name: this.name,
-        value: Number(e.target ? e.target.value : e)
-      })
-      if(this.value !== this.storeValue){
-        this.$emit('input', this.storeValue)
+      if(e !== this.storeValue){
+        this.setComponentSetting({
+          component: this.componentName,
+          name: this.name,
+          value: Number(e)
+        })
       }
     },
   }

@@ -1,9 +1,10 @@
 <template>
     <SettingsItem
+        v-bind="$attrs"
         :name="name"
         :default-value="defaultValue"
     >
-        <template #default="{component}">
+        <template>
             <label>
                 <slot :value="storeValue" />
                 <input
@@ -11,7 +12,7 @@
                     :placeholder="defaultValue"
                     type="number"
                     step="1"
-                    @input="filterAndSet"
+                    @input="filterAndSet($event.target.value)"
                     @blur="defaultOnEmpty"
                 >
             </label>
@@ -58,23 +59,28 @@ export default {
       return componentName(this)
     }
   },
+  watch:{
+    value(val){
+      this.setSetting(val)
+    },
+    storeValue(val){
+      this.$emit('input', val)
+    }
+  },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
     }),
     filterInput(e){
-      e.target.value = e.target.value.match(/^-?\d*/, '');
+      e = e.match(/^-?\d*/, '');
     },
     filterAndSet(e){
       this.filterInput(e)
       this.setComponentSetting({
         component: this.componentName,
         name: this.name,
-        value: Math.round(Number(e.target ? e.target.value : e))
+        value: Math.round(Number(e))
       })
-      if(this.value !== this.storeValue){
-        this.$emit('input', this.storeValue)
-      }
     },
     defaultOnEmpty(e){
       if (!e.target.value){
@@ -83,7 +89,6 @@ export default {
           name: this.name,
           value: this.defaultValue
         })
-        this.$emit('input', this.storeValue)
       }
     }
   }

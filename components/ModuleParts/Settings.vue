@@ -4,7 +4,7 @@
             <Component
                 :is="componentType(setting.type)"
                 :key="name"
-                :value="value[name] || setting.default"
+                :value="getValue(name)"
                 :name="name"
                 :default-value="setting.default"
                 @input="setVal(name, $event)"
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import {componentName} from "~/app/component-util";
-
 export default {
   name: "Settings",
   model: {
@@ -44,7 +42,6 @@ export default {
   },
   data(){
     return {
-      data: {},
       types:{
         Integer: 'Integer',
         Number: 'Number',
@@ -57,15 +54,15 @@ export default {
       }
     }
   },
-  mounted(){
-    this.$emit('input', this.value)
-  },
   methods:{
     componentType: function (type) {
       return this.types[type]
     },
     parseText: function(setting, props){
       return Object.keys(props).reduce((str, key)=> str.replace(new RegExp(`\{${key}\}`, 'g'), props[key]), setting.text)
+    },
+    getValue: function(name){
+      return this.value[name] || this.settings[name].default
     },
     setVal(name, val){
       this.value[name] = val

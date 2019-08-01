@@ -1,9 +1,10 @@
 <template>
     <SettingsItem
+        v-bind="$attrs"
         :name="name"
         :default-value="defaultValue"
     >
-        <template #default="{component}">
+        <template>
             <label>
                 <slot :value="storeValue" />
                 <input
@@ -11,7 +12,7 @@
                     :placeholder="defaultValue"
                     type="number"
                     :step="step"
-                    @input="setSetting"
+                    @input="setSetting($event.target.value)"
                     @blur="defaultOnEmpty"
                 >
             </label>
@@ -64,9 +65,10 @@ export default {
   },
   watch:{
     value(val){
-      if(val !== this.storeValue){
-        this.setSetting(val)
-      }
+      this.setSetting(val)
+    },
+    storeValue(val){
+      this.$emit('input', val)
     },
   },
   methods:{
@@ -74,13 +76,12 @@ export default {
       setComponentSetting: 'settings/setComponentSetting'
     }),
     setSetting(e){
-      this.setComponentSetting({
-        component: this.componentName,
-        name: this.name,
-        value: Number(e.target ? e.target.value : e)
-      })
-      if(this.value !== this.storeValue){
-        this.$emit('input', this.storeValue)
+      if(e !== this.storeValue){
+        this.setComponentSetting({
+          component: this.componentName,
+          name: this.name,
+          value: Number(e)
+        })
       }
     },
     defaultOnEmpty(e){
@@ -90,7 +91,6 @@ export default {
           name: this.name,
           value: this.defaultValue
         })
-        this.$emit('input', this.storeValue)
       }
     }
   }
