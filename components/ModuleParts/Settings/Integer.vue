@@ -68,6 +68,9 @@ export default {
       this.$emit('input', val)
     }
   },
+  mounted(){
+    this.$emit('input', this.storeValue)
+  },
   methods:{
     ...mapMutations({
       setComponentSetting: 'settings/setComponentSetting'
