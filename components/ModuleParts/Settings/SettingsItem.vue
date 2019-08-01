@@ -1,5 +1,6 @@
 <template>
     <portal
+        v-if="activeModule.fullname === componentName"
         to="settings"
         :disabled="inPlace"
     >
@@ -17,6 +18,7 @@
 
 <script>
 import {componentName} from "~/app/component-util";
+import {mapState} from 'vuex'
 
 export default {
   name: "SettingsItem",
@@ -35,9 +37,15 @@ export default {
       default: false
     }
   },
+  computed:{
+    ...mapState(['activeModule']),
+    componentName: function () {
+      return componentName(this)
+    }
+  },
   mounted() {
     this.$store.commit('settings/addComponentSetting', {
-      component: componentName(this),
+      component: this.componentName,
       name: this.name,
       default: this.defaultValue
     })
