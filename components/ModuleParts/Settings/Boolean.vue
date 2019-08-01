@@ -55,7 +55,8 @@ export default {
   },
   computed:{
     storeValue: function(){
-      return this.$store.state.settings.componentSettings[this.componentName][this.name]
+      const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
+      return moduleSettings ? moduleSettings[this.name] : this.defaultValue
     },
     componentName: function(){
       return componentName(this)
