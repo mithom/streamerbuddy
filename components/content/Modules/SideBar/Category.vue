@@ -17,7 +17,7 @@
                 <module-item
                     v-for="module of modules"
                     :key="module.fullname"
-                    :active="activeModule && activeModule.fullname === module.fullname"
+                    :active="activeModuleComponent === module.fullname"
                     :component="module.fullname"
                     @click.native="activate(module)"
                 >
@@ -52,8 +52,9 @@ export default {
     }
   },
   computed:{
-    activeModule(){
-      return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
+    activeModuleComponent(){
+      // return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
+      return this.$store.getters.activeModule?.fullname
     }
   },
   methods:{

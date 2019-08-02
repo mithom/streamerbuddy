@@ -45,6 +45,7 @@
     "pack": "nuxt build && electron-builder --dir"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@nuxtjs/tailwindcss": "^1.1.0",
     "@octokit/plugin-retry": "^2.2.0",
     "@octokit/plugin-throttling": "^2.6.0",

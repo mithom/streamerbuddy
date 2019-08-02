@@ -100,8 +100,14 @@ module.exports.createModuleLoaderHook = function () {
   })
 
   ipcMain.on('loadModules', async (event)=>{
-    await loadingPromise
-    event.sender.send('modulesLoaded', modules)
+    if(loadingPromise){
+      await loadingPromise
+      loadingPromise = null
+      event.sender.send('modulesLoaded', modules)
+    }else{
+      await load_modules()
+      event.sender.send('modulesLoaded', modules)
+    }
   })
 }
 

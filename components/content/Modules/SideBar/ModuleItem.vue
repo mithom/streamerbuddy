@@ -19,8 +19,13 @@
 </template>
 
 <script>
+import StorePromote from "../StorePromote";
+
 export default {
   name: 'ModuleItem',
+  components:{
+    StorePromote
+  },
   props:{
     active:{
       type: Boolean,
@@ -39,7 +44,7 @@ export default {
       return this.$store.state.moduleState[this.component]
     },
     loaded: function(){
-      return this.enabled || this.component === this.$store.state.activeModule.fullname
+      return this.enabled || this.component === this.$store.getters.activeModule?.fullname
     }
   }
 }

@@ -1,7 +1,10 @@
 <template>
     <div class="flex-none pt-4 w-64 bg-blue-1000 sidebar flex-col text-gray-300">
         <ul v-if="promoteStore">
-            <module-item :active="activeScreen === 'Modules'">
+            <module-item
+                :active="activeScreen === 'Modules'"
+                :component="'StorePromote'"
+            >
                 Store Tutorial
             </module-item>
         </ul>

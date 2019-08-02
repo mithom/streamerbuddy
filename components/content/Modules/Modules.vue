@@ -2,16 +2,9 @@
     <div class="flex flex-grow">
         <SideBar />
         <div
-            v-if="promoteStore"
             :class="contentClass"
         >
-            <StorePromote />
-        </div>
-        <div
-            v-else
-            :class="contentClass"
-        >
-            <Header />
+            <Header v-if="component" />
             <portal-target
                 name="Modules"
                 :slim="true"
@@ -34,7 +27,7 @@ import {mapState} from 'vuex'
 
 export default {
   name: "Modules",
-  components: {SideBar, StorePromote, Header},
+  components: {SideBar, Header},
   data(){
     return {
       contentClass: "w-4/5 px-2 py-4 text-blue-1000",
@@ -45,11 +38,8 @@ export default {
       'activeScreen',
     ]),
     component(){
-      return this.$store.state.activeModule.fullname
+      return this.$store.state.activeModule?.fullname
     },
-    promoteStore(){
-      return this.$store.state.activeModule === null
-    }
   }
 }
 </script>

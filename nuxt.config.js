@@ -15,6 +15,9 @@ module.exports = {
     port: 41263
   },
   build: {
+    babel:{
+      plugins:["@babel/plugin-proposal-optional-chaining"]
+    },
     postcss: {
       plugins: {
         'tailwindcss': 'tailwind.config.js',
