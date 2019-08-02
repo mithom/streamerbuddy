@@ -7,9 +7,9 @@ Vue.filter('count', function (array, offset=0) {
   return array;
 })
 
-Vue.filter('pluck', function (array, attr) {
-  if(Array.isArray(array)) {
-    return array.map(obj => obj[attr]);
+Vue.filter('pluck', function (obj, attr) {
+  if(Array.isArray(obj)) {
+    return obj.map(obj => obj?.[attr]);
   }
-  return array[attr];
+  return obj?.[attr];
 })

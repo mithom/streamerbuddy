@@ -4,7 +4,7 @@
             class="flex w-full mx-2 items-center pb-2 border-b-2 border-gray-400"
         >
             <h1 class="text-2xl font-semibold">
-                {{ activeModule.name }}
+                {{ activeModule | pluck('name') }}
             </h1>
             <svg
                 class="fill-current w-5 h-5 ml-8 mr-4 cursor-pointer"
@@ -41,14 +41,14 @@ export default {
   computed:{
     enabled: {
       get: function(){
-        return this.$store.state.moduleState[this.activeModule.fullname]
+        return this.$store.state.moduleState[this.activeModule?.fullname]
       },
       set: function(value){
         this.$store.commit('changeModuleState', {module: this.activeModule.fullname, state: value})
       }
     },
     activeModule(){
-      return this.$store.state.activeModule || {name:'moduleName', fullname:'moduleNameMod'}
+      return this.$store.getters.activeModule
     },
   },
 }

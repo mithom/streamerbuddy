@@ -53,7 +53,6 @@ export default {
   },
   computed:{
     activeModuleComponent(){
-      // return this.$store.state.activeScreen === 'Modules' ? this.$store.state.activeModule : null
       return this.$store.getters.activeModule?.fullname
     }
   },

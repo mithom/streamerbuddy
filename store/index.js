@@ -162,5 +162,5 @@ export const actions = {
 
 export const getters = {
   allModules: state => Object.values(state.appModules).map(cat=>Object.values(cat)).flat(),
-  activeModule: state => state.activeScreen === 'Modules' ? state.activeModule || {name: "Tutorial", fullname: "StorePromote"} : null
+  activeModule: state => state.activeScreen === 'Modules' ? (state.activeModule || {name: "Tutorial", fullname: "StorePromote"}) : null
 }

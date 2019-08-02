@@ -42,7 +42,6 @@
 </template>
 
 <script>
-//import ToggleButton from '../parts/ToggleButton'
 import MenuItem from './MenuItem'
 export default {
   name: 'DropDownMenu',
