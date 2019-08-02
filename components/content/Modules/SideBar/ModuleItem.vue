@@ -5,6 +5,7 @@
     >
         <slot>Module_Name</slot>
         <portal
+            v-if="loaded"
             class="hidden"
             to="Modules"
             :disabled="!active"
@@ -33,6 +34,12 @@ export default {
   computed:{
     borderClass(){
       return this.active ? 'border-blue-300 bg-blue-900' : 'border-transparent'
+    },
+    enabled: function(){
+      return this.$store.state.moduleState[this.component]
+    },
+    loaded: function(){
+      return this.enabled || this.component === this.$store.state.activeModule.fullname
     }
   }
 }
