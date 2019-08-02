@@ -10,32 +10,41 @@
         <!-- content area (sidebar + content) -->
         <!-- this should become conditional depending on what is selected in the header -->
         <div class="flex flex-grow">
-            <!-- content Body -->
-            <!-- this should become conditional depending on what is selected in the Sidebar -->
-            <!-- <ContentBody />-->
-            <Component :is="activeScreen" />
+            <template
+                v-for="tab in screens"
+            >
+                <Component
+                    :is="tab"
+                    :key="tab"
+                    :class="{hidden: tab !== activeScreen}"
+                />
+            </template>
         </div>
     </div>
 </template>
 
 <script>
-// import ContentBody from '~/components/content/ContentBody'
 import Header from '~/components/Header'
 import StoreModal from "../components/ModuleStore/StoreModal";
 import Dashboard from "~/components/content/Dashboard/Dashboard"
 import Modules from "~/components/content/Modules/Modules"
+import Extras from "../components/content/Extras/Extras";
+import Commands from "../components/content/Commands/Commands";
+import Timers from "../components/content/Timers/Timers";
 import {mapState} from 'vuex'
 
 export default {
   components: {
     StoreModal,
-    // ContentBody,
     Header,
     Dashboard,
     Modules,
+    Extras,
+    Commands,
+    Timers,
   },
   computed: {
-    ...mapState(['activeScreen']),
+    ...mapState(['activeScreen', 'screens']),
     isMac(){
       return process.platform === 'darwin'
     }

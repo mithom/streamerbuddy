@@ -49,6 +49,7 @@ export const plugins = [
 export const state = () => ({
   appModules: {},
   moduleState: {},
+  screens: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras'],
   activeScreen: 'Dashboard',
   activeModule: null,
   stateLoaded: false,

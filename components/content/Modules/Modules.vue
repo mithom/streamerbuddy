@@ -14,11 +14,14 @@
             <Header />
             <portal-target
                 name="Modules"
+                :slim="true"
+                :multiple="false"
             />
         </div>
         <portal-target
             name="settingsPanel"
-            slim
+            :slim="true"
+            :multiple="false"
         />
     </div>
 </template>

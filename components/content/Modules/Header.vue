@@ -23,36 +23,20 @@
             <InstallButton>
                 ReadMe
             </InstallButton>
-            <InstallButton
-                v-if="settingsAvailable"
-                :installed="moduleSettingsOpen"
-                :install="toggleModuleSettingsOpen"
-                :uninstall="toggleModuleSettingsOpen"
-            >
-                Settings
-                <portal to="settingsPanel">
-                    <SettingsSideBar :panel-open="moduleSettingsOpen" />
-                </portal>
-            </InstallButton>
+            <SettingsButton />
         </div>
     </div>
 </template>
 
 <script>
 import InstallButton from '~/components/parts/InstallButton'
-import SettingsSideBar from "./SettingsSideBar";
-import {Wormhole} from 'portal-vue'
+import SettingsButton from "./SettingsButton";
 
 export default {
   name: 'Header',
   components: {
-    SettingsSideBar,
+    SettingsButton,
     InstallButton
-  },
-  data(){
-    return {
-      moduleSettingsOpen: false
-    }
   },
   computed:{
     enabled: {
@@ -66,15 +50,7 @@ export default {
     activeModule(){
       return this.$store.state.activeModule || {name:'moduleName', fullname:'moduleNameMod'}
     },
-    settingsAvailable(){
-      return Wormhole.hasContentFor('settings')
-    },
   },
-  methods:{
-    toggleModuleSettingsOpen: function () {
-      this.moduleSettingsOpen = !this.moduleSettingsOpen
-    }
-  }
 }
 </script>
 

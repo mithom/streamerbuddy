@@ -1,6 +1,5 @@
 <template>
     <div
-        v-if="panelOpen"
         class="bg-gray-300 h-full w-2/5"
     >
         <portal-target
@@ -14,13 +13,7 @@
 <script>
 
 export default {
-  name: "SettingsSideBar",
-  props:{
-    panelOpen:{
-      type: Boolean,
-      default: false
-    }
-  }
+  name: "SettingsSideBar"
 }
 </script>
 

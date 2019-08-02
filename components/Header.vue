@@ -13,7 +13,7 @@
             <nav>
                 <ul class="flex text-sm uppercase font-semibold">
                     <HeaderButton
-                        v-for="button in buttons"
+                        v-for="button in screens"
                         :key="button"
                         :active="button === activeScreen"
                         @click.native="activate(button)"
@@ -49,13 +49,8 @@ import {mapActions, mapState} from 'vuex'
 export default {
   name: "Header",
   components: {DropdownButton, InformationButton, StoreButton, Notifications, HeaderButton},
-  data(){
-    return {
-      buttons: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras']
-    }
-  },
   computed:{
-    ...mapState(['activeScreen'])
+    ...mapState(['activeScreen','screens'])
   },
   methods:{
     ...mapActions({activate: 'activateScreen'}),
