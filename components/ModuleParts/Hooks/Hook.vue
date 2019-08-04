@@ -1,6 +1,6 @@
-<template />
-
 <script>
+import {componentName} from '~/app/component-util'
+
 export default {
   name: 'Hook',
   props:{
@@ -13,18 +13,20 @@ export default {
       required: true
     }
   },
-  computed:{
-    hookValue: function(){
-      return this.$store.state.hooks.hooks[this.hook]
+  data(){
+    return {
+      componentName: componentName(this)
     }
   },
   created () {
-    this.$watch(this.hookValue, function(newValue, oldValue){
+    this.$watch(function () {
+      return this.$store.state.hooks.hooks[this.componentName][this.hook]
+    }, function(newValue, oldValue){
       this.cb(newValue, oldValue)
     })
   },
-  beforeDestroy () {
-
+  render (createElement) {
+    return createElement()
   }
 }
 </script>

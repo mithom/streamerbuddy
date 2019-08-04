@@ -6,14 +6,22 @@ export const state = () => ({
 
 
 export const mutations = {
-  registerHook(state, name){
-    Vue.set(state.hooks, name, null)
+  registerHook(state, data){
+    Vue.set(state.hooks[data.module], data.hook, null)
+  },
+  registerModule(state, module){
+    Vue.set(state.hooks, module, {})
   },
   updateData(state, data){
-    state[data.hook] = data.newData
+    state[data.module][data.hook] = data.newData
   }
 }
 
 export const actions = {
-
+  registerHook ({state, commit}, data) {
+    if(!state.hooks[data.module]){
+      commit('registerModule', data.module)
+    }
+    commit('registerHook', data)
+  }
 }

@@ -1,6 +1,6 @@
-<template />
-
 <script>
+import {componentName} from "~/app/component-util";
+
 export default {
   name: 'Provider',
   props:{
@@ -13,15 +13,27 @@ export default {
       required: true
     }
   },
+  data(){
+    return {
+      componentName: componentName(this)
+    }
+  },
   async created () {
-    this.$store.commit('hooks/registerHook', this.hook)
+    await this.$store.dispatch('hooks/registerHook', {
+      hook: this.hook,
+      module: this.componentName
+    })
     for await (const data of this.generator()){
       this.$store.commit('hooks/updateData',{
         hook: this.hook,
+        module: this.componentName,
         newData: data,
       })
     }
   },
+  render (createElement) {
+    return createElement()
+  }
 }
 </script>
 

@@ -10,10 +10,15 @@ import Range from "~/components/ModuleParts/Settings/Range";
 import SelectBox from "~/components/ModuleParts/Settings/SelectBox";
 import Button from "~/components/ModuleParts/Settings/Button";
 import ColorPicker from "~/components/ModuleParts/Settings/ColorPicker";
+import Hook from '~/components/ModuleParts/Hooks/Hook'
+import Provider from '~/components/ModuleParts/Hooks/Provider'
 
 // register all components here that will be available to the dynamic modules
+//Parts
 Vue.component('Card', Card)
 Vue.component('ToggleButton', ToggleButton)
+
+//Settings
 Vue.component('Settings', Settings)
 Vue.component('Boolean', Boolean)
 Vue.component('Integer', Integer)
@@ -23,3 +28,7 @@ Vue.component('Range', Range)
 Vue.component('SelectBox', SelectBox)
 Vue.component('SButton', Button)
 Vue.component('ColorPicker', ColorPicker)
+
+//Hooks
+Vue.component('Hook', Hook)
+Vue.component('Provider', Provider)
