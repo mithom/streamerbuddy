@@ -55,14 +55,16 @@ export default {
       default: 0.1
     },
   },
+  data(){
+    return {
+      componentName: componentName(this)
+    }
+  },
   computed:{
     storeValue: function(){
       const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
       return moduleSettings ? moduleSettings[this.name] : this.defaultValue
     },
-    componentName: function(){
-      return componentName(this)
-    }
   },
   watch:{
     value(val){

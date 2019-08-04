@@ -53,14 +53,16 @@ export default {
       default: false
     }
   },
+  data(){
+    return {
+      componentName: componentName(this)
+    }
+  },
   computed:{
     storeValue: function(){
       const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
       return moduleSettings ? moduleSettings[this.name] : this.defaultValue //don't use shorthand notation, as it are booleans
     },
-    componentName: function(){
-      return componentName(this)
-    }
   },
   watch:{
     value(val){

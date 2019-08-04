@@ -37,13 +37,15 @@ export default {
       default: false
     }
   },
+  data(){
+    return {
+      componentName: componentName(this)
+    }
+  },
   computed:{
     ...mapGetters(['activeModule']),
     activeModuleName: function(){
       return this.activeModule?.fullname
-    },
-    componentName: function () {
-      return componentName(this)
     },
   },
   mounted() {
