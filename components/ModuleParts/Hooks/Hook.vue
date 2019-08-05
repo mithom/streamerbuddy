@@ -18,7 +18,7 @@ export default {
   },
   created () {
     this.$watch(function () {
-      return this.$store.state.hooks.hooks[this.module][this.hook]
+      return this.$store.state.hooks.hooks[this.module]?.[this.hook]
     }, function(newValue, oldValue){
       this.cb(newValue, oldValue)
     })

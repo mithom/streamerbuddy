@@ -1,0 +1,48 @@
+<script>
+import {moduleName} from "~/app/component-util";
+
+export default {
+  name: 'Receiver',
+  props:{
+    sink:{
+      type: String,
+      required: true
+    },
+    cb:{
+      type: Function,
+      required: true
+    }
+  },
+  data(){
+    return {
+      moduleName: moduleName(this),
+    }
+  },
+  async created () {
+    await this.$store.dispatch('hooks/registerSink', {
+      sink: this.sink,
+      module: this.moduleName
+    })
+    this.$watch(function () {
+      return this.$store.state.hooks.sinks[this.moduleName][this.sink]
+    }, function(newValue){
+      if(newValue.length > 0){
+        for(const val of newValue){
+          this.cb(val)
+        }
+        this.$store.commit('hooks/clearSinkData',{
+          sink: this.sink,
+          module: this.moduleName
+        })
+      }
+    })
+  },
+  render (createElement) {
+    return createElement()
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

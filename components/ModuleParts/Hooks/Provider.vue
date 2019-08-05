@@ -20,6 +20,7 @@ export default {
     }
   },
   async created () {
+    // noinspection ES6MissingAwait
     let cancel, cancelled = new Promise(resolve => cancel = resolve);
     this.cancel = cancel
 
@@ -32,14 +33,13 @@ export default {
       }).then(async ()=>{
         for await (const data of this.generator()){
           if(stop) break
-          this.$store.commit('hooks/updateData',{
+          this.$store.commit('hooks/updateHookData',{
             hook: this.hook,
             module: this.moduleName,
             newData: data,
           })
         }
       }).then(()=> resolve())
-
     })
   },
   beforeDestroy(){
