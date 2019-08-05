@@ -13,7 +13,7 @@ export const mutations = {
     Vue.set(state.hooks, module, {})
   },
   updateData(state, data){
-    state[data.module][data.hook] = data.newData
+    state.hooks[data.module][data.hook] = data.newData
   }
 }
 

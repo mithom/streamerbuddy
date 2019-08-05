@@ -1,5 +1,5 @@
 <script>
-import {componentName} from "~/app/component-util";
+import {moduleName} from "~/app/component-util";
 
 export default {
   name: 'Provider',
@@ -15,21 +15,35 @@ export default {
   },
   data(){
     return {
-      componentName: componentName(this)
+      moduleName: moduleName(this),
+      cancel: null
     }
   },
   async created () {
-    await this.$store.dispatch('hooks/registerHook', {
-      hook: this.hook,
-      module: this.componentName
-    })
-    for await (const data of this.generator()){
-      this.$store.commit('hooks/updateData',{
+    let cancel, cancelled = new Promise(resolve => cancel = resolve);
+    this.cancel = cancel
+
+    await new Promise((resolve)=>{
+      let stop = false
+      cancelled.then(()=>{stop = true})
+      this.$store.dispatch('hooks/registerHook', {
         hook: this.hook,
-        module: this.componentName,
-        newData: data,
-      })
-    }
+        module: this.moduleName
+      }).then(async ()=>{
+        for await (const data of this.generator()){
+          if(stop) break
+          this.$store.commit('hooks/updateData',{
+            hook: this.hook,
+            module: this.moduleName,
+            newData: data,
+          })
+        }
+      }).then(()=> resolve())
+
+    })
+  },
+  beforeDestroy(){
+    this.cancel()
   },
   render (createElement) {
     return createElement()

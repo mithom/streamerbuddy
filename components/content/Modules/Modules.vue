@@ -7,8 +7,7 @@
             <Header v-if="component" />
             <portal-target
                 name="Modules"
-                :slim="true"
-                :multiple="false"
+                :multiple="true"
             />
         </div>
         <portal-target

@@ -6,13 +6,13 @@
         <slot>Module_Name</slot>
         <portal
             v-if="loaded"
-            class="hidden"
             to="Modules"
-            :disabled="!active"
         >
             <Component
                 :is="component"
+                :class="{hidden: !active}"
                 :component="component"
+                :module="module"
             />
         </portal>
     </li>
@@ -32,6 +32,10 @@ export default {
       default: false
     },
     component:{
+      type: String,
+      required: true
+    },
+    module:{
       type: String,
       required: true
     }

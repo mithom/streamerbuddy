@@ -19,6 +19,7 @@
                     :key="module.fullname"
                     :active="activeModuleComponent === module.fullname"
                     :component="module.fullname"
+                    :module="module.module"
                     @click.native="activate(module)"
                 >
                     {{ module.name }}

@@ -42,14 +42,22 @@ export default {
         cats.push({
           category: cat,
           modules: Object.values(modules)
-            .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
+            .map(mod=>{return {
+              fullname: mod.main.fullname,
+              name: mod.main.name,
+              module: mod.name,
+            }})
             .filter(mod => this.$store.state.moduleState[mod.fullname])
         })
       }
       cats.push({
         category: "Disabled",
         modules: this.allModules
-          .map(mod=>{return {fullname: mod.main.fullname, name: mod.main.name}})
+          .map(mod=>{return {
+            fullname: mod.main.fullname,
+            name: mod.main.name,
+            module: mod.name,
+          }})
           .flat()
           .filter(mod => !this.$store.state.moduleState[mod.fullname])
       })
