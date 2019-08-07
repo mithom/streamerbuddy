@@ -3,7 +3,10 @@
         :class="widthClass"
         class="px-2"
     >
-        <div class="bg-white shadow rounded h-32 p-4">
+        <div
+            class="bg-white shadow rounded h-auto p-4"
+            style="min-height: 8rem"
+        >
             <slot>{{ widthClass }} column</slot>
         </div>
     </div>

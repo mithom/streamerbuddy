@@ -5,7 +5,11 @@
         <ul class="bg-white py-1">
             <menu-item><i class="far fa-address-card" /> Profile</menu-item>
             <menu-item><i class="fas fa-map" /> Dashboard Admin</menu-item>
-            <menu-item><i class="fas fa-plug" /> Connections</menu-item>
+            <menu-item
+                @click.native="showConnectionManager"
+            >
+                <i class="fas fa-plug" /> Connections
+            </menu-item>
             <menu-item><i class="fas fa-wrench" /> Account settings</menu-item>
             <menu-item><i class="far fa-address-card" /> Profile</menu-item>
             <menu-item>
@@ -49,6 +53,12 @@ export default {
   data(){
     return {
       darkMode: true
+    }
+  },
+  methods:{
+    showConnectionManager: function(){
+      this.$emit('close')
+      this.$modal.show('connectionManager')
     }
   }
 }

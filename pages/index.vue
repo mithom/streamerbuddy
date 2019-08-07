@@ -4,6 +4,7 @@
         class="flex flex-col bg-gray-200 font-sans antialiased"
     >
         <StoreModal />
+        <ConnectionsManager />
         <!-- the full header component -->
         <Header />
 
@@ -25,16 +26,18 @@
 
 <script>
 import Header from '~/components/Header'
-import StoreModal from "../components/ModuleStore/StoreModal";
+import StoreModal from "~/components/ModuleStore/StoreModal";
 import Dashboard from "~/components/content/Dashboard/Dashboard"
 import Modules from "~/components/content/Modules/Modules"
-import Extras from "../components/content/Extras/Extras";
-import Commands from "../components/content/Commands/Commands";
-import Timers from "../components/content/Timers/Timers";
+import Extras from "~/components/content/Extras/Extras";
+import Commands from "~/components/content/Commands/Commands";
+import Timers from "~/components/content/Timers/Timers";
 import {mapState} from 'vuex'
+import ConnectionsManager from "~/components/ConnectionsManager/ConnectionsManager";
 
 export default {
   components: {
+    ConnectionsManager,
     StoreModal,
     Header,
     Dashboard,

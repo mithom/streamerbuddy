@@ -11,8 +11,7 @@ const set = promisify(storage.set)
 const remove = promisify(storage.remove)
 const clear = promisify(storage.clear)
 
-export default
-new VuexPersistence({
+export default new VuexPersistence({
   asyncStorage: true,
   strictMode: true,
   storage: {

@@ -24,7 +24,8 @@
         <!-- Dropdown menu for profile -->
         <DropDownMenu 
             v-if="MenuOpen"
-            @click.native.stop=""
+            @click.native.stop
+            @close="closeMenu"
         />
     </div>
 </template>
