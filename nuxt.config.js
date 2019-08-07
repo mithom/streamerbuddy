@@ -10,6 +10,10 @@ module.exports = {
   devModules: [
     '@nuxtjs/tailwindcss'
   ],
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
+    cssPath: '~/assets/css/tailwind.css'
+  },
   server:{
     host: '127.0.0.1',
     port: 41263
