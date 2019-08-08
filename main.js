@@ -5,6 +5,7 @@ const http = require('http')
 const {Nuxt, Builder} = require('nuxt')
 const updater = require('./app/updater')
 const {createModuleLoaderHook} = require('./app/module-loader')
+const initOAuth = require('./app/OAuth')
 require('./app/module-installer')
 
 /*
@@ -31,7 +32,7 @@ if (config.dev) {
 }
 
 // Listen the server
-server.listen()
+server.listen(nuxt.options.server.port)
 const _NUXT_URL_ = `http://localhost:${server.address().port}`
 console.log(`Nuxt working on ${_NUXT_URL_}`)
 
@@ -113,10 +114,12 @@ const mainWin = async function (url = '') {
 
 const initProgram = async function () {
   try {
-    let _update = updater.checkForUpdate()
     createModuleLoaderHook()
-    let _new_win = mainWin()
-    await Promise.all([_update, _new_win])
+    await Promise.all([
+      updater.checkForUpdate(),
+      mainWin()
+    ])
+    initOAuth(win)
   } catch (e) {
     console.log('something went wrong during startup')
     console.log(e)

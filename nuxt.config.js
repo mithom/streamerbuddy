@@ -5,7 +5,8 @@ module.exports = {
   head: { title: 'StreamerBuddy' }, // Headers of the page
   loading: true, // Disable default loading bar
   modules: [
-    'portal-vue/nuxt'
+    'portal-vue/nuxt',
+    '@nuxtjs/date-fns',
   ],
   devModules: [
     '@nuxtjs/tailwindcss'
@@ -15,8 +16,11 @@ module.exports = {
     cssPath: '~/assets/css/tailwind.css'
   },
   server:{
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 41263
+  },
+  env: {
+    baseUrl: 'http://localhost:41263'
   },
   build: {
     babel:{
@@ -64,7 +68,7 @@ module.exports = {
   plugins:[
     '~/plugins/component-plugin',
     '~/plugins/vue-js-modal',
-    '~plugins/common-filters'
+    '~/plugins/common-filters'
   ],
   dev: process.env.NODE_ENV === 'DEV'
 }

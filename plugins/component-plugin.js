@@ -14,6 +14,7 @@ import Hook from '~/components/ModuleParts/Hooks/Hook'
 import Provider from '~/components/ModuleParts/Hooks/Provider'
 import Sink from '~/components/ModuleParts/Hooks/Sink'
 import Receiver from '~/components/ModuleParts/Hooks/Receiver'
+import ConnectionSource from "~/components/ModuleParts/Connections/ConnectionSource";
 
 // register all components here that will be available to the dynamic modules
 //Parts
@@ -36,3 +37,4 @@ Vue.component('Hook', Hook)
 Vue.component('Provider', Provider)
 Vue.component('Sink', Sink)
 Vue.component('Receiver', Receiver)
+Vue.component('ConnectionSource', ConnectionSource)

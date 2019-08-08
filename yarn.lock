@@ -984,6 +984,13 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^3.2.0"
 
+"@nuxtjs/date-fns@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/date-fns/-/date-fns-0.1.1.tgz#5afc128ec4e1b626e9c284415f14b09790cf69fb"
+  integrity sha512-JBWoXM+9gOZJcm0hsaWhim+SCuwmvk+GUiE3b1+n7sAfFmJAAH/6TY5MIHNUErta6LWzdxIYCrWa3PuNQc8/jw==
+  dependencies:
+    date-fns "^1.30.1"
+
 "@nuxtjs/tailwindcss@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-1.1.1.tgz#5d7a7052dce6d19240431eaaac2a485c13cfbfc2"
@@ -2999,6 +3006,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+date-fns@^1.30.1:
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -7789,6 +7801,11 @@ scriptjs@^2.5.9:
   version "2.5.9"
   resolved "https://registry.yarnpkg.com/scriptjs/-/scriptjs-2.5.9.tgz#343915cd2ec2ed9bfdde2b9875cd28f59394b35f"
   integrity sha512-qGVDoreyYiP1pkQnbnFAUIS5AjenNwwQBdl7zeos9etl+hYKWahjRTfzAZZYBv5xNHx7vNKCmaLDQZ6Fr2AEXg==
+
+secure-random@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/secure-random/-/secure-random-1.1.2.tgz#ed103b460a851632d420d46448b2a900a41e7f7c"
+  integrity sha512-H2bdSKERKdBV1SwoqYm6C0y+9EA94v6SUBOWO8kDndc4NoUih7Dv6Tsgma7zO1lv27wIvjlD0ZpMQk7um5dheQ==
 
 semver-diff@^2.0.0:
   version "2.1.0"

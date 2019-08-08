@@ -14,6 +14,13 @@
                     name="connections"
                     :multiple="true"
                 />
+                <ConnectionSource
+                    :scopes="[]"
+                    :query="{force_verify: true}"
+                    client-id="qznxhz165275vl8jnjgwfhibklp5cw"
+                    authorization-url="https://id.twitch.tv/oauth2/authorize"
+                    access-token-url="https://id.twitch.tv/oauth2/token"
+                />
                 <!-- class="w-full p-2 border-b flex items-center relative" -->
                 <button
                     class="w-full p-2 border-b relative text-left"
@@ -61,7 +68,7 @@ export default {
     }
   },
   mounted() {
-    this.$modal.show('addConnection')
+
   },
   methods:{
     toggleAdd: function(){
