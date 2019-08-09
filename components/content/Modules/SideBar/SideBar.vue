@@ -47,7 +47,7 @@ export default {
               name: mod.main.name,
               module: mod.name,
             }})
-            .filter(mod => this.$store.state.moduleState[mod.fullname])
+            .filter(mod => this.$store.state.moduleState[mod.module])
         })
       }
       cats.push({
@@ -59,7 +59,7 @@ export default {
             module: mod.name,
           }})
           .flat()
-          .filter(mod => !this.$store.state.moduleState[mod.fullname])
+          .filter(mod => !this.$store.state.moduleState[mod.module])
       })
       return cats.filter(cat=> cat.modules.length > 0)
     },

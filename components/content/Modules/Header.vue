@@ -41,10 +41,10 @@ export default {
   computed:{
     enabled: {
       get: function(){
-        return this.$store.state.moduleState[this.activeModule?.fullname]
+        return this.$store.state.moduleState[this.activeModule?.module]
       },
       set: function(value){
-        this.$store.commit('changeModuleState', {module: this.activeModule.fullname, state: value})
+        this.$store.commit('changeModuleState', {module: this.activeModule.module, state: value})
       }
     },
     activeModule(){

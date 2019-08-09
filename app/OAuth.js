@@ -12,6 +12,8 @@ module.exports = function(mainWin){
       webPreferences: {
         nodeIntegration: true
       },
+      parent: mainWin,
+      modal: true,
       icon: path.join(__dirname, 'static/icon.png'),
       frame: false,
       titleBarStyle: 'hidden',
@@ -27,7 +29,7 @@ module.exports = function(mainWin){
 
     const finishAuth = function(event, args){
       if(event.sender === authWin.webContents){
-        mainWin.webContents.send('finishAuth', args.user)
+        mainWin.webContents.send('finishAuth', Object.assign({},args.data))
         ipcMain.removeListener('finishAuth', finishAuth)
       }
     }

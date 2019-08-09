@@ -65,11 +65,11 @@ export const mutations = {
     }
     Vue.set(state.appModules[module.category], module.name, module)
 
-    Vue.set(state.moduleState, module.main.fullname, state.moduleState[module.main.fullname] || false)
+    Vue.set(state.moduleState, module.main.fullname, state.moduleState[module.name] || false)
   },
   removeModule(state, moduleInfo){
     //state.appModules[module.category] = state.appModules[module.category].filter((mod)=>mod.main.name !== module.main.name)
-    Vue.delete(state.moduleState, state.appModules[moduleInfo.category][moduleInfo.module].main.fullname)
+    Vue.delete(state.moduleState, moduleInfo.module)
     Vue.delete(state.appModules[moduleInfo.category], moduleInfo.module)
   },
   activateScreen(state, screen) {

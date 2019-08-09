@@ -14,20 +14,21 @@
                     name="connections"
                     :multiple="true"
                 />
-                <ConnectionSource
-                    :scopes="[]"
-                    :query="{force_verify: true}"
-                    client-id="qznxhz165275vl8jnjgwfhibklp5cw"
-                    authorization-url="https://id.twitch.tv/oauth2/authorize"
-                    access-token-url="https://id.twitch.tv/oauth2/token"
-                />
                 <!-- class="w-full p-2 border-b flex items-center relative" -->
                 <button
-                    class="w-full p-2 border-b relative text-left"
+                    class="w-full p-2 border-b text-left"
                     :class="{'hover:bg-gray-200': !opened, 'cursor-default': opened}"
                     :disabled="opened"
                     @click="toggleAdd"
                 >
+                    <InstallButton
+                        v-if="opened"
+                        class="float-right clear-none mr-16 mt-2"
+                        :install="toggleAdd"
+                        @click.native.stop
+                    >
+                        Close
+                    </InstallButton>
                     <span class="align-middle border border-blue-300 bg-gray-200 w-10 h-10 inline-block rounded plus" />
                     <span class="px-2 inline-block align-middle">
                         Add Connection
@@ -36,14 +37,6 @@
                         v-if="opened"
                         class="block"
                     >
-                        opened: {{ opened }}
-                        <InstallButton
-                            class="right-0 top-0 absolute mr-16 mt-2"
-                            :install="toggleAdd"
-                            @click.native.stop
-                        >
-                            Close
-                        </InstallButton>
                         <portal-target
                             name="addConnection"
                             :multiple="true"

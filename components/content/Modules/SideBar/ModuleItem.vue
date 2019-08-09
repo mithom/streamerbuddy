@@ -45,7 +45,7 @@ export default {
       return this.active ? 'border-blue-300 bg-blue-900' : 'border-transparent'
     },
     enabled: function(){
-      return this.$store.state.moduleState[this.component]
+      return this.$store.state.moduleState[this.module]
     },
     loaded: function(){
       return this.enabled || this.component === this.$store.getters.activeModule?.fullname

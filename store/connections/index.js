@@ -2,18 +2,34 @@ import Vue from 'vue'
 
 export const state = () => ({
   nonce:{},
-  access_tokens:{}
+  access_tokens:{},
+  nextAccountId: 0,
 })
 
-
 export const mutations = {
-  addConnectionAttempt(state, data){
-    Vue.set(state.nonce, data.nonce, data.options)
+  setConnectionAttempt(state, data){
+    state.nonce = data
+  },
+  setAccessToken(state, data){
+    if(isValidAccessToken(state, data)){
+      Vue.set(state.access_tokens, data.provider, {})
+      Vue.set(state.access_tokens[data.provider], data.id, data.access_token)
+    }
   },
   addAccessToken(state, data){
-    if(!state.access_token[data.provider]){
-      Vue.set(state.access_token, data.provider, {})
+    if(isValidAccessToken(state, data)){
+      if(!state.access_tokens[data.provider]){
+        Vue.set(state.access_tokens, data.provider, {})
+      }
+      Vue.set(state.access_tokens[data.provider], data.id, data.access_token)
     }
-    Vue.set(state.access_token[data.provider], data.user_id, data.user)
   },
+  consumeAccountId(state, data){
+    state.nextAccountId += 1
+  }
+}
+
+function isValidAccessToken(state, data){
+  return state.nonce.options.clientId === data.provider &&
+    state.nonce.options.state === data.access_token.state
 }
