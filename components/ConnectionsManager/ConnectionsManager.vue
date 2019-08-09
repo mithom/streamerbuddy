@@ -10,11 +10,6 @@
                 @click.native="$modal.hide('connectionManager')"
             />
             <div class="flex flex-col">
-                <portal-target
-                    name="connections"
-                    :multiple="true"
-                />
-                <!-- class="w-full p-2 border-b flex items-center relative" -->
                 <button
                     class="w-full p-2 border-b text-left"
                     :class="{'hover:bg-gray-200': !opened, 'cursor-default': opened}"
@@ -43,6 +38,11 @@
                         />
                     </span>
                 </button>
+                <portal-target
+                    name="connections"
+                    :multiple="true"
+                />
+                <!-- class="w-full p-2 border-b flex items-center relative" -->
             </div>
         </div>
     </Modal>

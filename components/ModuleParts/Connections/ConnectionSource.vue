@@ -18,7 +18,7 @@
                 :key="id"
                 to="connections"
             >
-                <div class="block w-full">
+                <div class="block w-full p-2 border-b text-left">
                     <InstallButton
                         class="float-right mr-16 mt-2"
                     >
