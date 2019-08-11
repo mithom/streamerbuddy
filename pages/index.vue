@@ -1,7 +1,8 @@
 <template>
+    <!--    :class="{'min-h-screen-mac': isMac, 'min-h-screen-windows': !isMac}"-->
     <div
-        :class="{'min-h-screen-mac': isMac, 'min-h-screen-windows': !isMac}"
-        class="flex flex-col bg-gray-200 font-sans antialiased"
+
+        class="flex flex-col bg-gray-200 font-sans antialiased h-full"
     >
         <StoreModal />
         <ConnectionsManager />
@@ -10,7 +11,9 @@
 
         <!-- content area (sidebar + content) -->
         <!-- this should become conditional depending on what is selected in the header -->
-        <div class="flex flex-grow">
+        <div
+            class="flex flex-grow"
+        >
             <template
                 v-for="tab in screens"
             >

@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <div class="container">
         <div>
             <h1>streamer-buddy</h1>
             <h2>You updated successfully to v0.0.8</h2>
@@ -42,7 +42,7 @@
                 Electron Builder
             </a>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>

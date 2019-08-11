@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FunctionButton from '../../parts/FunctionButton'
+import FunctionButton from '~/components/parts/FunctionButton'
 export default {
   name: 'Connection',
   components: {FunctionButton},

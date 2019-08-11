@@ -1,9 +1,7 @@
 <template>
-    <div class="flex flex-grow">
+    <div class="flex flex-grow h-full">
         <SideBar />
-        <div
-            :class="contentClass"
-        >
+        <div :class="contentClass">
             <Header v-if="component" />
             <portal-target
                 name="Modules"
@@ -20,7 +18,6 @@
 
 <script>
 import Header from "./Header";
-import StorePromote from "./StorePromote";
 import SideBar from "./SideBar/SideBar";
 import {mapState} from 'vuex'
 
@@ -29,7 +26,7 @@ export default {
   components: {SideBar, Header},
   data(){
     return {
-      contentClass: "w-4/5 px-2 py-4 text-blue-1000",
+      contentClass: "w-full px-2 py-4 text-blue-1000 overflow-y-auto",
     }
   },
   computed:{

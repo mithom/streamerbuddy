@@ -15,12 +15,18 @@ export default {
       type: Function,
       required: true
     },
+    immediate:{
+      type: Boolean,
+      default: false
+    }
   },
   created () {
     this.$watch(function () {
       return this.$store.state.hooks.hooks[this.module]?.[this.hook]
     }, function(newValue, oldValue){
       this.cb(newValue, oldValue)
+    },{
+      immediate: this.immediate
     })
   },
   render (createElement) {

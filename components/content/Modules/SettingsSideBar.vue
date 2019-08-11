@@ -1,6 +1,6 @@
 <template>
     <div
-        class="bg-gray-300 h-full w-2/5"
+        class="bg-gray-300 h-full w-2/5 overflow-y-auto"
     >
         <portal-target
             name="settings"

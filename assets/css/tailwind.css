@@ -9,13 +9,20 @@
     font-style: normal;
 }
 
-.min-h-screen-windows{
-    min-height: calc(100vh - 30px);
+#__layout {
+    height: 100%
+}
+#__nuxt {
+    height: 100%
 }
 
-.min-h-screen-mac{
-    min-height: calc(100vh - 22px);
-}
+/*.min-h-screen-windows{*/
+/*    min-height: calc(100vh - 30px);*/
+/*}*/
+
+/*.min-h-screen-mac{*/
+/*    min-height: calc(100vh - 22px);*/
+/*}*/
 
 .logo {
     font-family: "BebasNeueRegular";
@@ -47,4 +54,21 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 900; /* FA5 Free Doesn't work unless font-weight defined */
     padding-right: 5px;
+}
+
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: blueviolet;
+    opacity: 80;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
 }
