@@ -16,14 +16,14 @@
                     :disabled="opened"
                     @click="toggleAdd"
                 >
-                    <InstallButton
+                    <FunctionButton
                         v-if="opened"
                         class="float-right clear-none mr-16 mt-2"
-                        :install="toggleAdd"
+                        :func="toggleAdd"
                         @click.native.stop
                     >
                         Close
-                    </InstallButton>
+                    </FunctionButton>
                     <span class="align-middle border border-blue-300 bg-gray-200 w-10 h-10 inline-block rounded plus" />
                     <span class="px-2 inline-block align-middle">
                         Add Connection
@@ -50,18 +50,15 @@
 
 <script>
 import CloseButton from "../parts/CloseButton";
-import InstallButton from "../parts/InstallButton";
+import FunctionButton from '../parts/FunctionButton'
 
 export default {
   name: "ConnectionsManager",
-  components: {InstallButton, CloseButton},
+  components: {FunctionButton, CloseButton},
   data(){
     return {
       opened: false
     }
-  },
-  mounted() {
-
   },
   methods:{
     toggleAdd: function(){

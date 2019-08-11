@@ -1,18 +1,18 @@
 <template>
-    <button
-        class="leading-snug bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 shadow-md uppercase font-semibold rounded-lg ml-4"
-        @click="onClick"
+    <FunctionButton
+        :func="onClick"
+        :text="text"
     >
-        <slot>
-            {{ text }}
-        </slot>
-    </button>
+        <slot />
+    </FunctionButton>
 </template>
 
 <script>
 
+import FunctionButton from './FunctionButton'
 export default {
   name: "InstallButton",
+  components: {FunctionButton},
   props:{
     install:{
       type: Function,

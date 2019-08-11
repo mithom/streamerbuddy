@@ -1,26 +1,24 @@
 <template>
-    <InstallButton
+    <FunctionButton
         v-if="settingsAvailable"
-        :installed="moduleSettingsOpen"
-        :install="toggleModuleSettingsOpen"
-        :uninstall="toggleModuleSettingsOpen"
+        :func="toggleModuleSettingsOpen"
     >
         Settings
         <portal to="settingsPanel">
             <SettingsSideBar v-if="moduleSettingsOpen" />
         </portal>
-    </InstallButton>
+    </FunctionButton>
 </template>
 
 <script>
-import InstallButton from "../../parts/InstallButton";
 import SettingsSideBar from "./SettingsSideBar";
 import {Wormhole} from 'portal-vue'
+import FunctionButton from '../../parts/FunctionButton'
 
 export default {
   name: "SettingsButton",
   components:{
-    InstallButton,
+    FunctionButton,
     SettingsSideBar
   },
   data(){
