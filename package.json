@@ -60,6 +60,7 @@
     "electron-updater": "4.1.2",
     "electron-window-state": "^5.0.3",
     "js-sha1": "^0.6.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.1",
     "nuxt": "^2.8.1",
     "portal-vue": "^2.1.5",

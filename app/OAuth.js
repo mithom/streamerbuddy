@@ -19,7 +19,7 @@ module.exports = function(mainWin){
       titleBarStyle: 'hidden',
     });
 
-    const onRequestAuthData =  function(event){
+    const onRequestAuthData = (event)=>{
       if(event.sender === authWin.webContents){
         ipcMain.on('finishAuth', finishAuth)
 
@@ -27,7 +27,7 @@ module.exports = function(mainWin){
       }
     }
 
-    const finishAuth = function(event, args){
+    const finishAuth = (event, args)=>{
       if(event.sender === authWin.webContents){
         mainWin.webContents.send('finishAuth', Object.assign({},args.data))
         ipcMain.removeListener('finishAuth', finishAuth)

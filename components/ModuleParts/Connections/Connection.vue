@@ -1,12 +1,14 @@
 <template>
-    <div class="block w-full p-2 border-b text-left">
+    <div class="block w-full p-2 border-b text-left break-words">
         <FunctionButton
             :func="()=>{}"
             class="float-right mr-16 mt-2"
         >
             Disconnect
         </FunctionButton>
-        <div>{{ connection }}</div>
+        <div class="max-w-full">
+            {{ connection }}
+        </div>
     </div>
 </template>
 

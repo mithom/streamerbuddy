@@ -22,7 +22,7 @@
             v-if="true"
         >
             <portal
-                v-for="[id, connection] of Object.entries(connections)"
+                v-for="(connection, id) of connections"
                 :key="id"
                 to="connections"
             >
@@ -42,6 +42,10 @@ import Connection from './Connection'
 export default {
   name: "ConnectionSource",
   components: {Connection, NewConnection},
+  model:{
+    prop: 'value',
+    event: 'input'
+  },
   props:{
     clientId:{
       type: String,
@@ -74,7 +78,7 @@ export default {
     allowMultiple:{
       type: Boolean,
       default: false
-    }
+    },
   },
   data(){
     return {
@@ -86,7 +90,9 @@ export default {
       return this.allowMultiple || !this.connections
     },
     connections(){
-      return this.$store.state.connections.access_tokens[this.clientId] || []
+      const _connections = this.$store.state.connections.access_tokens[this.clientId] || []
+      this.$emit('input', _connections)
+      return _connections
     }
   },
 }

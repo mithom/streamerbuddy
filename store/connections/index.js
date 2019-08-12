@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import {verify, decode} from 'jsonwebtoken'
 
 export const state = () => ({
   nonce:{},
@@ -12,12 +13,14 @@ export const mutations = {
   },
   setAccessToken(state, data){
     if(isValidAccessToken(state, data)){
+      processToken(data)
       Vue.set(state.access_tokens, data.provider, {})
       Vue.set(state.access_tokens[data.provider], data.id, data.access_token)
     }
   },
   addAccessToken(state, data){
     if(isValidAccessToken(state, data)){
+      processToken(data)
       if(!state.access_tokens[data.provider]){
         Vue.set(state.access_tokens, data.provider, {})
       }
@@ -32,4 +35,10 @@ export const mutations = {
 function isValidAccessToken(state, data){
   return state.nonce.options.clientId === data.provider &&
     state.nonce.options.state === data.access_token.state
+}
+
+function processToken(data){
+  if(data.access_token.hasOwnProperty('id_token')){
+    data.access_token.id_token = decode(data.access_token.id_token)
+  }
 }
