@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-for="[name, setting] of Object.entries(settings)">
+        <template v-for="(setting, name) in settings">
             <Component
                 :is="componentType(setting.type)"
                 :key="name"
