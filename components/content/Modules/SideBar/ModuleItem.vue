@@ -10,6 +10,7 @@
         >
             <Component
                 :is="component"
+                :key="component"
                 :class="{hidden: !active}"
                 :component="component"
                 :module="module"
