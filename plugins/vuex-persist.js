@@ -1,24 +1,31 @@
 import VuexPersistence from 'vuex-persist'
-import storage from 'electron-json-storage'
 const {remote:{app}} = require('electron')
 import path from 'path'
-import {promisify} from "util";
+import fs from 'fs'
 
-storage.setDataPath(path.join(app.getPath('userData'),'app','store'))
+//storage.setDataPath(path.join(app.getPath('userData'),'app','store'))
+const filePath = path.join(app.getPath('userData'),'app','store')
 
-const get = promisify(storage.get)
-const set = promisify(storage.set)
-const remove = promisify(storage.remove)
-const clear = promisify(storage.clear)
+const set = async function(key, json, ...options){
+  console.log('pause me set')
+  const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'w')
+  await fh.writeFile(json, 'utf-8')
+  await fh.close()
+}
+
+const get = async function(key, ...options){
+  console.log('pause me get')
+  const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'r')
+  const data = await fh.readFile('utf-8')
+  await fh.close()
+  return data
+}
 
 export default new VuexPersistence({
   asyncStorage: true,
-  strictMode: true,
   storage: {
     getItem: get,
     setItem: set,
-    removeItem: remove,
-    clear: clear
   },
   reducer: (state)=>{
     return Object.keys(state)

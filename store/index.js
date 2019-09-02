@@ -52,7 +52,6 @@ export const state = () => ({
   screens: ['Dashboard', 'Modules', 'Commands', 'Timers', 'Extras'],
   activeScreen: 'Dashboard',
   activeModule: null,
-  stateLoaded: false,
   notifications:['i am a notification','i am a second notif'],
   alerts:['there is only 1 alert for now'],
 })
@@ -80,9 +79,6 @@ export const mutations = {
   },
   changeModuleState(state, data){
     Vue.set(state.moduleState, data.module, data.state)
-  },
-  finishStateLoading(state){
-    state.stateLoaded = true
   },
   addNotification(state, notification){
     state.notifications.push(notification)

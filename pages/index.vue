@@ -57,19 +57,7 @@ export default {
   },
   async asyncData({store}){
     //wait with rendering until old state has been loaded
-    if(!store.state.stateLoaded){
-      const done = new Promise((resolve,reject)=>{
-        const unsub = store.subscribe((mutation)=>{
-          if(mutation.type === 'RESTORE_MUTATION'){
-            store.commit('finishStateLoading')
-            console.log('done hydrating store')
-            resolve()
-            unsub()
-          }
-        })
-      })
-      await done
-    }
+    await store.restored
   }
 }
 </script>
