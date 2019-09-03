@@ -1,69 +1,63 @@
 <template>
     <div class="container">
         <div>
-            <h1>streamer-buddy</h1>
-            <h2>You updated successfully to v0.0.8</h2>
-            <h2>An assistant for streaming which includes also some modules for specific games.</h2>
+            <FunctionButton
+                v-if="managing"
+                :func="openComponentPicker"
+                text="Add Component"
+            />
             <div id="dashboard">
-                <component
-                    :is="component.fullname"
-                    v-for="component in components"
-                    :key="'0' + component.fullname"
+                <h1>streamer-buddy</h1>
+                <h2>You updated successfully to v0.0.8</h2>
+                <h2>An assistant for streaming which includes also some modules for specific games.</h2>
+                <draggable
+                    v-model="myList"
+                    :animation="150"
+                    :group="{name:'componentList', pull: true, put: true}"
+                    @start="drag = true"
+                    @end="drag = false"
                 >
-                    non default text
-                </component>
+                    <component
+                        :is="component.fullname"
+                        v-for="component in myList"
+                        :key="component.id"
+                    >
+                        non default text
+                    </component>
+                </draggable>
             </div>
-            <a
-                href="https://nuxtjs.org/"
-                target="_blank"
-                class="btn btn-primary"
-            >
-                Documentation
-            </a>
-            <a
-                href="https://github.com/nuxt/nuxt.js"
-                target="_blank"
-                class="btn btn-primary"
-            >
-                GitHub
-            </a>
-            <a
-                href="https://electronjs.org/"
-                target="_blank"
-                class="btn btn-secondary"
-            >
-                Electron
-            </a>
-            <a
-                href="https://github.com/electron-userland/electron-builder"
-                target="_blank"
-                class="btn btn-secondary"
-            >
-                Electron Builder
-            </a>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import draggable from 'vuedraggable'
+import FunctionButton from "~/components/parts/FunctionButton";
+
 export default {
   name: 'Dashboard',
-  components: {},
-  computed: {
-    ...mapGetters(['allModules']),
-    components() {
-      const components = []
-      for (const mod of this.allModules){
-        if (mod.components && mod.components.length !== 0) {
-          components.push(...mod.components)
-        }
-      }
-      return components
+  components: {FunctionButton, draggable},
+  data(){
+    return {
+      drag: false,
+      managing: true
     }
   },
-  async fetch({store, params}) {
+  computed: {
+    myList: {
+      get() {
+        return this.$store.state.dashboard.componentGrid
+      },
+      set(value) {
+        this.$store.commit('dashboard/updateList', value)
+      }
+    }
   },
+  methods:{
+    openComponentPicker: function(){
+      this.$modal.show('componentPicker')
+    },
+  }
 }
 
 </script>

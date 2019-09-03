@@ -7,14 +7,12 @@ import fs from 'fs'
 const filePath = path.join(app.getPath('userData'),'app','store')
 
 const set = async function(key, json, ...options){
-  console.log('pause me set')
   const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'w')
   await fh.writeFile(json, 'utf-8')
   await fh.close()
 }
 
 const get = async function(key, ...options){
-  console.log('pause me get')
   const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'r')
   const data = await fh.readFile('utf-8')
   await fh.close()

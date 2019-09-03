@@ -78,11 +78,9 @@ export default {
         options
       })
       ipcRenderer.once('finishAuth', (event, access_token)=>{
-        this.$store.commit('connections/consumeAccountId')
         const method = this.allowMultiple ? 'addAccessToken' : 'setAccessToken'
         this.$store.commit(`connections/${method}`, {
           provider: this.clientId,
-          id: this.$store.state.connections.nextAccountId,
           access_token,
         })
       })

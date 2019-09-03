@@ -4,7 +4,7 @@ import {verify, decode} from 'jsonwebtoken'
 export const state = () => ({
   nonce:{},
   access_tokens:{},
-  nextAccountId: 0,
+  lastAccountId: 0,
 })
 
 export const mutations = {
@@ -15,7 +15,7 @@ export const mutations = {
     if(isValidAccessToken(state, data)){
       processToken(data)
       Vue.set(state.access_tokens, data.provider, {})
-      Vue.set(state.access_tokens[data.provider], data.id, data.access_token)
+      Vue.set(state.access_tokens[data.provider], accountIdGen.next(state).value, data.access_token)
     }
   },
   addAccessToken(state, data){
@@ -24,13 +24,21 @@ export const mutations = {
       if(!state.access_tokens[data.provider]){
         Vue.set(state.access_tokens, data.provider, {})
       }
-      Vue.set(state.access_tokens[data.provider], data.id, data.access_token)
+      Vue.set(state.access_tokens[data.provider], accountIdGen.next(state).value, data.access_token)
     }
   },
-  consumeAccountId(state, data){
-    state.nextAccountId += 1
+}
+
+function* accountIdGenerator(){
+  let state = yield null
+  while(true){
+    state.lastAccountId += 1
+    state = yield state.lastAccountId
   }
 }
+
+const accountIdGen = accountIdGenerator()
+accountIdGen.next()
 
 function isValidAccessToken(state, data){
   return state.nonce.options.clientId === data.provider &&
