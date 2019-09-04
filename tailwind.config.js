@@ -5,7 +5,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ...defaultTheme.colors
+        ...defaultTheme.colors,
+        'blue-1000':  '#152132'
       },
       inset: {
         '6': '6rem'
