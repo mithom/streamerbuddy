@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 export const state = () => ({
   componentGrid:[],
-  nextComponentId: 1
+  managing: false,
+  nextComponentId: 1,
 })
 
 export const mutations = {
@@ -11,5 +12,11 @@ export const mutations = {
   },
   consumeComponentId(state){
     state.nextComponentId += 1
-  }
+  },
+  startAdmin(state){
+    state.managing = true
+  },
+  stopAdmin(state){
+    state.managing = false
+  },
 }

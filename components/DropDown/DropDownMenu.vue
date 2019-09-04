@@ -4,7 +4,11 @@
     >
         <ul class="bg-white py-1">
             <menu-item><i class="far fa-address-card" /> Profile</menu-item>
-            <menu-item><i class="fas fa-map" /> Dashboard Admin</menu-item>
+            <menu-item
+                @click.native="showDashboardAdmin"
+            >
+                <i class="fas fa-map" /> Dashboard Admin
+            </menu-item>
             <menu-item
                 @click.native="showConnectionManager"
             >
@@ -47,6 +51,8 @@
 
 <script>
 import MenuItem from './MenuItem'
+import {mapActions} from "vuex";
+
 export default {
   name: 'DropDownMenu',
   components: {MenuItem},
@@ -56,9 +62,14 @@ export default {
     }
   },
   methods:{
+    ...mapActions({activate: 'activateScreen'}),
     showConnectionManager: function(){
       this.$emit('close')
       this.$modal.show('connectionManager')
+    },
+    showDashboardAdmin: function(){
+      this.$emit('close')
+      this.activate('DashboardAdmin')
     }
   }
 }

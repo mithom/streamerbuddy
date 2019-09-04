@@ -111,7 +111,13 @@ export const actions = {
     if (screen === 'Modules' && state.activeModule === null){
       dispatch('activateFirstModule')
     }
-    commit('activateScreen', screen)
+    if(screen === 'DashboardAdmin'){
+      commit('activateScreen', 'Dashboard')
+      commit('dashboard/startAdmin')
+    }else{
+      commit('activateScreen', screen)
+    }
+
   },
   activateModule({commit}, module){
     commit('activateModule', module)

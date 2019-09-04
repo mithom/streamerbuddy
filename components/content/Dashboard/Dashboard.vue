@@ -6,6 +6,11 @@
                 text="Add Component"
                 @func="openComponentPicker"
             />
+            <FunctionButton
+                v-if="managing"
+                text="Stop Admin"
+                @func="$store.commit('dashboard/stopAdmin')"
+            />
             <div id="dashboard">
                 <h1>streamer-buddy</h1>
                 <h2>You updated successfully to v0.0.8</h2>
@@ -14,6 +19,7 @@
                     v-model="myList"
                     class="flex flex-wrap"
                     ghost-class="ghostclass"
+                    :disabled="!managing"
                     :animation="150"
                     :group="{name:'componentList', pull: true, put: true}"
                     @start="start"
@@ -35,6 +41,7 @@
 <script>
 import draggable from 'vuedraggable'
 import FunctionButton from "~/components/parts/FunctionButton";
+import {mapState} from "vuex";
 
 export default {
   name: 'Dashboard',
@@ -43,10 +50,12 @@ export default {
     return {
       drag: false,
       dragComponent: null,
-      managing: true,
     }
   },
   computed: {
+    managing() {
+      return this.$store.state.dashboard.managing
+    },
     myList: {
       get() {
         return this.$store.state.dashboard.componentGrid
@@ -61,16 +70,12 @@ export default {
       this.$modal.show('componentPicker')
     },
     start: function(evt){
-      console.log(evt)
       this.drag = true
-      //console.log(evt.item)
       evt.item.firstChild.classList.add('opacity-0')
-      //evt.item.classList.add()
     },
     stop: function(evt){
       this.drag = false
       evt.item.firstChild.classList.remove('opacity-0')
-      //evt.item.classList.remove('bg-gray-300', 'rounded-xxl', 'border-4', 'border-dashed', 'border-gray-500')
     }
   }
 }
