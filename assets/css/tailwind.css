@@ -31,13 +31,6 @@
     padding-right: 5px;
 }
 
-.hover-opacity {
-    opacity: 0.75;
-}
-.hover-opacity:hover {
-    opacity: 1;
-}
-
 ::-webkit-scrollbar {
     @apply h-3;
     @apply w-3;

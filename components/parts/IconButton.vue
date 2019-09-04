@@ -1,7 +1,7 @@
 <template>
     <div class="relative p-3 mr-1">
         <svg
-            class="fill-current text-white w-5 h-5 hover-opacity"
+            class="fill-current text-white w-5 h-5 opacity-75 hover:opacity-100"
             viewBox="0 0 20 20"
         >
             <slot>
