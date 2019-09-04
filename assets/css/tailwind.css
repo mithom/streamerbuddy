@@ -9,23 +9,13 @@
     font-style: normal;
 }
 
-/* purgecss ignore */
 #__layout {
     @apply h-full;
 }
 
-/* purgecss ignore */
 #__nuxt {
     @apply h-full;
 }
-
-/*.min-h-screen-windows{*/
-/*    min-height: calc(100vh - 30px);*/
-/*}*/
-
-/*.min-h-screen-mac{*/
-/*    min-height: calc(100vh - 22px);*/
-/*}*/
 
 .logo {
     font-family: "BebasNeueRegular";
@@ -49,8 +39,6 @@
 }
 
 ::-webkit-scrollbar {
-    /*height: 12px;*/
-    /*width: 12px;*/
     @apply h-3;
     @apply w-3;
 }

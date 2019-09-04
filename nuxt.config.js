@@ -8,12 +8,20 @@ module.exports = {
     'portal-vue/nuxt',
     '@nuxtjs/date-fns',
   ],
-  devModules: [
+  buildModules: [
     '@nuxtjs/tailwindcss'
   ],
   tailwindcss: {
     configPath: '~/tailwind.config.js',
     cssPath: '~/assets/css/tailwind.css'
+  },
+  purgeCSS:{
+    whitelist: ['__nuxt', '__layout'],
+    paths:[
+      '../streamerbuddy-store/src/**/*.vue',
+      '../streamerbuddy-store/src/**/*.js',
+      '../streamerbuddy-store/src/**/*.css'
+    ]
   },
   server:{
     host: 'localhost',
@@ -25,11 +33,6 @@ module.exports = {
   build: {
     babel:{
       plugins:["@babel/plugin-proposal-optional-chaining"]
-    },
-    postcss: {
-      plugins: {
-        'tailwindcss': 'tailwind.config.js',
-      }
     },
     webpack:{
       module:{

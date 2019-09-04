@@ -1,7 +1,7 @@
 {
   "name": "streamer-buddy",
   "repository": "https://github.com/mithom/StreamerBuddy",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "An assistant for streaming which includes also some modules for specific games.",
   "author": "Brain",
   "private": true,
@@ -48,7 +48,6 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@nuxtjs/date-fns": "^0.1.1",
-    "@nuxtjs/tailwindcss": "^1.1.0",
     "@octokit/plugin-retry": "^2.2.0",
     "@octokit/plugin-throttling": "^2.6.0",
     "@octokit/rest": "16.28.6",
@@ -62,7 +61,7 @@
     "js-sha1": "^0.6.0",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.1",
-    "nuxt": "^2.8.1",
+    "nuxt": "^2.9.2",
     "portal-vue": "^2.1.5",
     "secure-random": "^1.1.2",
     "velocity-animate": "^1.5.2",
@@ -71,8 +70,8 @@
     "vue-loading-overlay": "3.2.0",
     "vuedraggable": "^2.23.0",
     "vuex": "^3.1.1",
-    "vuex-persist": "^2.1.0",
-    "webpack": "^4.39.1"
+    "@nuxtjs/tailwindcss": "^1.1.2",
+    "vuex-persist": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "10.0.2",
