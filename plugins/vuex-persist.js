@@ -7,16 +7,29 @@ import fs from 'fs'
 const filePath = path.join(app.getPath('userData'),'app','store')
 
 const set = async function(key, json, ...options){
-  const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'w')
-  await fh.writeFile(json, 'utf-8')
-  await fh.close()
+  try{
+    const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'w')
+    await fh.writeFile(json, 'utf-8')
+    await fh.close()
+  }catch (e) {
+    if(e.hasOwnProperty('code') && e.code === 'ENOENT' && (options?.retry ? options.retry : true)){
+      await fs.promises.mkdir(filePath, {recursive: true})
+      await set(key, json, {retry: false, ...options})
+    }else{
+      throw e
+    }
+  }
 }
 
 const get = async function(key, ...options){
-  const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'r')
-  const data = await fh.readFile('utf-8')
-  await fh.close()
-  return data
+  try{
+    const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'r')
+    const data = await fh.readFile('utf-8')
+    await fh.close()
+    return data
+  }catch (e) {
+    return {}
+  }
 }
 
 export default new VuexPersistence({

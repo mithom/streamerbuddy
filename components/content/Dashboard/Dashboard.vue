@@ -13,7 +13,7 @@
             />
             <div id="dashboard">
                 <h1>streamer-buddy</h1>
-                <h2>You updated successfully to v0.0.8</h2>
+                <h2>You updated successfully to v0.0.14</h2>
                 <h2>An assistant for streaming which includes also some modules for specific games.</h2>
                 <draggable
                     v-model="myList"
