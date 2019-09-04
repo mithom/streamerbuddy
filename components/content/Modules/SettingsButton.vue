@@ -1,7 +1,7 @@
 <template>
     <FunctionButton
         v-if="settingsAvailable"
-        :func="toggleModuleSettingsOpen"
+        @func="toggleModuleSettingsOpen"
     >
         Settings
         <portal to="settingsPanel">

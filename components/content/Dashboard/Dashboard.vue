@@ -3,8 +3,8 @@
         <div>
             <FunctionButton
                 v-if="managing"
-                :func="openComponentPicker"
                 text="Add Component"
+                @func="openComponentPicker"
             />
             <div id="dashboard">
                 <h1>streamer-buddy</h1>

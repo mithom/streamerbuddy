@@ -1,7 +1,7 @@
 <template>
     <FunctionButton
-        :func="onClick"
         :text="text"
+        @func="onClick"
     >
         <slot />
     </FunctionButton>

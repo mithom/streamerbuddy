@@ -19,7 +19,7 @@
                     <FunctionButton
                         v-if="opened"
                         class="float-right clear-none mr-16 mt-2"
-                        :func="toggleAdd"
+                        @func="toggleAdd"
                         @click.native.stop
                     >
                         Close

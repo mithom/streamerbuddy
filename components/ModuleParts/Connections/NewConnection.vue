@@ -5,7 +5,7 @@
             v-bind="$props"
         >
             <FunctionButton
-                :func="openAuthWindow"
+                @func="openAuthWindow"
             >
                 Connect
             </FunctionButton>
