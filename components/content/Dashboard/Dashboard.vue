@@ -12,10 +12,12 @@
                 <h2>An assistant for streaming which includes also some modules for specific games.</h2>
                 <draggable
                     v-model="myList"
+                    class="flex flex-wrap"
+                    ghost-class="ghostclass"
                     :animation="150"
                     :group="{name:'componentList', pull: true, put: true}"
-                    @start="drag = true"
-                    @end="drag = false"
+                    @start="start"
+                    @end="stop"
                 >
                     <component
                         :is="component.fullname"
@@ -40,7 +42,8 @@ export default {
   data(){
     return {
       drag: false,
-      managing: true
+      dragComponent: null,
+      managing: true,
     }
   },
   computed: {
@@ -57,8 +60,29 @@ export default {
     openComponentPicker: function(){
       this.$modal.show('componentPicker')
     },
+    start: function(evt){
+      console.log(evt)
+      this.drag = true
+      //console.log(evt.item)
+      evt.item.firstChild.classList.add('opacity-0')
+      //evt.item.classList.add()
+    },
+    stop: function(evt){
+      this.drag = false
+      evt.item.firstChild.classList.remove('opacity-0')
+      //evt.item.classList.remove('bg-gray-300', 'rounded-xxl', 'border-4', 'border-dashed', 'border-gray-500')
+    }
   }
 }
 
 </script>
+<style scoped>
+.ghostclass{
+    @apply bg-gray-300;
+    @apply rounded-xxl;
+    @apply border-4;
+    @apply border-dashed;
+    @apply border-gray-500;
+}
+</style>
 

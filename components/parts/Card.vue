@@ -1,7 +1,7 @@
 <template>
     <div
         :class="widthClass"
-        class="px-2"
+        class="p-2"
     >
         <div
             class="bg-white shadow rounded h-auto p-4"

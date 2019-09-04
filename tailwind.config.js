@@ -4,6 +4,9 @@ module.exports = {
   // Custom config here (example: https://github.com/tailwindcss/tailwindcss/blob/next/stubs/defaultConfig.stub.js)
   theme: {
     extend: {
+      borderRadius:{
+        'xxl': '4rem'
+      },
       colors: {
         ...defaultTheme.colors,
         'blue-1000':  '#152132'
