@@ -68,7 +68,7 @@ async function processData(data, path_, cat){
     data.storePath = undefined
   }
   data.main = {
-    path: path.join(path_, `${camelize(data.main)}.common.js`),
+    path: await getExtensionForFilePath(path_, data.main),
     name: camelize(data.main),
     fullname: camelize(`${data.main}-${data.name}`)
   }
@@ -78,7 +78,25 @@ async function processData(data, path_, cat){
   for(const component of data.components){
     component.name = camelize(component.name)
     component.fullname = camelize(`${data.name}-${component.name}`)
-    component.path = path.join(path_, `${component.name}.common.js`)
+    component.path = await getExtensionForFilePath(path_, component.name)
+  }
+}
+
+async function getExtensionForFilePath(path_, name){
+  try{
+    let fullPath = path.join(path_, `${camelize(name)}.umd.min.js`)
+    await fs.access(fullPath, fsconstants.R_OK)
+    return fullPath
+  }catch {
+    try {
+      let fullPath = path.join(path_, `${camelize(name)}.umd.js`)
+      await fs.access(fullPath, fsconstants.R_OK)
+      return fullPath
+    }catch{
+      let fullPath = path.join(path_, `${camelize(name)}.common.js`)
+      await fs.access(fullPath, fsconstants.R_OK)
+      return fullPath
+    }
   }
 }
 

@@ -116,7 +116,7 @@ export const actions = {
           }
           break
         case 4:
-          if(path[3].endsWith('.common.js')){
+          if(path[3].endsWith('.umd.min.js') || path[3].endsWith('.umd.js') || path[3].endsWith('.common.js')){
             commit('addFile',{cat: path[0], module: path[1], path: branch})
           }
           break
