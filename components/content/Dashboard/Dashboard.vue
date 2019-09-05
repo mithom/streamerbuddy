@@ -59,7 +59,6 @@
 <script>
 import draggable from 'vuedraggable'
 import FunctionButton from "~/components/parts/FunctionButton";
-import {mapState} from "vuex";
 
 export default {
   name: 'Dashboard',
@@ -93,11 +92,11 @@ export default {
     },
     start: function(evt){
       this.drag = true
-      evt.item.firstChild.classList.add('opacity-0')
+      evt.item.firstChild?.classList?.add('opacity-0')
     },
     stop: function(evt){
       this.drag = false
-      evt.item.firstChild.classList.remove('opacity-0')
+      evt.item.firstChild?.classList?.remove('opacity-0')
     }
   }
 }

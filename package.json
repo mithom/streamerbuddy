@@ -1,7 +1,7 @@
 {
   "name": "streamer-buddy",
   "repository": "https://github.com/mithom/StreamerBuddy",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "An assistant for streaming which includes also some modules for specific games.",
   "author": "Brain",
   "private": true,
