@@ -41,27 +41,24 @@ export default {
   },
   async created () {
     // noinspection ES6MissingAwait
-    if(this.generator){
-      let cancel, cancelled = new Promise(resolve => cancel = resolve);
-      this.cancel = cancel
+    let cancel, cancelled = new Promise(resolve => cancel = resolve);
+    this.cancel = cancel
+    let stop = false
+    cancelled.then(()=>{stop = true})
 
-      await new Promise((resolve)=>{
-        let stop = false
-        cancelled.then(()=>{stop = true})
-        this.$store.dispatch('hooks/registerHook', {
+    await this.$store.dispatch('hooks/registerHook', {
+      hook: this.hook,
+      module: this.moduleName
+    })
+    if(this.generator){
+      for await (const data of this.generator()){
+        if(stop) break
+        this.$store.commit('hooks/updateHookData',{
           hook: this.hook,
-          module: this.moduleName
-        }).then(async ()=>{
-          for await (const data of this.generator()){
-            if(stop) break
-            this.$store.commit('hooks/updateHookData',{
-              hook: this.hook,
-              module: this.moduleName,
-              newData: data,
-            })
-          }
-        }).then(()=> resolve())
-      })
+          module: this.moduleName,
+          newData: data,
+        })
+      }
     }
   },
   beforeDestroy(){
