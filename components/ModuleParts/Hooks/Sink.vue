@@ -19,9 +19,9 @@ export default {
       default: null,
     },
     value:{
-      type: String,
+      type: [String, Number, Object, Boolean, Array],
       default: null,
-    }
+    },
   },
   data(){
     return {
@@ -38,7 +38,7 @@ export default {
         })
         this.$emit('change', null)
       }
-    }
+    },
   },
   async created () {
     // noinspection ES6MissingAwait

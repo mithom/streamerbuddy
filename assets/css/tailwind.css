@@ -38,6 +38,7 @@
 
 ::-webkit-scrollbar-track {
     background-color: rgba(160,174,192,0.25);
+    -webkit-border-radius: 1em;
 }
 
 
