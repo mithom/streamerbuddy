@@ -25,11 +25,11 @@ export default {
     })
     this.$watch(function () {
       return this.$store.state.hooks.sinks[this.moduleName][this.sink]
-    }, function(newValue){
+    }, async function(newValue){
       if(newValue.length > 0){
-        for(const val of newValue){
-          this.cb(val)
-        }
+        await Promise.all(newValue.map( async val => {
+          await this.cb(val)
+        }))
         this.$store.commit('hooks/clearSinkData',{
           sink: this.sink,
           module: this.moduleName
