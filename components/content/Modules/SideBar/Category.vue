@@ -11,7 +11,7 @@
             @leave="leave"
         >
             <ul
-                v-if="opened"
+                v-show="opened"
                 style="transition: max-height 0.2s ease-out"
             >
                 <module-item
