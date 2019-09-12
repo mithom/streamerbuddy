@@ -1,17 +1,25 @@
 <template>
     <li>
-        <a
+        <component
+            :is="disabled ? 'div' : 'a'"
             href="#"
-            class="block px-4 py-2 hover:bg-gray-200"
+            class="block px-4 py-2"
+            :class="{'bg-gray-400': disabled, 'hover:bg-gray-200':!disabled}"
         >
             <slot>menu_item</slot>
-        </a>
+        </component>
     </li>
 </template>
 
 <script>
 export default {
-  name: 'MenuItem'
+  name: 'MenuItem',
+  props:{
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
+  }
 }
 </script>
 

@@ -3,7 +3,11 @@
         class="absolute right-0 w-64 mt-1 py-1 bg-blue-700 text-blue-1000 shadow-lg rounded-lg z-10"
     >
         <ul class="bg-white py-1">
-            <menu-item><i class="far fa-address-card" /> Profile</menu-item>
+            <menu-item
+                :disabled="true"
+            >
+                <i class="far fa-address-card" /> Profile
+            </menu-item>
             <menu-item
                 @click.native="showDashboardAdmin"
             >
@@ -14,8 +18,14 @@
             >
                 <i class="fas fa-plug" /> Connections
             </menu-item>
-            <menu-item><i class="fas fa-wrench" /> Account settings</menu-item>
-            <menu-item>
+            <menu-item
+                :disabled="true"
+            >
+                <i class="fas fa-wrench" /> Account settings
+            </menu-item>
+            <menu-item
+                :disabled="true"
+            >
                 <i class="fas fa-globe" /> Language
                 <span
                     class="float-right text-sm font-bold uppercase text-blue-500"
@@ -30,7 +40,9 @@
                     </svg>
                 </span>
             </menu-item>
-            <menu-item>
+            <menu-item
+                :disabled="true"
+            >
                 <i class="fas fa-moon" /> Dark Theme
                 <ToggleButton
                     :show-text="false"
@@ -43,7 +55,11 @@
                 <hr class="mx-4 my-1 border-gray-400 border-b">
             </li>
 
-            <menu-item> <i class="fas fa-sign-out-alt" /> Logout </menu-item>
+            <menu-item
+                :disabled="true"
+            >
+                <i class="fas fa-sign-out-alt" /> Logout
+            </menu-item>
         </ul>
     </div>
 </template>
