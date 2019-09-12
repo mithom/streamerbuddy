@@ -29,6 +29,9 @@
                         :is="component.fullname"
                         v-for="component in myList"
                         :key="component.id"
+                        :component-id="component.id"
+                        :component="component.fullname"
+                        :module="component.module"
                     >
                         non default text
                     </component>

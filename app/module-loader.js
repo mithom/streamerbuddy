@@ -79,6 +79,7 @@ async function processData(data, path_, cat){
     component.name = camelize(component.name)
     component.fullname = camelize(`${data.name}-${component.name}`)
     component.path = await getExtensionForFilePath(path_, component.name)
+    component.module = data.name
   }
 }
 

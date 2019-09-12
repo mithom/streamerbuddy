@@ -45,7 +45,7 @@ export default {
   name: "ConnectionSource",
   components: {Connection, NewConnection},
   model:{
-    prop: 'value',
+    prop: 'connections',
     event: 'input'
   },
   props:{

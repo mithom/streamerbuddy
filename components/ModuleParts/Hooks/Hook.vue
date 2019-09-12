@@ -1,4 +1,5 @@
 <script>
+import {mapState} from 'vuex'
 
 export default {
   name: 'Hook',
@@ -20,11 +21,16 @@ export default {
       default: false
     }
   },
-  created () {
-    this.$watch(function () {
-      return this.$store.state.hooks.hooks[this.module]?.[this.hook]
-    }, function(newValue, oldValue){
-      this.cb(newValue, oldValue)
+  computed:{
+    ...mapState({
+      data(state){return state.hooks.hooks[this.module]?.[this.hook]}
+    })
+  },
+  mounted () {
+    this.$watch('data', function(newValue, oldValue){
+      if(newValue){
+        this.cb(newValue, oldValue)
+      }
     },{
       immediate: this.immediate
     })

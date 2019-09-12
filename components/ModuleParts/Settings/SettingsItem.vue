@@ -1,6 +1,6 @@
 <template>
     <portal
-        v-if="activeModuleName === componentName"
+        v-if="inPlace || activeModuleName === componentName"
         to="settings"
         :disabled="inPlace"
     >
