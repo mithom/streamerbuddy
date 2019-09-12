@@ -27,6 +27,9 @@ export const mutations = {
       Vue.set(state.access_tokens[data.provider], accountIdGen.next(state).value, data.access_token)
     }
   },
+  removeAccessToken(state, data){
+    Vue.delete(state.access_tokens[data.provider], data.connectionId)
+  },
 }
 
 function* accountIdGenerator(){

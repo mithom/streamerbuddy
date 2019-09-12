@@ -28,6 +28,8 @@
             >
                 <Connection
                     :connection="connection"
+                    :client-id="clientId"
+                    :connection-id="id"
                 />
             </portal>
         </template>

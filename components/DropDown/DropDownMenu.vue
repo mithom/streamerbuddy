@@ -15,7 +15,6 @@
                 <i class="fas fa-plug" /> Connections
             </menu-item>
             <menu-item><i class="fas fa-wrench" /> Account settings</menu-item>
-            <menu-item><i class="far fa-address-card" /> Profile</menu-item>
             <menu-item>
                 <i class="fas fa-globe" /> Language
                 <span
