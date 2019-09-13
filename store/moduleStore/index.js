@@ -27,8 +27,8 @@ function registerHooks(state, dispatch){
 
     octokit.hook.after('request', async (result, options)=>{
       if(result.status ===200 && result.headers.etag){
-        set(result.headers.etag,result.data)
-        dispatch('cache/addRequest', {uri: options.url, etag: result.headers.etag, filePath: 'testCache.json'}, {root: true})
+        set(result.headers.etag, result.data)
+        dispatch('cache/addRequest', {uri: options.url, etag: result.headers.etag, filePath: `${result.headers.etag}.json`}, {root: true})
       }
     })
 

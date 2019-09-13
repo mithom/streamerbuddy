@@ -1,4 +1,4 @@
-const {ipcMain, app} = require('electron')
+const {ipcMain, dialog} = require('electron')
 const fs = require('fs').promises
 const { modules_path } = require('./constants')
 const path = require('path')
@@ -11,19 +11,7 @@ ipcMain.on('install-module', async (event, data)=>{
   const module_path = path.join(modules_path, data.category, data.module)
   try{
     await fs.mkdir(module_path,{recursive: true})
-    await Promise.all(data.components.map(async component => {
-      const filepath = component.path.split('/')
-      const { data } = await octokit.request(component.url)
-      if(data.encoding === 'base64'){
-        data.content = atob(data.content)
-      }
-      //TODO: verify sha hash
-      if(component.sha === sha1(`blob ${component.size}\0${data.content}`)){
-        await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
-      }else{
-        console.warn('sha did not match with downloaded component - did not install out of safety')
-      }
-    }))
+    await Promise.all(data.components.map(component => installModule(component, module_path)))
     console.log('done installing, now reloading')
     await reloadModules(event)
   }catch (e) {
@@ -31,6 +19,30 @@ ipcMain.on('install-module', async (event, data)=>{
     throw e
   }
 })
+
+async function installModule(component, module_path){
+  const filepath = component.path.split('/')
+  const { data } = await octokit.request(component.url)
+  if(data.encoding === 'base64'){
+    data.content = atob(data.content)
+  }
+  if(component.sha === sha1(`blob ${component.size}\0${data.content}`)){
+    await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
+  }else{
+    const options = {
+      type:"question",
+      buttons: ['Install anyway', 'Cancel'],
+      title: 'sha-1 check failed',
+      defaultId: 0,
+      message: 'sha-1 validation check failed, do you still want to install this file?',
+      detail: 'This means the file might not be the one you expected to.\r\n' + component.path
+    }
+    const response = await dialog.showMessageBox(null, options)
+    if(response === 0){
+      await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
+    }
+  }
+}
 
 ipcMain.on('uninstall-module', async (event, data)=>{
   console.log('uninstalling module')
