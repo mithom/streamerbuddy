@@ -5,12 +5,13 @@ import {promisify} from 'util';
 
 const get = promisify(storage.get)
 const set = promisify(storage.set)
+const remove = promisify(storage.remove)
 
 
 let registered = false;
 
 //custom cache implementation
-function registerHooks(state, dispatch){
+function registerHooks(state, commit){
   if(!registered){
     octokit.hook.before('request', async (options)=>{
       if(state.cache.Etags[options.url]){
@@ -27,8 +28,11 @@ function registerHooks(state, dispatch){
 
     octokit.hook.after('request', async (result, options)=>{
       if(result.status ===200 && result.headers.etag){
+        if(result.url in state.cache.Etags){
+          remove(state.cache.Etags[options.uri])
+        }
         set(result.headers.etag, result.data)
-        dispatch('cache/addRequest', {uri: options.url, etag: result.headers.etag, filePath: `${result.headers.etag}.json`}, {root: true})
+        commit('cache/saveEtag', {uri: result.url, etag: result.headers.etag}, {root: true})
       }
     })
 
@@ -36,11 +40,11 @@ function registerHooks(state, dispatch){
   }
 }
 
-async function getAvailableModuleFolders(state, dispatch){
+async function getAvailableModuleFolders(state, commit){
   //TODO: ref -> master vs beta branch for beta testers
   //TODO: pagination
 
-  registerHooks(state, dispatch)
+  registerHooks(state, commit)
 
   const { data: repoData, status } = await octokit.repos.getContents({
     owner,
@@ -97,9 +101,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getModuleStoreData({dispatch, commit, rootState}){
+  async getModuleStoreData({ commit, rootState}){
     commit('startLoading')
-    const data = await getAvailableModuleFolders(rootState, dispatch)
+    const data = await getAvailableModuleFolders(rootState, commit)
     if(data.success){
       for(const branch of data.tree){
         const path = branch.path.split('/')
