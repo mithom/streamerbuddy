@@ -19,4 +19,7 @@ export const mutations = {
   stopAdmin(state){
     state.managing = false
   },
+  removeAllFromModule(state, module){
+    Vue.set(state, 'componentGrid', state.componentGrid.filter(el => el.module !== module))
+  }
 }

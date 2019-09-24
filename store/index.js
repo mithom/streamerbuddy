@@ -131,6 +131,7 @@ export const actions = {
     removeVueComponents(moduleInfo, state)
     unregisterStoreModule(unregisterModule, moduleInfo, state)
     dispatch('settings/removeModuleSettings', moduleInfo)
+    commit('dashboard/removeAllFromModule', moduleInfo.module)
     commit('removeModule', moduleInfo)
     if(wasActive){
       dispatch('activateFirstModule')
