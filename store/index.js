@@ -123,13 +123,14 @@ export const actions = {
     commit('activateModule', module)
     commit('activateScreen', 'Modules')
   },
-  removeModule({commit, state, dispatch}, {data: moduleInfo, unregisterModule}){
+  async removeModule({commit, state, dispatch}, {data: moduleInfo, unregisterModule}){
     let wasActive = false
     if ((state.activeModule && state.activeModule.fullname) === state.appModules[moduleInfo.category][moduleInfo.module].main.fullname){
       wasActive = true
     }
     removeVueComponents(moduleInfo, state)
     unregisterStoreModule(unregisterModule, moduleInfo, state)
+    dispatch('settings/removeModuleSettings', moduleInfo)
     commit('removeModule', moduleInfo)
     if(wasActive){
       dispatch('activateFirstModule')

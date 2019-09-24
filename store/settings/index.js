@@ -16,6 +16,9 @@ export const mutations = {
   },
   setComponentSetting(state, obj){
     state.componentSettings[obj.component][obj.name] = obj.value;
+  },
+  removeComponent(state, component){
+    Vue.delete(state.componentSettings, component)
   }
 }
 
@@ -26,6 +29,12 @@ export const actions = {
       setting.name = name
       commit('addComponentSetting', setting)
     }
+  },
+  removeModuleSettings({rootState, state, commit}, moduleInfo){
+    for (const comp of rootState.appModules[moduleInfo.category][moduleInfo.module].components){
+      commit('removeComponent', comp.fullname)
+    }
+    commit('removeComponent', rootState.appModules[moduleInfo.category][moduleInfo.module].main.fullname)
   }
 }
 
