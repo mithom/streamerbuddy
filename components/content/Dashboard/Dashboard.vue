@@ -12,8 +12,8 @@
                 @func="$store.commit('dashboard/stopAdmin')"
             />
             <div id="dashboard">
-                <h1>streamer-buddy</h1>
-                <h2>You updated successfully to v0.0.18</h2>
+                <h1>streamer-buddy: {{ $nuxt.$route.path }}</h1>
+                <h2>{{ $t('welcome') }}, You updated successfully to v0.0.18</h2>
                 <h2>An assistant for streaming which includes also some modules for specific games.</h2>
                 <draggable
                     v-model="myList"

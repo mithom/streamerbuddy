@@ -7,6 +7,7 @@ module.exports = {
   modules: [
     'portal-vue/nuxt',
     '@nuxtjs/date-fns',
+    'nuxt-i18n',
   ],
   buildModules: [
     '@nuxtjs/tailwindcss'
@@ -22,6 +23,38 @@ module.exports = {
       '../streamerbuddy-store/src/**/*.js',
       '../streamerbuddy-store/src/**/*.css'
     ]
+  },
+  i18n:{
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        name: 'English',
+        file: 'en.js'
+      },
+      {
+        code: 'nl',
+        iso: 'nl-BE',
+        name: 'Nederlands',
+        file: 'nl.js'
+      },
+      {
+        code: 'de',
+        iso: 'de-DE',
+        name: 'Deutsch',
+        file: 'de.js'
+      }
+    ],
+    defaultLocale: 'en',
+    VueI18n:{
+      fallbackLocale: 'en',
+    },
+    lazy: true,
+    langDir: 'i18n/',
+    detectBrowserLanguage: false,
+    vuex: {
+      syncLocale: true,
+    }
   },
   server:{
     host: 'localhost',
@@ -66,7 +99,7 @@ module.exports = {
     }
   },
   router: {
-    middleware: ['titlebar']
+    middleware: 'translate'
   },
   plugins:[
     '~/plugins/component-plugin',

@@ -1,8 +1,9 @@
 <template>
     <li>
         <component
-            :is="disabled ? 'div' : 'a'"
-            href="#"
+            :is="disabled ? 'div' : 'n-link'"
+            :to="url"
+            no-prefetch
             class="block px-4 py-2"
             :class="{'bg-gray-400': disabled, 'hover:bg-gray-200':!disabled}"
         >
@@ -18,6 +19,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    url:{
+      type: String,
+      default: "#",
     }
   }
 }
