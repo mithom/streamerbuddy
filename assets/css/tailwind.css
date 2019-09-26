@@ -17,13 +17,6 @@
     @apply h-full;
 }
 
-.logo {
-    font-family: "BebasNeueRegular";
-    font-weight: normal;
-    font-style: normal;
-    line-height: 2.5rem;
-}
-
 ::-webkit-scrollbar {
     @apply h-3;
     @apply w-3;

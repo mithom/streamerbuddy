@@ -62,5 +62,10 @@ export default {
 </script>
 
 <style scoped>
-
+.logo {
+    font-family: "BebasNeueRegular";
+    font-weight: bold;
+    font-style: normal;
+    line-height: 2.5rem;
+}
 </style>
