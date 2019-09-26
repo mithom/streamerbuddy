@@ -1,8 +1,13 @@
 <template>
     <li
         :class="borderClass"
-        class="py-2 pl-8 pr-4 hover:bg-blue-900 border-l-4"
+        class="py-2 pl-8 pr-4 border-l-4"
     >
+        <fa
+            icon="hashtag"
+            style="padding-right: 5px"
+            size="lg"
+        />
         <slot>Module_Name</slot>
         <portal
             v-if="loaded"
@@ -43,7 +48,7 @@ export default {
   },
   computed:{
     borderClass(){
-      return this.active ? 'border-blue-300 bg-blue-900' : 'border-transparent'
+      return this.active ? 'border-blue-300 bg-blue-800 white-text' : 'hover:bg-blue-900 border-transparent'
     },
     enabled: function(){
       return this.$store.state.moduleState[this.module]

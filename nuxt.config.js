@@ -7,6 +7,7 @@ module.exports = {
   modules: [
     'portal-vue/nuxt',
     '@nuxtjs/date-fns',
+    'nuxt-fontawesome',
     'nuxt-i18n',
   ],
   buildModules: [
@@ -22,6 +23,15 @@ module.exports = {
       '../streamerbuddy-store/src/**/*.vue',
       '../streamerbuddy-store/src/**/*.js',
       '../streamerbuddy-store/src/**/*.css'
+    ]
+  },
+  fontawesome:{
+    component: 'fa',
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['faSignOutAlt', 'faMoon', 'faGlobe', 'faWrench', 'faPlug', 'faMap', 'faAddressCard', 'faHashtag']
+      },
     ]
   },
   i18n:{

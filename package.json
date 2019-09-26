@@ -47,6 +47,7 @@
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@nuxtjs/date-fns": "^0.1.1",
     "@nuxtjs/tailwindcss": "^1.1.2",
     "@octokit/plugin-retry": "^2.2.0",
@@ -63,6 +64,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.1",
     "nuxt": "^2.9.2",
+    "nuxt-fontawesome": "^0.4.0",
     "nuxt-i18n": "^6.2.1",
     "portal-vue": "^2.1.5",
     "secure-random": "^1.1.2",
