@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex-none pt-4 w-64 bg-blue-1000 text-gray-300 overflow-y-auto sidebar"
+        class="flex-none pt-4 w-64 bg-blue-1000 text-gray-300 overflow-y-auto"
     >
         <ul v-if="promoteStore">
             <module-item
