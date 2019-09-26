@@ -4,7 +4,10 @@
         to="settings"
         :disabled="inPlace"
     >
-        <div class="tooltip p-2 border-b border-gray-500">
+        <div
+            class="tooltip p-2 border-gray-500"
+            :class="{'border-b': !inPlace}"
+        >
             <slot />
             <span
                 v-if="$slots.tooltip"

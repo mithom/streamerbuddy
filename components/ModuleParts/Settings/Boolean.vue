@@ -7,11 +7,19 @@
         <template>
             <label>
                 <ToggleButton
+                    v-if="type === toggleButton"
                     :is-toggled-on="storeValue"
                     :show-text="false"
                     :disabled="disabled"
                     @update:isToggledOn="setSetting"
                 />
+                <input
+                    v-else-if="type === checkBox"
+                    :checked="storeValue"
+                    type="checkbox"
+                    :disabled="disabled"
+                    @change="setSetting($event.target.checked)"
+                >
                 <slot :value="storeValue" />
             </label>
         </template>
@@ -51,11 +59,20 @@ export default {
     disabled:{
       type: Boolean,
       default: false
+    },
+    type:{
+      type: String,
+      default: 'checkBox',
+      validator: function(val) {
+        return ['toggleButton', 'checkBox'].includes(val)
+      }
     }
   },
   data(){
     return {
-      componentName: componentName(this)
+      componentName: componentName(this),
+      checkBox: 'checkBox',
+      toggleButton: 'toggleButton',
     }
   },
   computed:{
