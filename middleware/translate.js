@@ -7,7 +7,5 @@ export default async function ({ isHMR, app, store}) {
   await store.restored
   if (store.state.i18n.locale !== locale.code) {
     await app.i18n.setLocale(store.state.i18n.locale)
-  }else{
-    console.log('not redireected')
   }
 }

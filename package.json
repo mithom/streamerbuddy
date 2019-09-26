@@ -65,7 +65,7 @@
     "lodash.merge": "^4.6.1",
     "nuxt": "^2.9.2",
     "nuxt-fontawesome": "^0.4.0",
-    "nuxt-i18n": "^6.2.1",
+    "nuxt-i18n": "mithom/nuxt-i18n#5e85f4cf2c4aae7c4cc44a2f7b807cc1434b4cb9",
     "portal-vue": "^2.1.5",
     "secure-random": "^1.1.2",
     "velocity-animate": "^1.5.2",
@@ -77,14 +77,14 @@
     "vuex-persist": "^2.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "10.0.2",
+    "babel-eslint": "^10.0.3",
     "cross-env": "^5.2.0",
-    "electron": "5.0.4",
-    "electron-builder": "21.1.1",
+    "electron": "6.0.10",
+    "electron-builder": "^21.2.0",
     "electron-devtools-installer": "2.2.4",
-    "eslint": "5.16.0",
-    "eslint-friendly-formatter": "4.0.1",
+    "eslint": "^5.16.0",
+    "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-vue": "5.2.2"
+    "eslint-plugin-vue": "^5.2.2"
   }
 }
