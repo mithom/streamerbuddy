@@ -19,6 +19,8 @@ module.exports = {
   },
   purgeCSS:{
     whitelist: ['__nuxt', '__layout'],
+    whitelistPatterns: [ /-fa$/, /^fa-/],
+    whitelistPatternsChildren: [ /-fa$/, /^fa-/],
     paths:[
       '../streamerbuddy-store/src/**/*.vue',
       '../streamerbuddy-store/src/**/*.js',
