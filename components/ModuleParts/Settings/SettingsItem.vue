@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {componentName} from "~/app/component-util";
+import {componentName, moduleName} from "~/app/component-util";
 import {mapGetters} from 'vuex'
 
 export default {
@@ -42,7 +42,8 @@ export default {
   },
   data(){
     return {
-      componentName: componentName(this)
+      componentName: componentName(this),
+      moduleName: moduleName(this),
     }
   },
   computed:{
@@ -52,8 +53,8 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit('settings/addComponentSetting', {
-      component: this.componentName,
+    this.$store.commit('settings/addModuleSetting', {
+      moduleName: this.moduleName,
       name: this.name,
       default: this.defaultValue
     })

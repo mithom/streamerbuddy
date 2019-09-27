@@ -1,45 +1,46 @@
 import Vue from 'vue'
 
 export const state = () => ({
-  componentSettings: {}
+  moduleSettings: {}
 })
 
 
 export const mutations = {
-  addComponentSetting(state, obj){
-    if(!(obj.component in state.componentSettings)){
-      Vue.set(state.componentSettings, obj.component,{})
+  addModuleSetting(state, obj){
+    if(!(obj.moduleName in state.moduleSettings)){
+      Vue.set(state.moduleSettings, obj.moduleName,{})
     }
-    if(!(obj.name in state.componentSettings[obj.component])){
-      Vue.set(state.componentSettings[obj.component], obj.name, obj.default)
+    if(!(obj.name in state.moduleSettings[obj.moduleName])){
+      Vue.set(state.moduleSettings[obj.moduleName], obj.name, obj.default)
     }
   },
-  setComponentSetting(state, obj){
-    state.componentSettings[obj.component][obj.name] = obj.value;
+  setModuleSetting(state, obj){
+    state.moduleSettings[obj.moduleName][obj.name] = obj.value;
   },
-  removeComponent(state, component){
-    Vue.delete(state.componentSettings, component)
+  removeModule(state, moduleName){
+    Vue.delete(state.moduleSettings, moduleName)
   }
 }
 
 export const actions = {
-  addComponentSettings ({commit}, obj){ //currently unused due to refactors
+  addModuleSettings ({commit}, obj){ //currently unused due to refactors
     for(const [name, setting] of Object.entries(obj.settings)){
-      setting.component = obj.component
+      setting.moduleName = obj.moduleName
       setting.name = name
-      commit('addComponentSetting', setting)
+      commit('addModuleSetting', setting)
     }
   },
   removeModuleSettings({rootState, state, commit}, moduleInfo){
-    for (const comp of rootState.appModules[moduleInfo.category][moduleInfo.module].components){
-      commit('removeComponent', comp.fullname)
-    }
-    commit('removeComponent', rootState.appModules[moduleInfo.category][moduleInfo.module].main.fullname)
+    // for (const comp of rootState.appModules[moduleInfo.category][moduleInfo.module].components){
+    //   commit('removeComponent', comp.fullname)
+    // }
+    // commit('removeComponent', rootState.appModules[moduleInfo.category][moduleInfo.module].main.fullname)
+    commit('removeModule', moduleInfo.module)
   }
 }
 
 export const getters = {
-  settings: (state) => (component) =>{
-    return state.componentSettings[component]
+  settings: (state) => (moduleName) =>{
+    return state.moduleSettings[moduleName]
   }
 }

@@ -4,7 +4,7 @@
         :name="name"
         :default-value="defaultValue"
     >
-        <template>
+        <template #default>
             <label>
                 <ToggleButton
                     v-if="type === toggleButton"
@@ -32,7 +32,7 @@
 <script>
 import SettingsItem from './SettingsItem'
 import {mapMutations} from 'vuex'
-import {componentName} from "~/app/component-util";
+import {moduleName} from "~/app/component-util";
 
 export default {
   name: "Boolean",
@@ -70,14 +70,14 @@ export default {
   },
   data(){
     return {
-      componentName: componentName(this),
+      moduleName: moduleName(this),
       checkBox: 'checkBox',
       toggleButton: 'toggleButton',
     }
   },
   computed:{
     storeValue: function(){
-      const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
+      const moduleSettings = this.$store.state.settings.moduleSettings[this.moduleName]
       return moduleSettings ? moduleSettings[this.name] : this.defaultValue //don't use shorthand notation, as it are booleans
     },
   },
@@ -94,12 +94,12 @@ export default {
   },
   methods:{
     ...mapMutations({
-      setComponentSetting: 'settings/setComponentSetting'
+      setModuleSetting: 'settings/setModuleSetting'
     }),
     setSetting(e){
       if(e !== this.storeValue){
-        this.setComponentSetting({
-          component: this.componentName,
+        this.setModuleSetting({
+          moduleName: this.moduleName,
           name: this.name,
           value: Boolean(e)
         })

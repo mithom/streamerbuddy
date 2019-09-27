@@ -26,7 +26,7 @@
 <script>
 import SettingsItem from './SettingsItem'
 import {mapMutations} from 'vuex'
-import {componentName} from "~/app/component-util";
+import {moduleName} from "~/app/component-util";
 
 export default {
   name: "Integer",
@@ -53,12 +53,12 @@ export default {
   },
   data(){
     return {
-      componentName: componentName(this)
+      moduleName: moduleName(this)
     }
   },
   computed:{
     storeValue: function(){
-      const moduleSettings = this.$store.state.settings.componentSettings[this.componentName]
+      const moduleSettings = this.$store.state.settings.moduleSettings[this.moduleName]
       return moduleSettings ? moduleSettings[this.name] : this.defaultValue
     },
   },
@@ -75,23 +75,23 @@ export default {
   },
   methods:{
     ...mapMutations({
-      setComponentSetting: 'settings/setComponentSetting'
+      setModuleSetting: 'settings/setModuleSetting'
     }),
     filterInput(e){
       e = e.match(/^-?\d*/, '');
     },
     filterAndSet(e){
       this.filterInput(e)
-      this.setComponentSetting({
-        component: this.componentName,
+      this.setModuleSetting({
+        moduleName: this.moduleName,
         name: this.name,
         value: Math.round(Number(e))
       })
     },
     defaultOnEmpty(e){
       if (!e.target.value){
-        this.setComponentSetting({
-          component: this.componentName,
+        this.setModuleSetting({
+          moduleName: this.moduleName,
           name: this.name,
           value: this.defaultValue
         })
