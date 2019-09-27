@@ -12,13 +12,6 @@
                     :placeholder="defaultValue"
                     @change="setSetting($event.target.value)"
                 >
-                    <!--                    <option-->
-                    <!--                        disabled-->
-                    <!--                        hidden-->
-                    <!--                        :value="null"-->
-                    <!--                    >-->
-                    <!--                        {{ defaultValue }}-->
-                    <!--                    </option>-->
                     <option
                         v-for="option in options"
                         :key="option"

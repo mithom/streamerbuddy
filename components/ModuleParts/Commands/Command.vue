@@ -1,20 +1,47 @@
 <template>
     <portal
-        :to="`commands-${componentName}`"
+        :to="`commands-${moduleName}`"
     >
-        <div class="w-full h-8 odd:bg-gray-500 even:bg-gray-300">
-            test
+        <div class="w-full h-12 odd:bg-gray-500 even:bg-gray-300 flex flex-row justify-between">
+            <p
+                class="self-center"
+            >
+                {{ name }}
+            </p>
+            <String
+                v-show="edit"
+                class="self-center"
+                :in-place="true"
+                :value="command"
+                :name="`${moduleName}-Command-${name}-Name`"
+                :default-value="`!${name}`"
+                :component="componentName"
+                :module="moduleName"
+                @input="$emit('update:command', $event)"
+            />
+            <p
+                v-show="!edit"
+                class="self-center"
+            >
+                {{ command }}
+            </p>
+            <FunctionButton
+                class="self-center"
+                @func="edit = !edit"
+            >
+                {{ edit ? 'Save' : 'Edit' }}
+            </FunctionButton>
         </div>
     </portal>
-    <String
-    />
 </template>
 
 <script>
-import {componentName} from "~/app/component-util";
+import {moduleName, componentName} from "~/app/component-util";
+import FunctionButton from '../../parts/FunctionButton'
 
 export default {
   name: 'Command',
+  components: {FunctionButton},
   props:{
     name:{
       type: String,
@@ -55,7 +82,9 @@ export default {
   },
   data() {
     return {
-      componentName: componentName(this)
+      moduleName: moduleName(this),
+      componentName: componentName(this),
+      edit: false,
     }
   },
 }

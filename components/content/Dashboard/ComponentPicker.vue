@@ -1,9 +1,9 @@
 <template>
     <Modal
+        v-show="!hidden"
         name="componentPicker"
         width="75%"
         height="75%"
-        :class="{hidden: hidden}"
     >
         <div class="overflow-auto h-full p-4">
             <CloseButton
@@ -68,7 +68,6 @@ export default {
       this.hideSelf()
     },
     clone: function(original){
-      console.log(original)
       const cloned = {...original}
       cloned.id = this.$store.state.dashboard.nextComponentId
       this.$store.commit('dashboard/consumeComponentId')

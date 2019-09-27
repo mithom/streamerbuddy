@@ -4,14 +4,14 @@
             v-for="module in allModules"
         >
             <div
-                v-if="hasCommands(module.fullname)"
-                :key="module.fullname"
+                v-if="hasCommands(module.name)"
+                :key="module.name"
                 class="border-b left-m-4 w-full"
             >
                 <div>{{ module.name }}</div>
                 <portal-target
                     :multiple="true"
-                    :name="`commands-${module.fullname}`"
+                    :name="`commands-${module.name}`"
                 />
             </div>
         </template>
@@ -33,8 +33,8 @@ export default {
     ...mapGetters(['allModules']),
   },
   methods:{
-    hasCommands: function (moduleFullName) {
-      return Wormhole.hasContentFor(`commands-${moduleFullName}`)
+    hasCommands: function (moduleName) {
+      return Wormhole.hasContentFor(`commands-${moduleName}`)
     }
   }
 }

@@ -15,8 +15,8 @@
         >
             <Component
                 :is="component"
+                v-show="active"
                 :key="component"
-                :class="{hidden: !active}"
                 :component="component"
                 :module="module"
             />

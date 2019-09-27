@@ -5,7 +5,7 @@ function isPortalTarget(VueInstance){
 
 function isPortal(VueInstance){
   return VueInstance.$parent.$options._componentTag === 'portal' &&
-    VueInstance.$parent.$props.to === 'Modules'
+    ['Modules','Commands'].includes(VueInstance.$parent.$props.to)
 }
 
 function isComponent(VueInstance){
@@ -15,7 +15,8 @@ function isComponent(VueInstance){
 
 export function getMainComponentInstance(VueInstance){
   //get the root of the module, no matter where the settings tag is defined
-  if(isPortalTarget(VueInstance) || isPortal(VueInstance) || isComponent((VueInstance))){
+  //if(isPortalTarget(VueInstance) || isPortal(VueInstance) || isComponent((VueInstance))){
+  if(VueInstance.$attrs.hasOwnProperty('component') || VueInstance.hasOwnProperty('component')){
     return VueInstance
   }else{
     return getMainComponentInstance(VueInstance.$parent)
@@ -23,11 +24,11 @@ export function getMainComponentInstance(VueInstance){
 }
 
 export function componentName(anyComponent){
-  const parent = getMainComponentInstance(anyComponent.$parent)
-  return parent.$attrs?.component || parent.component
+  const component = getMainComponentInstance(anyComponent)
+  return component.$attrs?.component || component.component
 }
 
 export function moduleName(anyComponent){
-  const parent = getMainComponentInstance(anyComponent.$parent)
-  return parent.$attrs?.module || parent.module
+  const module = getMainComponentInstance(anyComponent)
+  return module.$attrs?.module || module.module
 }
