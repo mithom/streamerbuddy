@@ -21,6 +21,8 @@
                     :is="component.fullname"
                     v-for="component in components"
                     :key="'0' + component.fullname"
+                    :component="component.fullname"
+                    :module="component.module"
                 >
                     non default text
                 </component>
