@@ -9,6 +9,7 @@
                 <slot :value="storeValue" />
                 <input
                     :value="storeValue"
+                    class="form-input"
                     :placeholder="defaultValue"
                     type="number"
                     :step="step"

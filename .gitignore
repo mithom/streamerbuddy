@@ -16,3 +16,6 @@ build
 
 # Jetbrains editors
 .idea
+
+#VS-code
+*.code-workspace

@@ -2,15 +2,10 @@
     <portal
         :to="`commands-${moduleName}`"
     >
-        <div class="w-full h-12 odd:bg-gray-500 even:bg-gray-300 flex flex-row justify-between">
-            <p
-                class="self-center"
-            >
-                {{ name }}
-            </p>
+        <div class="w-full h-12 odd:bg-gray-500 even:bg-gray-300 flex flex-row justify-between items-center">
+            <p>{{ name }}</p>
             <String
                 v-show="edit"
-                class="self-center"
                 :in-place="true"
                 :value="command"
                 :name="`${moduleName}-Command-${name}-Name`"
@@ -21,12 +16,10 @@
             />
             <p
                 v-show="!edit"
-                class="self-center"
             >
                 {{ command }}
             </p>
             <FunctionButton
-                class="self-center"
                 @func="edit = !edit"
             >
                 {{ edit ? 'Save' : 'Edit' }}

@@ -8,6 +8,7 @@
             <label>
                 <slot :value="storeValue" />
                 <input
+                    class="form-input"
                     :value="storeValue"
                     :placeholder="defaultValue"
                     @input="setSetting($event.target.value)"

@@ -20,4 +20,7 @@ module.exports = {
     },
     variants: 'all'
   },
+  plugins:[
+    require('@tailwindcss/custom-forms')
+  ]
 }

@@ -16,6 +16,7 @@
                 <input
                     v-else-if="type === checkBox"
                     :checked="storeValue"
+                    class="form-checkbox"
                     type="checkbox"
                     :disabled="disabled"
                     @change="setSetting($event.target.checked)"

@@ -53,6 +53,7 @@
     "@octokit/plugin-retry": "^2.2.0",
     "@octokit/plugin-throttling": "^2.6.0",
     "@octokit/rest": "16.28.6",
+    "@tailwindcss/custom-forms": "^0.2.1",
     "atob": "^2.1.2",
     "camelize": "^1.0.0",
     "client-oauth2": "^4.2.5",
