@@ -6,8 +6,9 @@ import fs from 'fs'
 //storage.setDataPath(path.join(app.getPath('userData'),'app','store'))
 const filePath = path.join(app.getPath('userData'),'app','store')
 
-const set = async function(key, json, ...options){
+const set = async function(key, state, ...options){
   try{
+    const json = JSON.stringify(state)
     const fh = await fs.promises.open(path.join(filePath, `${key}.json`), 'w')
     await fh.writeFile(json, 'utf-8')
     await fh.close()
