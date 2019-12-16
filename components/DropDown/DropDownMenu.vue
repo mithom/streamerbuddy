@@ -6,46 +6,44 @@
             <menu-item
                 :disabled="true"
             >
-                <fa icon="address-card" /> Profile
+                <Zondicon
+                    icon="User"
+                    class="h-4 inline"
+                /> Profile
             </menu-item>
             <menu-item
                 @click.native="showDashboardAdmin"
             >
-                <fa icon="map" /> Dashboard Admin
+                <Zondicon
+                    icon="map"
+                    class="h-4 inline"
+                /> Dashboard Admin
             </menu-item>
             <menu-item
                 @click.native="showConnectionManager"
             >
-                <fa icon="plug" /> Connections
+                <Zondicon
+                    icon="link"
+                    class="h-4 inline"
+                /> Connections
             </menu-item>
             <menu-item
                 :disabled="true"
             >
-                <fa icon="wrench" /> Account Settings
+                <Zondicon
+                    icon="wrench"
+                    class="h-4 inline"
+                /> Account Settings
             </menu-item>
-            <!--            <menu-item-->
-            <!--                url="/nl"-->
-            <!--            >-->
-            <!--                <i class="fas fa-globe" /> Language-->
-            <!--                <span-->
-            <!--                    class="float-right text-sm font-bold uppercase text-blue-500"-->
-            <!--                >English-->
-            <!--                    <svg-->
-            <!--                        class="fill-current text-blue-500 w-4 h-4 float-right mt-1"-->
-            <!--                        viewBox="0 0 20 20"-->
-            <!--                    >-->
-            <!--                        <path-->
-            <!--                            d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"-->
-            <!--                        />-->
-            <!--                    </svg>-->
-            <!--                </span>-->
-            <!--            </menu-item>-->
             <menu-item
                 v-for="locale in this.$i18n.locales"
                 :key="locale.code"
                 :url="switchLocalePath(locale.code)"
             >
-                <fa icon="globe" /> Language
+                <Zondicon
+                    icon="globe"
+                    class="h-4 inline"
+                /> Language
                 <span
                     class="float-right text-sm font-bold uppercase text-blue-500"
                 >
@@ -63,7 +61,10 @@
             <menu-item
                 :disabled="true"
             >
-                <fa icon="moon" /> Dark Theme
+                <Zondicon
+                    icon="adjust"
+                    class="h-4 inline"
+                /> Dark Theme
                 <ToggleButton
                     :show-text="false"
                     :is-toggled-on.sync="darkMode"
@@ -78,7 +79,11 @@
             <menu-item
                 :disabled="true"
             >
-                <fa icon="sign-out-alt" /> Logout
+                <Zondicon
+                    icon="share"
+                    class="w-5 inline"
+                    style="transform: rotate(90deg)"
+                /> Logout
             </menu-item>
         </ul>
     </div>

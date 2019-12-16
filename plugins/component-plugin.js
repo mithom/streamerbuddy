@@ -16,6 +16,9 @@ import Sink from '~/components/ModuleParts/Hooks/Sink'
 import Receiver from '~/components/ModuleParts/Hooks/Receiver'
 import ConnectionSource from "~/components/ModuleParts/Connections/ConnectionSource";
 import Command from '~/components/ModuleParts/Commands/Command'
+import Zondicon from 'vue-zondicons';
+
+Vue.component('Zondicon', Zondicon);
 
 // register all components here that will be available to the dynamic modules
 //Parts
