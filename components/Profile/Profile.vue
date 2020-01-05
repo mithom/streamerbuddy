@@ -9,34 +9,55 @@
                 class="z-10"
                 @click.native="$modal.hide('Profile')"
             />
-            <form
-                action="#"
-                @submit.prevent="login"
+            <div
+                class="inline-block align top"
             >
-                <label for="username">username</label>
-                <input
-                    id="username"
-                    v-model="username"
-                    name="username"
-                    required
+                <h3>Profile</h3>
+                <p> {{ $store.state.account.username }} </p>
+                <p> {{ $store.state.account.email }} </p>
+            </div>
+            <div
+                class="inline-block align-top"
+            >
+                <form
+                    action="#"
+                    @submit.prevent="login"
                 >
-
+                    <label for="username">username</label>
+                    <input
+                        id="username"
+                        v-model="username"
+                        name="username"
+                        required
+                    >
+                    <br>
+                    <label for="password">password</label>
+                    <input
+                        id="password"
+                        v-model="password"
+                        name="password"
+                        required
+                        type="password"
+                    >
+                    <br>
+                    <input
+                        type="submit"
+                        value="Log In"
+                    >
+                </form>
                 <br>
-
-                <label for="password">password</label>
-                <input
-                    id="password"
-                    v-model="password"
-                    name="password"
-                    required
-                    type="password"
+                <br>
+                <br>
+                <form
+                    action="#"
+                    @submit.prevent="logout"
                 >
-                <input
-                    type="submit"
-                    value="Register"
-                >
-            </form>
-            <!-- class="w-full p-2 border-b flex items-center relative" -->
+                    <input
+                        type="submit"
+                        value="Log Out"
+                    >
+                </form>
+            </div>
         </div>
     </Modal>
 </template>
@@ -54,11 +75,14 @@ export default {
     }
   },
   methods:{
-    login(e){
+    login(){
       this.$store.dispatch('account/logIn', {
         username: this.username,
         password: this.password
       })
+    },
+    logout(){
+      this.$store.commit('account/logOut')
     }
   }
 }

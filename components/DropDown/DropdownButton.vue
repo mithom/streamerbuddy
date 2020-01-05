@@ -22,7 +22,7 @@
             </svg>
         </button>
         <!-- Dropdown menu for profile -->
-        <DropDownMenu 
+        <DropDownMenu
             v-if="MenuOpen"
             @click.native.stop
             @close="closeMenu"
@@ -38,8 +38,12 @@ export default {
   components: {DropDownMenu},
   data(){
     return {
-      MenuOpen: false,
-      Name: 'WellBrained'
+      MenuOpen: false
+    }
+  },
+  computed: {
+    Name(){
+      return this.$store.state.account.username || 'offline'
     }
   },
   created() {
