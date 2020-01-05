@@ -44,7 +44,7 @@ async function installModule(component, module_path, authHeaders){
         detail: 'This means the file might not be the one you expected to.\r\n' + component.path
       }
       const response = await dialog.showMessageBox(null, options)
-      if(response === 0){
+      if(response.response === 0){
         await fs.writeFile(path.join(module_path, filepath[filepath.length - 1]), data.content)
       }
     }
