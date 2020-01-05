@@ -43,7 +43,8 @@ export default {
       ipcRenderer.send('install-module', {
         category: this.category,
         module: this.module,
-        components: this.components
+        components: this.components,
+        authHeaders: this.$store.getters['account/authHeaders']
       })
     },
     uninstall(){

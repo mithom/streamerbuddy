@@ -4,7 +4,7 @@
     >
         <ul class="bg-white py-1">
             <menu-item
-                :disabled="true"
+                @click.native="showProfile"
             >
                 <Zondicon
                     icon="User"
@@ -103,13 +103,17 @@ export default {
   },
   methods:{
     ...mapActions({activate: 'activateScreen'}),
-    showConnectionManager: function(){
+    showConnectionManager(){
       this.$emit('close')
       this.$modal.show('connectionManager')
     },
-    showDashboardAdmin: function(){
+    showDashboardAdmin(){
       this.$emit('close')
       this.activate('DashboardAdmin')
+    },
+    showProfile(){
+      this.$emit('close')
+      this.$modal.show('Profile')
     }
   }
 }

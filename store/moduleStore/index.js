@@ -1,31 +1,34 @@
-const {remote} = require('electron')
-const {octokit, owner, repo, registerHooks} = remote.require('./app/myOctoKit')
+import axios from 'axios'
 
-async function getAvailableModuleFolders(state, commit){
+const SBaxios = axios.create({
+  baseURL: 'https://streamerbuddy.ddns.net/api/v1/'
+})
+
+async function getAvailableModuleFolders(rootstate, commit, authHeaders){
   //TODO: ref -> master vs beta branch for beta testers
   //TODO: pagination
-
-  registerHooks(state, commit)
-
-  const { data: repoData, status } = await octokit.repos.getContents({
-    owner,
-    repo,
-    path: ''
-  })
-  if([200,304].includes(status)){
-    const tree_sha = repoData
-      .filter((data)=>data.name === "dist")
-      .map((data)=>data.sha)[0]
-
-    const {data: treeData} = await octokit.git.getTree({
-      owner,
-      repo,
-      tree_sha,
-      recursive: 1
+  try{
+    const { data: repoData, status } = await SBaxios.get('/github/repos/content', {
+      headers: {...authHeaders}
     })
-    treeData.success = true
-    return treeData
-  }else{
+    if(status === 200){
+      const tree_sha = repoData
+        .filter((data)=>data.name === "dist")
+        .map((data)=>data.sha)[0]
+
+      const {data: treeData} = await SBaxios.get(
+        '/github/trees/' + tree_sha,
+        {
+          params: {recursive: 1},
+          headers : {...authHeaders}
+        }
+      )
+      treeData.success = true
+      return treeData
+    }else{
+      return {success: false}
+    }
+  }catch(e){
     return {success: false}
   }
 }
@@ -62,9 +65,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getModuleStoreData({ commit, rootState}){
+  async getModuleStoreData({ commit, rootState, rootGetters}){
     commit('startLoading')
-    const data = await getAvailableModuleFolders(rootState, commit)
+    const data = await getAvailableModuleFolders(rootState, commit, rootGetters['account/authHeaders'])
     if(data.success){
       for(const branch of data.tree){
         const path = branch.path.split('/')

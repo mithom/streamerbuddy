@@ -53,7 +53,7 @@ import CloseButton from "../parts/CloseButton";
 import FunctionButton from '../parts/FunctionButton'
 
 export default {
-  name: "ConnectionsManager",
+  name: "ConnectionManager",
   components: {FunctionButton, CloseButton},
   data(){
     return {
