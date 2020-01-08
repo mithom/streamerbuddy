@@ -6,7 +6,7 @@
     >
         <ComponentPicker />
         <StoreModal />
-        <Profile />
+        <ProfileModal />
         <ConnectionManager />
         <!-- the full header component -->
         <Header />
@@ -40,13 +40,13 @@ import Timers from "~/components/content/Timers/Timers";
 import {mapState} from 'vuex'
 import ConnectionManager from "~/components/ConnectionManager/ConnectionManager";
 import ComponentPicker from "../components/content/Dashboard/ComponentPicker";
-import Profile from '../components/Profile/Profile'
+import ProfileModal from '../components/Profile/ProfileModal'
 
 export default {
   components: {
     ComponentPicker,
     ConnectionManager,
-    Profile,
+    ProfileModal,
     StoreModal,
     Header,
     Dashboard,

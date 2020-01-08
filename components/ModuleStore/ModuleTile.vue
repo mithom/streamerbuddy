@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-block px-2 py-4 mx-2 bg-gray-200 shadow-inner rounded-lg">
+    <div class="inline-block px-2 py-4 mx-2 bg-teal-300 shadow-inner rounded-lg">
         <h2 class="font-bold text-xl">
             {{ module }}
         </h2>

@@ -15,7 +15,6 @@ export const state = () => ({
 
 export const mutations = {
   logIn(state, userData){
-    console.log(userData)
     state.auth_token = userData.auth_token
     state.id = userData.id
     state.username = userData.username
@@ -49,5 +48,13 @@ export const getters = {
   },
   authHeaders(state){
     return {'Authorization': `Bearer ${state.auth_token}`}
+  },
+  async loggedIn(state, getters){
+    if(state.auth_token === null){
+      return false
+    }else{
+      const {status} = await SBAxios(`/users/${state.id}`, {headers:{...getters.authHeaders}})
+      return status === 200
+    }
   }
 }

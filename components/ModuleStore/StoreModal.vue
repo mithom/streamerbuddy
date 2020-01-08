@@ -6,7 +6,7 @@
         @before-open="getModuleStoreData"
         @closed="$store.commit('moduleStore/clearStore')"
     >
-        <div class="overflow-auto h-full pb-4">
+        <div class="overflow-auto h-full pb-4 bg-gray-200">
             <div
                 v-for="(modules, cat) in data"
                 :key="cat"
