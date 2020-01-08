@@ -39,6 +39,9 @@ export const actions = {
         commit('logIn', {auth_token: data['token'], ...userData})
       }
     }
+  },
+  async register({commit}, registerData){
+    //TODO: implement
   }
 }
 
@@ -53,6 +56,7 @@ export const getters = {
     if(state.auth_token === null){
       return false
     }else{
+      console.log(state.auth_token)
       const {status} = await SBAxios(`/users/${state.id}`, {headers:{...getters.authHeaders}})
       return status === 200
     }

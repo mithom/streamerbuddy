@@ -19,28 +19,12 @@
 import CloseButton from "../parts/CloseButton";
 import Profile from "./Profile";
 import LogInOrRegister from "./LogInOrRegister";
-import { mapGetters } from 'vuex'
+import loggedInMixin from '~/mixins/loggedInMixin'
 
 export default {
   name: 'ProfileModal',
   components: {LogInOrRegister, Profile, CloseButton},
-  data(){
-    return {
-      loggedInResult: null
-    }
-  },
-  computed:{
-    ...mapGetters({loggedIn: 'account/loggedIn'})
-  },
-  watch: {
-    loggedIn: {
-      immediate: true,
-      handler(promise){
-        // save Promise result in local state
-        promise.then(result => this.loggedInResult = result)
-      }
-    }
-  }
+  mixins: [loggedInMixin]
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <div
-            class="flex-none align-top"
+            class="flex-1 align-top"
         >
             <h1 class="text-5xl">
                 Log In
@@ -36,15 +36,18 @@
                 >
             </form>
         </div>
-        <div class="flex-1 text-4xl text-center self-center">
-            OR
-        </div>
         <div
-            class="flex-none align-top"
+            class="flex-1 align-top"
         >
             <h1 class="text-5xl">
                 Register
             </h1>
+            <p
+                v-if="error !== null"
+                class="text-red-700"
+            >
+                {{ reg_error }}
+            </p>
             <form
                 action="#"
                 @submit.prevent="register"
@@ -108,6 +111,7 @@ export default {
       reg_password: null,
       confirm_password: null,
       email: null,
+      reg_error: null
     }
   },
   methods:{
@@ -117,6 +121,20 @@ export default {
         password: this.password
       })
     },
+    register(){
+      this.reg_error = null
+      if(this.reg_password !== this.confirm_password){
+        this.reg_error = 'Confirm password is not the same as password'
+        this.reg_password = null
+        this.confirm_password = null
+      }else{
+        this.$store.dispatch('account/create', {
+          username: this.reg_username,
+          password: this.reg_password,
+          email: this.email
+        })
+      }
+    }
   }
 }
 </script>

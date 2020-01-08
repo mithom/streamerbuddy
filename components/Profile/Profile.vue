@@ -2,9 +2,11 @@
     <div
         class="inline-block align top"
     >
-        <h3>Profile</h3>
-        <p> {{ $store.state.account.username }} </p>
-        <p> {{ $store.state.account.email }} </p>
+        <h3 class="text-3xl">
+            Profile
+        </h3>
+        <p> <span class="font-bold">Name:</span> {{ $store.state.account.username }} </p>
+        <p> <span class="font-bold">Email: </span>{{ $store.state.account.email }} </p>
         <br>
         <br>
         <form
