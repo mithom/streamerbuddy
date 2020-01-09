@@ -8,23 +8,20 @@
         <p> <span class="font-bold">Name:</span> {{ $store.state.account.username }} </p>
         <p> <span class="font-bold">Email: </span>{{ $store.state.account.email }} </p>
         <br>
+        <FunctionButton
+            text="Log Out"
+            @func="logout"
+        />
         <br>
-        <form
-            action="#"
-            @submit.prevent="logout"
-        >
-            <input
-                class="form-input"
-                type="submit"
-                value="Log Out"
-            >
-        </form>
+        <br>
     </div>
 </template>
 
 <script>
+import FunctionButton from "../parts/FunctionButton"
 export default {
   name: "Profile",
+  components: {FunctionButton},
   methods:{
     logout(){
       this.$store.commit('account/logOut')
