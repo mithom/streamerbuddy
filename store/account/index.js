@@ -9,7 +9,8 @@ export const state = () => ({
   id: null,
   username: null,
   email: null,
-  roles: []
+  roles: [],
+  reg_error: null
 })
 
 
@@ -27,6 +28,12 @@ export const mutations = {
     state.username = null
     state.email = null
     state.roles = []
+  },
+  clearError(state){
+    state.reg_error = null
+  },
+  setError(state, data){
+    state.reg_error = data
   }
 }
 
@@ -40,8 +47,16 @@ export const actions = {
       }
     }
   },
-  async register({commit}, registerData){
-    //TODO: implement
+  async register({dispatch, commit}, registerData){
+    commit('clearError')
+    try{
+      const {status, data} = await SBAxios.post('/users', {auth:registerData})
+      if(status === 200){
+        await dispatch('logIn', registerData)
+      }
+    }catch (error) {
+      commit('setError', error.data)
+    }
   }
 }
 

@@ -43,7 +43,7 @@
                 Register
             </h1>
             <p
-                v-if="error !== null"
+                v-if="reg_error !== null"
                 class="text-red-700"
             >
                 {{ reg_error }}
@@ -128,7 +128,7 @@ export default {
         this.reg_password = null
         this.confirm_password = null
       }else{
-        this.$store.dispatch('account/create', {
+        this.$store.dispatch('account/register', {
           username: this.reg_username,
           password: this.reg_password,
           email: this.email
