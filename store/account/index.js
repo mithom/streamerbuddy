@@ -38,8 +38,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async logIn({commit}, authData){
-    const {status, data} = await SBAxios.get('/token', {auth:authData})
+  async logIn({commit}, {username, password}){
+    const {status, data} = await SBAxios.get('/token', {auth:{username, password}})
     if(status === 200){
       const {status, data: userData} = await SBAxios.get(data['Location'].replace(/^\/api\/v1/, ''), {headers: {'Authorization': `Bearer ${data['token']}`}})
       if(status === 200){
@@ -50,8 +50,8 @@ export const actions = {
   async register({dispatch, commit}, registerData){
     commit('clearError')
     try{
-      const {status, data} = await SBAxios.post('/users', {auth:registerData})
-      if(status === 200){
+      const {status} = await SBAxios.post('/users/', registerData)
+      if(status === 201){
         await dispatch('logIn', registerData)
       }
     }catch (error) {
