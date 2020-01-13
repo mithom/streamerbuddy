@@ -5,6 +5,7 @@
             to="addConnection"
         >
             <NewConnection
+                v-slot="slotArgs"
                 :module-name="moduleName"
                 :client-id="clientId"
                 :access-token-url="accessTokenUrl"
@@ -15,7 +16,7 @@
                 :headers="headers"
                 :allow-multiple="allowMultiple"
             >
-                <slot />
+                <slot v-bind="slotArgs" />
             </NewConnection>
         </portal>
         <template
