@@ -22,8 +22,16 @@ module.exports = function(mainWin){
     const onRequestAuthData = (event)=>{
       if(event.sender === authWin.webContents){
         ipcMain.on('finishAuth', finishAuth)
+        ipcMain.on('cancelAuth', cancelAuth)
 
         event.sender.send('authData', options)
+      }
+    }
+
+    const cancelAuth = (event)=>{
+      if(event.sender === authWin.webContents){
+        mainWin.webContents.send('cancelAuth')
+        ipcMain.removeListener('cancelAuth', cancelAuth)
       }
     }
 
@@ -38,6 +46,7 @@ module.exports = function(mainWin){
       authWin = null
       ipcMain.removeListener('requestAuthData', onRequestAuthData)
       ipcMain.removeListener('finishAuth', finishAuth)
+      ipcMain.removeListener('cancelAuth', cancelAuth)
     })
     ipcMain.on('requestAuthData', onRequestAuthData)
 

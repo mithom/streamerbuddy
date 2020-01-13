@@ -77,7 +77,7 @@
             </li>
 
             <menu-item
-                :disabled="true"
+                @click.native="logout"
             >
                 <Zondicon
                     icon="share"
@@ -114,6 +114,9 @@ export default {
     showProfile(){
       this.$emit('close')
       this.$modal.show('Profile')
+    },
+    logout(){
+      this.$store.commit('account/logOut')
     }
   }
 }

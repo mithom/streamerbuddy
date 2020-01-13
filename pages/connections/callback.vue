@@ -34,7 +34,10 @@ export default {
             resolve()
             window.close()
           }
-        ).catch(()=>reject('something went wrong during authentication'))
+        ).catch(()=>{
+          ipcRenderer.send('cancelAuth')
+          reject('something went wrong during authentication')
+        })
       })
     }else{
       alert('no valid auth query')

@@ -77,13 +77,20 @@ export default {
         nonce: options.state,
         options
       })
-      ipcRenderer.once('finishAuth', (event, access_token)=>{
+      const func = (event, access_token)=>{
+        ipcRenderer.removeListener('cancelAuth', cancelFunc)
         const method = this.allowMultiple ? 'addAccessToken' : 'setAccessToken'
         this.$store.commit(`connections/${method}`, {
           provider: this.clientId,
           access_token,
         })
-      })
+      }
+
+      const cancelFunc = ()=> {
+        ipcRenderer.removeListener('finishAuth', func)
+      }
+      ipcRenderer.once('finishAuth', func)
+      ipcRenderer.once('cancelAuth', cancelFunc)
       ipcRenderer.send('openAuthWindow', options)
     },
   },
