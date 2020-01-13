@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div
+        class="inline-block"
+    >
         <slot
             :openAuthWindow="openAuthWindow"
             v-bind="$props"
